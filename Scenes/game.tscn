@@ -20,3 +20,4 @@ texture = ExtResource("2_wrm1d")
 script = ExtResource("3_wrm1d")
 
 [node name="SignatureSpace" parent="." instance=ExtResource("4_3dryh")]
+position = Vector2(167, 118)

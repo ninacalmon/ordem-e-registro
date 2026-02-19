@@ -1,12 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://chbraq4tb1kgp"]
+[gd_scene load_steps=5 format=3 uid="uid://chbraq4tb1kgp"]
 
 [ext_resource type="Script" uid="uid://vc1qjnckb86" path="res://Scripts/draw_module.gd" id="1_axkmt"]
+[ext_resource type="Script" uid="uid://bewe0kfv5ixii" path="res://Scenes/reference.gd" id="1_kh1kw"]
+[ext_resource type="Script" uid="uid://ctntf2brgohes" path="res://Scenes/drawable_canvas.gd" id="2_pgdyx"]
+[ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="3_pgdyx"]
 
 [node name="SignatureSpace" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-centered = false
+[node name="ReferenceSpr" type="Sprite2D" parent="."]
+script = ExtResource("1_kh1kw")
 
-[node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="DrawableSpr" type="Sprite2D" parent="." node_paths=PackedStringArray("reference")]
+centered = false
+script = ExtResource("2_pgdyx")
+reference = NodePath("../ReferenceSpr")
+
+[node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("drawable_canvas")]
 script = ExtResource("1_axkmt")
-sprite = NodePath("../Sprite2D")
+drawable_canvas = NodePath("../DrawableSpr")
+
+[node name="ImageComparisonModule" type="Node" parent="." node_paths=PackedStringArray("reference", "sample")]
+script = ExtResource("3_pgdyx")
+reference = NodePath("../ReferenceSpr")
+sample = NodePath("../DrawableSpr")

@@ -1,27 +1,14 @@
 extends Node
 
+@export var drawable_canvas: DrawableCanvas
 @export var image_width: int = 128
 @export var image_height: int = 64
 @export var draw_color: Color = Color(1, 0, 0, 1)
-@export var sprite: Sprite2D
 
-var image: Image
-var new_texture: ImageTexture
+@onready var image: Image = drawable_canvas.image
+@onready var new_texture: ImageTexture = drawable_canvas.new_texture
 var drawing := false
 var last_pixel: Vector2i
-
-
-
-func _ready():
-	sprite.centered = false
-	image = Image.create_empty(image_width, image_height, false, Image.FORMAT_RGBA8)
-	image.fill(Color(1, 1, 1, 0.5))
-	
-	new_texture = ImageTexture.create_from_image(image)
-	sprite.texture = new_texture
-	
-	sprite.scale = Vector2(5, 5)
-
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -38,7 +25,7 @@ func _input(event):
 
 func get_pixel_from_mouse() -> Vector2i:
 	var mouse_global = get_viewport().get_mouse_position()
-	var local_pos = sprite.to_local(mouse_global)
+	var local_pos = drawable_canvas.to_local(mouse_global)
 	
 	var x = int(local_pos.x)
 	var y = int(local_pos.y)
@@ -80,9 +67,5 @@ func draw_line_pixels(start: Vector2i, end: Vector2i):
 
 func draw_pixel(x: int, y: int):
 	if x >= 0 and x < image_width and y >= 0 and y < image_height:
+		EventBus.new_pixel_drawn.emit(x, y, draw_color, image.get_pixel(x, y))
 		image.set_pixel(x, y, draw_color)
-
-func get_pixel_alpha(x: int, y: int) -> float:
-	if x >= 0 and x < image_width and y >= 0 and y < image_height:
-		return image.get_pixel(x, y).a
-	return -1.0
