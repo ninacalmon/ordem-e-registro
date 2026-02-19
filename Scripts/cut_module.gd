@@ -1,17 +1,18 @@
 extends Node2D
 
+@export var focusable_module: FocusableModule
+
+@onready var sprite: Sprite2D = self.get_parent()
+
 var mask_image: Image
 var mask_texture: ImageTexture
 var fading_regions = []
-var fade_duration = 0.4
-
+var fade_duration = 0.3
 var dragging = false
 var last_pos: Vector2
 
 var is_cutting = false
 var cutting_start_position = null
-
-@onready var sprite: Sprite2D = self.get_parent()
 
 func _ready():
 	var texture = self.sprite.texture.get_image()
@@ -32,7 +33,7 @@ func _ready():
 		self.mask_texture
 	)
 
-func _process(delta):	
+func _process(delta):
 	if self.fading_regions.size() == 0:
 		return
 
@@ -40,7 +41,6 @@ func _process(delta):
 		region_data.time += delta
 		var t = clamp(region_data.time / fade_duration, 0.0, 1.0)
 
-		# Smooth easing (ease out cubic)
 		var eased = 1.0 - pow(1.0 - t, 3.0)
 
 		var alpha = 1.0 - eased
@@ -50,13 +50,15 @@ func _process(delta):
 
 	self.mask_texture.update(mask_image)
 
-	# Remove finished regions
 	self.fading_regions = self.fading_regions.filter(func(r):
 		return r.time < fade_duration
 	)
 
 
 func _input(event):
+	if focusable_module && focusable_module.is_focused == false:
+		return
+
 	if event is InputEventMouseMotion:
 		var previous_mouse = event.position - event.relative
 		var current_mouse = event.position
@@ -64,8 +66,8 @@ func _input(event):
 		var previous_mouse_local_to_image = self.global_to_image_pos(previous_mouse)
 		var current_mouse_local_to_image = self.global_to_image_pos(current_mouse)
 
-		var current_inside_image: bool = self.is_aabb_overlap_with_image(current_mouse_local_to_image)
-		var previous_inside_image: bool = self.is_aabb_overlap_with_image(previous_mouse_local_to_image)
+		var current_inside_image: bool = Global.is_aabb_overlap_with_image(current_mouse_local_to_image, mask_image)
+		var previous_inside_image: bool = Global.is_aabb_overlap_with_image(previous_mouse_local_to_image, mask_image)
 
 		if current_inside_image and not is_cutting:
 			self.is_cutting = true
@@ -76,19 +78,6 @@ func _input(event):
 		if self.is_cutting and not current_inside_image and previous_inside_image:
 			self.is_cutting = false
 			self.remove_detached_regions()
-
-	## Cut with mouse button pressed if we want
-	#if event is InputEventMouseButton:
-		#if event.pressed:
-			#dragging = true
-			#last_pos = event.position
-		#else:
-			#dragging = false
-#
-	#if event is InputEventMouseMotion and dragging:
-		#draw_cut_line(last_pos, event.position, 2.0)
-		#remove_detached_regions()
-		#last_pos = event.position
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	var from = self.global_to_image_pos(from_global)
@@ -177,21 +166,9 @@ func erase_circle(center: Vector2, radius: float):
 					self.mask_image.set_pixel(x, y, Color(0,0,0))
 
 func global_to_image_pos(global_pos: Vector2) -> Vector2:
-	var local = self.sprite.to_local(global_pos)
+	var local = sprite.get_global_transform().affine_inverse() * global_pos
 
-	var tex_size = self.mask_image.get_size()
-	var sprite_rect = self.sprite.get_rect()
+	if sprite.centered:
+		local += mask_image.get_size() / 2.0
 
-	var uv = (local - sprite_rect.position) / sprite_rect.size
-
-	return Vector2(
-		uv.x * tex_size.x,
-		uv.y * tex_size.y
-	)
-	
-
-func is_aabb_overlap_with_image(local_to_image_position: Vector2) -> bool:
-	return local_to_image_position.x >= 0 and \
-		local_to_image_position.y >= 0 and \
-		local_to_image_position.x < mask_image.get_width() and \
-		local_to_image_position.y < mask_image.get_height()
+	return local.floor()

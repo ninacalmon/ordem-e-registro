@@ -2,7 +2,6 @@ extends Sprite2D
 class_name DrawableCanvas
 
 @export var reference: Reference
-@export var draw_color: Color = Color(1, 0, 0, 1)
 
 @onready var image_width: int = reference.image_width
 @onready var image_height: int = reference.image_height

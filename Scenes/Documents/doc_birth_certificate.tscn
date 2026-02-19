@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://diwfnnhdl845"]
+
+[ext_resource type="Texture2D" uid="uid://w1jebqxe423s" path="res://Sprites/CertidãoNasc1.png" id="1_4kqhv"]
+[ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_b53cj"]
+[ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
+[ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_fr2vj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kc0x"]
+shader = ExtResource("1_b53cj")
+
+[node name="Doc_BirthCertificate" type="Node2D"]
+rotation = 0.2617994
+
+[node name="DocSpr" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7kc0x")
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_4kqhv")
+centered = false
+
+[node name="Node" type="Node2D" parent="DocSpr"]
+position = Vector2(436, 638)
+
+[node name="CutModule" type="Node2D" parent="DocSpr" node_paths=PackedStringArray("focusable_module")]
+scale = Vector2(0.83333325, 0.83333325)
+script = ExtResource("3_fr2vj")
+focusable_module = NodePath("../../FocusableModule")
+
+[node name="FocusableModule" type="Node" parent="." node_paths=PackedStringArray("subject_spr")]
+script = ExtResource("2_4kqhv")
+subject_spr = NodePath("../DocSpr")

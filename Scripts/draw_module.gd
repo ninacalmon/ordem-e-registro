@@ -1,36 +1,33 @@
 extends Node
 
 @export var drawable_canvas: DrawableCanvas
-@export var image_width: int = 128
-@export var image_height: int = 64
 @export var draw_color: Color = Color(1, 0, 0, 1)
+@export var focusable_module: FocusableModule
 
 @onready var image: Image = drawable_canvas.image
 @onready var new_texture: ImageTexture = drawable_canvas.new_texture
+@onready var image_width: int = drawable_canvas.image_width
+@onready var image_height: int = drawable_canvas.image_height
 var drawing := false
 var last_pixel: Vector2i
 
 func _input(event):
+	if focusable_module && focusable_module.is_focused == false:
+		return
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			drawing = event.pressed
-			
-			if drawing:
-				last_pixel = get_pixel_from_mouse()
+		if event.is_action_pressed("left_mouse_button"):
+			var current_pixel = Global.convert_global_to_node_local_pos(drawable_canvas)
+			if !Global.is_aabb_overlap_with_image(current_pixel, image):
+				return
+			drawing = true
+			last_pixel = Global.convert_global_to_node_local_pos(drawable_canvas)
+		if event.is_action_released("left_mouse_button"):
+			drawing = false
 
 	if event is InputEventMouseMotion and drawing:
-		var current_pixel = get_pixel_from_mouse()
+		var current_pixel = Global.convert_global_to_node_local_pos(drawable_canvas)
 		draw_line_pixels(last_pixel, current_pixel)
 		last_pixel = current_pixel
-
-func get_pixel_from_mouse() -> Vector2i:
-	var mouse_global = get_viewport().get_mouse_position()
-	var local_pos = drawable_canvas.to_local(mouse_global)
-	
-	var x = int(local_pos.x)
-	var y = int(local_pos.y)
-	
-	return Vector2i(x, y)
 
 func draw_line_pixels(start: Vector2i, end: Vector2i):
 	#Thank you mister Bresenham!!!
