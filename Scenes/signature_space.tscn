@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://chbraq4tb1kgp"]
+
+[ext_resource type="Script" uid="uid://vc1qjnckb86" path="res://Scripts/draw_module.gd" id="1_axkmt"]
+
+[node name="SignatureSpace" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+centered = false
+
+[node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_axkmt")
+sprite = NodePath("../Sprite2D")

@@ -1,19 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=6 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="2_wrm1d"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_wrm1d"]
-[ext_resource type="Texture2D" uid="uid://baeymqi3ucv2g" path="res://Sprites/TheMage.png" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://chbraq4tb1kgp" path="res://Scenes/signature_space.tscn" id="4_3dryh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
 resource_local_to_scene = true
-shader = ExtResource("1_qxrlw")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrm1d"]
-resource_local_to_scene = true
-shader = ExtResource("1_qxrlw")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wowpa"]
 shader = ExtResource("1_qxrlw")
 
 [node name="Game" type="Node2D"]
@@ -26,18 +19,4 @@ texture = ExtResource("2_wrm1d")
 [node name="CutModule" type="Node2D" parent="Icon"]
 script = ExtResource("3_wrm1d")
 
-[node name="Icon2" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_wrm1d")
-position = Vector2(663, 247)
-texture = ExtResource("2_wrm1d")
-
-[node name="CutModule" type="Node2D" parent="Icon2"]
-script = ExtResource("3_wrm1d")
-
-[node name="TheMage" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_wowpa")
-position = Vector2(286, 426)
-texture = ExtResource("4_3dryh")
-
-[node name="CutModule" type="Node2D" parent="TheMage"]
-script = ExtResource("3_wrm1d")
+[node name="SignatureSpace" parent="." instance=ExtResource("4_3dryh")]
