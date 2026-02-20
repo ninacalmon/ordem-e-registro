@@ -18,7 +18,7 @@ reference = NodePath("../ReferenceSpr")
 
 [node name="ImageComparisonModule" type="Node" parent="." node_paths=PackedStringArray("reference")]
 script = ExtResource("3_pgdyx")
-reference = NodePath("../DrawableSpr")
+reference = NodePath("../ReferenceSpr")
 
 [node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("drawable_canvas", "focusable_module")]
 script = ExtResource("1_axkmt")
