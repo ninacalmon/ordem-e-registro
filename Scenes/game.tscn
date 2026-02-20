@@ -75,12 +75,11 @@ position = Vector2(494, 371)
 texture = ExtResource("2_wrm1d")
 centered = false
 
-[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
+[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module")]
 script = ExtResource("3_wrm1d")
 focusable_module = NodePath("../FocusableModule")
-image_comparison_module = NodePath("")
 
-[node name="FocusableModule" type="Node" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
+[node name="FocusableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("7_h4fw4")
 subject_spr = NodePath("..")
 bring_closer_scale = 2.0

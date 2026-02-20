@@ -2,8 +2,8 @@
 extends Sprite2D
 class_name Reference
 
-@export var image_width: int = 5
-@export var image_height: int = 5
+@export var image_width: int = 20
+@export var image_height: int = 20
 @export var draw_color: Color = Color(0, 0, 0, 1)
 
 var sprite: Sprite2D = self

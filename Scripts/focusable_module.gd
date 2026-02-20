@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name FocusableModule
 
 @export var subject_spr: Sprite2D
@@ -15,22 +15,28 @@ class_name FocusableModule
 @onready var subject_idle_z_index: int = subject.z_index
 
 var is_focused = false
+var is_animation_playing = false
 var focus_time = Global.focus_time
 var unfocus_time = focus_time / 1.3
 
 func _input(event):
-	if event is InputEventMouseButton:
-		var current_pixel = Global.convert_global_to_node_local_pos(subject_spr)
+	if event is InputEventMouseButton and !self.is_animation_playing:
+		var global_mouse_pos = get_global_mouse_position()
+		var current_pixel = Global.global_to_image_pos(global_mouse_pos, self.subject_spr, self.subject_image)
 		self.is_mouse_overlapping = Global.is_aabb_overlap_with_image(current_pixel, subject_image)
-		print("IS MOUSE OVERLAPPINGGGGG ",is_mouse_overlapping )
+
+		# Await the animation tween to finish before setting is_focused
 		if event.is_action_pressed("left_mouse_button") and is_mouse_overlapping and !is_focused:
-			focus_on()
-			is_focused = true
+			await focus_on()
+			self.is_focused = true
+			self.is_animation_playing = false
 		elif event.is_action_pressed("left_mouse_button") and !is_mouse_overlapping and is_focused:
-			focus_off()
-			is_focused = false
+			await focus_off()
+			self.is_focused = false
+			self.is_animation_playing = false
 
 func focus_on():
+	self.is_animation_playing = true
 	subject.z_index = Global.focus_layer
 	var center = Global.get_viewport_center()
 	var focus_tween = get_tree().create_tween()
@@ -53,17 +59,20 @@ func focus_on():
 	focus_tween.tween_property(subject, "global_position", subject.global_position + offset, self.focus_time)
 	focus_tween.parallel().tween_property(subject, "rotation", 0, self.focus_time)
 	focus_tween.tween_property(subject, "global_scale", subject_idle_scale * bring_closer_scale, self.focus_time)
-	await focus_tween.finished
 
+	await focus_tween.finished 
+	
 	EventBus.focus_mode_changed.emit(subject, true)
 
 func focus_off():
+	self.is_animation_playing = true
+
 	subject.z_index = subject_idle_z_index
 	var focus_tween = get_tree().create_tween()
 	focus_tween.tween_property(subject, "global_position", subject_idle_global_pos, self.unfocus_time)
 	focus_tween.parallel().tween_property(subject, "rotation", subject_idle_rotation, self.unfocus_time)
 	focus_tween.parallel().tween_property(subject, "global_scale", subject_idle_scale, self.unfocus_time)
-	self.is_focused = false
+
 	await focus_tween.finished
 
 	EventBus.focus_mode_changed.emit(subject, false)

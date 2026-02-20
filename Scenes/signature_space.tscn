@@ -25,6 +25,6 @@ script = ExtResource("1_axkmt")
 drawable_canvas = NodePath("../DrawableSpr")
 focusable_module = NodePath("../FocusableModule")
 
-[node name="FocusableModule" type="Node" parent="." node_paths=PackedStringArray("subject_spr")]
+[node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("5_8xv0v")
 subject_spr = NodePath("../ReferenceSpr")

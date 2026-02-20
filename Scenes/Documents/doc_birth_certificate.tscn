@@ -12,7 +12,7 @@ scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_4kqhv")
 centered = false
 
-[node name="FocusableModule" type="Node" parent="." node_paths=PackedStringArray("subject_spr")]
+[node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("2_4kqhv")
 subject_spr = NodePath("../DocSpr")
 
