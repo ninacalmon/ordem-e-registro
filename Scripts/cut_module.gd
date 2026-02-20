@@ -63,8 +63,8 @@ func _input(event):
 		var previous_mouse = event.position - event.relative
 		var current_mouse = event.position
 
-		var previous_mouse_local_to_image = self.global_to_image_pos(previous_mouse)
-		var current_mouse_local_to_image = self.global_to_image_pos(current_mouse)
+		var previous_mouse_local_to_image = Global.global_to_image_pos(previous_mouse, self.sprite, mask_image)
+		var current_mouse_local_to_image = Global.global_to_image_pos(current_mouse, self.sprite, mask_image)
 
 		var current_inside_image: bool = Global.is_aabb_overlap_with_image(current_mouse_local_to_image, mask_image)
 		var previous_inside_image: bool = Global.is_aabb_overlap_with_image(previous_mouse_local_to_image, mask_image)
@@ -80,8 +80,8 @@ func _input(event):
 			self.remove_detached_regions()
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
-	var from = self.global_to_image_pos(from_global)
-	var to = self.global_to_image_pos(to_global)
+	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image)
+	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image)
 
 	var steps = int(from.distance_to(to))
 	for i in range(steps):
@@ -164,11 +164,3 @@ func erase_circle(center: Vector2, radius: float):
 			if x >= 0 and y >= 0 and x < self.mask_image.get_width() and y < self.mask_image.get_height():
 				if Vector2(x,y).distance_to(center) <= radius:
 					self.mask_image.set_pixel(x, y, Color(0,0,0))
-
-func global_to_image_pos(global_pos: Vector2) -> Vector2:
-	var local = sprite.get_global_transform().affine_inverse() * global_pos
-
-	if sprite.centered:
-		local += mask_image.get_size() / 2.0
-
-	return local.floor()

@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=13 format=3 uid="uid://cddgqssqfg2ty"]
 
+[ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://bjoynmokc3il2" path="res://Sprites/table-with-laptop-cup-blue-coffee.jpg" id="1_wowpa"]
 [ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="2_wrm1d"]
@@ -20,9 +21,9 @@ shader_parameter/blur_amount = 0.0
 
 [node name="Game" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-visible = false
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
+script = ExtResource("1_ldgsr")
 
 [node name="TableWithLaptopCupBlueCoffee" type="Sprite2D" parent="."]
 z_index = -999

@@ -30,7 +30,6 @@ func _input(event):
 			is_focused = false
 
 func focus_on():
-	EventBus.focus_mode_changed.emit(subject, true)
 	subject.z_index = Global.focus_layer
 	var center = Global.get_viewport_center()
 	var focus_tween = get_tree().create_tween()
@@ -53,12 +52,17 @@ func focus_on():
 	focus_tween.tween_property(subject, "global_position", subject.global_position + offset, self.focus_time)
 	focus_tween.parallel().tween_property(subject, "rotation", 0, self.focus_time)
 	focus_tween.tween_property(subject, "global_scale", subject_idle_scale * bring_closer_scale, self.focus_time)
+	await focus_tween.finished
+
+	EventBus.focus_mode_changed.emit(subject, true)
 
 func focus_off():
-	EventBus.focus_mode_changed.emit(subject, false)
 	subject.z_index = subject_idle_z_index
 	var focus_tween = get_tree().create_tween()
 	focus_tween.tween_property(subject, "global_position", subject_idle_global_pos, self.unfocus_time)
 	focus_tween.parallel().tween_property(subject, "rotation", subject_idle_rotation, self.unfocus_time)
 	focus_tween.parallel().tween_property(subject, "global_scale", subject_idle_scale, self.unfocus_time)
 	self.is_focused = false
+	await focus_tween.finished
+
+	EventBus.focus_mode_changed.emit(subject, false)
