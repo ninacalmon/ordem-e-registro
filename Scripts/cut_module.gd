@@ -1,6 +1,8 @@
 extends Node2D
+class_name CutModule
 
 @export var focusable_module: FocusableModule
+@export var image_comparison_module: ImageComparisonModule
 
 @onready var sprite: Sprite2D = self.get_parent()
 
@@ -164,3 +166,18 @@ func erase_circle(center: Vector2, radius: float):
 			if x >= 0 and y >= 0 and x < self.mask_image.get_width() and y < self.mask_image.get_height():
 				if Vector2(x,y).distance_to(center) <= radius:
 					self.mask_image.set_pixel(x, y, Color(0,0,0))
+
+func compare_cut_precision():
+	if self.image_comparison_module == null:
+		return
+
+	for x in self.mask_image.get_width():
+		for y in self.mask_image.get_height():
+			var mask_pixel = mask_image.get_pixel(x, y)
+			## We need to compare only on the black pixels because the mask is used
+			## at GPU runtime to calculate the alpha based on it (with shader).
+			## Black values = 0 alpha, White values = 1 alpha.
+			if mask_pixel.r != 0:
+				var global_pos = Global.image_to_global_pos(Vector2(x, y), self.sprite, self.mask_image)
+				self.image_comparison_module.compare_coordinates_cut(global_pos.x, global_pos.y)
+	

@@ -22,6 +22,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		var current_pixel = Global.convert_global_to_node_local_pos(subject_spr)
 		self.is_mouse_overlapping = Global.is_aabb_overlap_with_image(current_pixel, subject_image)
+		print("IS MOUSE OVERLAPPINGGGGG ",is_mouse_overlapping )
 		if event.is_action_pressed("left_mouse_button") and is_mouse_overlapping and !is_focused:
 			focus_on()
 			is_focused = true

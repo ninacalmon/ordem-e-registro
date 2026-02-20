@@ -25,10 +25,16 @@ func _ready():
 	draw_even_coordinates()
 
 func draw_even_coordinates():
+	## Draw solid image v
 	for x in range(image_width):
 		for y in range(image_height):
-			if x % 5 == 0 or y % 5 == 0:
-				draw_pixel(x, y)
+			draw_pixel(x, y)
+
+	## Draw grid layout v
+	#for x in range(image_width):
+		#for y in range(image_height):
+			#if x % 5 == 0 or y % 5 == 0:
+				#draw_pixel(x, y)
 			
 	new_texture.update(image)
 

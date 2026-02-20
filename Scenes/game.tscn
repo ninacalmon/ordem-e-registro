@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=14 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
+[ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
 [ext_resource type="Texture2D" uid="uid://bjoynmokc3il2" path="res://Sprites/table-with-laptop-cup-blue-coffee.jpg" id="1_wowpa"]
 [ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="2_wrm1d"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_wrm1d"]
@@ -11,15 +12,17 @@
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
-resource_local_to_scene = true
-shader = ExtResource("1_qxrlw")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
 
-[node name="Game" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
+resource_local_to_scene = true
+shader = ExtResource("1_qxrlw")
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("cut_module")]
+script = ExtResource("1_rku1e")
+cut_module = NodePath("CutAndPlace/Icon/CutModule")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -36,21 +39,6 @@ position = Vector2(784, 160)
 
 [node name="Doc_BirthCertificate" parent="." instance=ExtResource("6_i6g32")]
 position = Vector2(203.00005, 6.000046)
-
-[node name="Icon" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_3dryh")
-position = Vector2(494, 371)
-texture = ExtResource("2_wrm1d")
-centered = false
-
-[node name="CutModule" type="Node2D" parent="Icon" node_paths=PackedStringArray("focusable_module")]
-script = ExtResource("3_wrm1d")
-focusable_module = NodePath("../Node")
-
-[node name="Node" type="Node" parent="Icon" node_paths=PackedStringArray("subject_spr")]
-script = ExtResource("7_h4fw4")
-subject_spr = NodePath("..")
-bring_closer_scale = 2.0
 
 [node name="FocusManager" type="Node" parent="."]
 script = ExtResource("7_v158k")
@@ -78,3 +66,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.09, 0.048000004, 0, 1)
+
+[node name="CutAndPlace" type="Node" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="CutAndPlace"]
+material = SubResource("ShaderMaterial_3dryh")
+position = Vector2(494, 371)
+texture = ExtResource("2_wrm1d")
+centered = false
+
+[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
+script = ExtResource("3_wrm1d")
+focusable_module = NodePath("../FocusableModule")
+image_comparison_module = NodePath("")
+
+[node name="FocusableModule" type="Node" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
+script = ExtResource("7_h4fw4")
+subject_spr = NodePath("..")
+bring_closer_scale = 2.0

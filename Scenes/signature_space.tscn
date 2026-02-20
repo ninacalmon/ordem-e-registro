@@ -16,16 +16,15 @@ centered = false
 script = ExtResource("2_pgdyx")
 reference = NodePath("../ReferenceSpr")
 
+[node name="ImageComparisonModule" type="Node" parent="." node_paths=PackedStringArray("reference")]
+script = ExtResource("3_pgdyx")
+reference = NodePath("../DrawableSpr")
+
 [node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("drawable_canvas", "focusable_module")]
 script = ExtResource("1_axkmt")
 drawable_canvas = NodePath("../DrawableSpr")
 focusable_module = NodePath("../FocusableModule")
 
-[node name="ImageComparisonModule" type="Node" parent="." node_paths=PackedStringArray("reference", "sample")]
-script = ExtResource("3_pgdyx")
-reference = NodePath("../ReferenceSpr")
-sample = NodePath("../DrawableSpr")
-
 [node name="FocusableModule" type="Node" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("5_8xv0v")
-subject_spr = NodePath("../DrawableSpr")
+subject_spr = NodePath("../ReferenceSpr")

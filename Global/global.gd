@@ -17,7 +17,7 @@ func convert_global_to_node_local_pos(node_2d: Node2D) -> Vector2i:
 	var y = int(local_pos.y)
 	
 	return Vector2i(x, y)
-	
+
 ## This one here considers scale + rotation
 func global_to_image_pos(global_pos: Vector2, sprite: Sprite2D, image: Image) -> Vector2:
 	var local = sprite.get_global_transform().affine_inverse() * global_pos
@@ -26,6 +26,16 @@ func global_to_image_pos(global_pos: Vector2, sprite: Sprite2D, image: Image) ->
 		local += image.get_size() / 2.0
 
 	return local.floor()
+	
+func image_to_global_pos(image_pos: Vector2, sprite: Sprite2D, image: Image) -> Vector2:
+	var local = image_pos
+
+	if sprite.centered:
+		local -= image.get_size() / 2.0
+
+	var global = sprite.get_global_transform() * local
+
+	return global
 
 func get_viewport_center() -> Vector2:
 	return get_viewport().get_visible_rect().size / (Vector2.ONE * 2)
