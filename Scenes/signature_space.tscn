@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://chbraq4tb1kgp"]
+[gd_scene load_steps=5 format=3 uid="uid://chbraq4tb1kgp"]
 
 [ext_resource type="Script" uid="uid://vc1qjnckb86" path="res://Scripts/draw_module.gd" id="1_axkmt"]
 [ext_resource type="Script" uid="uid://bewe0kfv5ixii" path="res://Scenes/reference.gd" id="1_kh1kw"]
 [ext_resource type="Script" uid="uid://ctntf2brgohes" path="res://Scenes/drawable_canvas.gd" id="2_pgdyx"]
 [ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="3_pgdyx"]
-[ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="5_8xv0v"]
 
 [node name="SignatureSpace" type="Node2D"]
 
 [node name="ReferenceSpr" type="Sprite2D" parent="."]
+modulate = Color(1.825, 0, 0, 0.322)
+centered = false
 script = ExtResource("1_kh1kw")
 
 [node name="DrawableSpr" type="Sprite2D" parent="." node_paths=PackedStringArray("reference")]
@@ -23,8 +24,4 @@ reference = NodePath("../ReferenceSpr")
 [node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("drawable_canvas", "focusable_module")]
 script = ExtResource("1_axkmt")
 drawable_canvas = NodePath("../DrawableSpr")
-focusable_module = NodePath("../FocusableModule")
-
-[node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
-script = ExtResource("5_8xv0v")
-subject_spr = NodePath("../ReferenceSpr")
+focusable_module = NodePath("")

@@ -79,9 +79,11 @@ func _input(event):
 			self.is_cutting = true
 		
 		if self.is_cutting:
+			## AND NOT IN SELECT CUT MODE!
 			self.draw_cut_line(previous_mouse, current_mouse, 2.0)
 	
 		if self.is_cutting and not current_inside_image and previous_inside_image:
+			## Here we start the selecting cut mode IMPORTANT TO IMPLEMENT
 			self.is_cutting = false
 			self.remove_detached_regions()
 

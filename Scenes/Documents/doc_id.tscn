@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctu3apyve2u8e"]
+
+[ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_8m6eu"]
+[ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_kb344"]
+[ext_resource type="PackedScene" uid="uid://chbraq4tb1kgp" path="res://Scenes/signature_space.tscn" id="2_b05pd"]
+[ext_resource type="Texture2D" uid="uid://djosrrm3j6x60" path="res://Sprites/Signatures/Sig_01.png" id="3_inbbl"]
+[ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="4_b05pd"]
+[ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_inbbl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jiot0"]
+shader = ExtResource("1_kb344")
+shader_parameter/shadow_only = false
+shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
+shader_parameter/blur_std = 1.0
+
+[node name="doc_Id" type="Node2D"]
+
+[node name="idSpr" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jiot0")
+texture = ExtResource("1_8m6eu")
+centered = false
+
+[node name="SignatureSpace" parent="idSpr" instance=ExtResource("2_b05pd")]
+position = Vector2(81, 68)
+
+[node name="ReferenceSpr" parent="idSpr/SignatureSpace" index="0"]
+texture = ExtResource("3_inbbl")
+
+[node name="DrawModule" parent="idSpr/SignatureSpace" index="3"]
+draw_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+
+[node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
+script = ExtResource("4_b05pd")
+subject_spr = NodePath("../idSpr")
+bring_closer_scale = 3.0
+
+[node name="ZoomModule" type="Node" parent="." node_paths=PackedStringArray("focusable_module", "sprite", "target_node")]
+script = ExtResource("5_inbbl")
+focusable_module = NodePath("../FocusableModule")
+sprite = NodePath("../idSpr")
+target_node = NodePath("../idSpr")
+
+[editable path="idSpr/SignatureSpace"]

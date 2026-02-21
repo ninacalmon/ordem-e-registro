@@ -1,14 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://diwfnnhdl845"]
+[gd_scene load_steps=7 format=3 uid="uid://diwfnnhdl845"]
 
+[ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_7kc0x"]
 [ext_resource type="Texture2D" uid="uid://d1lm6n8ks6mo" path="res://Sprites/Docs/BirthCertificate_mini.png" id="1_fr2vj"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
 [ext_resource type="Texture2D" uid="uid://b3a8tej305drr" path="res://Sprites/Docs/BirthCertificate.png" id="4_7kc0x"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_7kc0x"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mpwx7"]
+shader = ExtResource("1_7kc0x")
+shader_parameter/shadow_only = false
+shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
+shader_parameter/blur_std = 1.0
+
 [node name="Doc_BirthCertificate" type="Node2D"]
 rotation = 0.2617994
 
 [node name="DocSpr" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mpwx7")
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_fr2vj")
 centered = false

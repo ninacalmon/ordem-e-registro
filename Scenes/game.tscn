@@ -1,18 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=14 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
-[ext_resource type="Texture2D" uid="uid://bjoynmokc3il2" path="res://Sprites/table-with-laptop-cup-blue-coffee.jpg" id="1_wowpa"]
-[ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="2_wrm1d"]
+[ext_resource type="Texture2D" uid="uid://cpsn0lfab2h2k" path="res://Sprites/background.png" id="3_o5yvi"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://chbraq4tb1kgp" path="res://Scenes/signature_space.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://ctu3apyve2u8e" path="res://Scenes/Documents/doc_id.tscn" id="5_rku1e"]
 [ext_resource type="PackedScene" uid="uid://diwfnnhdl845" path="res://Scenes/Documents/doc_birth_certificate.tscn" id="6_i6g32"]
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
-[ext_resource type="Texture2D" uid="uid://baeymqi3ucv2g" path="res://Sprites/TheMage.png" id="8_rfjv2"]
-[ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="13_1phco"]
+[ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
 shader = ExtResource("7_1l0tm")
@@ -30,17 +28,17 @@ cut_module = NodePath("CutAndPlace/Icon/CutModule")
 anchor_mode = 0
 script = ExtResource("1_ldgsr")
 
-[node name="TableWithLaptopCupBlueCoffee" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 z_index = -999
 position = Vector2(507, 269)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_wowpa")
-
-[node name="SignatureSpace" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(784, 160)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_o5yvi")
 
 [node name="Doc_BirthCertificate" parent="." instance=ExtResource("6_i6g32")]
 position = Vector2(203.00005, 6.000046)
+
+[node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
+position = Vector2(662, 196)
 
 [node name="FocusManager" type="Node" parent="."]
 script = ExtResource("7_v158k")
@@ -61,36 +59,31 @@ metadata/_edit_use_anchors_ = true
 [node name="DarkRect" type="ColorRect" parent="FocusManager/BlurredLayer"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1.0799743, 1.0799743, 1.0799743, 0.1254902)
+self_modulate = Color(1, 1, 1, 0.13333334)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09, 0.048000004, 0, 1)
+color = Color(0.15, 0.080000006, 0, 1)
 
 [node name="CutAndPlace" type="Node" parent="."]
 
 [node name="CutReference" type="Sprite2D" parent="CutAndPlace"]
 position = Vector2(589, 425)
-texture = ExtResource("8_rfjv2")
+texture = ExtResource("8_rku1e")
 
 [node name="Icon" type="Sprite2D" parent="CutAndPlace"]
 material = SubResource("ShaderMaterial_3dryh")
 position = Vector2(494, 371)
-texture = ExtResource("2_wrm1d")
+texture = ExtResource("8_rku1e")
 centered = false
 
-[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
+[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module")]
 script = ExtResource("3_wrm1d")
 focusable_module = NodePath("../FocusableModule")
-image_comparison_module = NodePath("../ImageComparisonModule")
 
 [node name="FocusableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("7_h4fw4")
 subject_spr = NodePath("..")
 bring_closer_scale = 2.0
-
-[node name="ImageComparisonModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("reference")]
-script = ExtResource("13_1phco")
-reference = NodePath("../../CutReference")
