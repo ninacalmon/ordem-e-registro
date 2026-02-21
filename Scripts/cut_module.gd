@@ -16,6 +16,10 @@ var last_pos: Vector2
 var is_cutting = false
 var cutting_start_position = null
 
+## ADD FLAG TO CHECK IF USER IS SELECTING A PIECE HE HAS CUT OR NOT.
+## IF YES, WHEN HE CLICKS ON SOME PART OF THE IMAGE, WE START A FLOOD FIIL ON THE
+## MOUSE POSITION TO MAKE THIS PART MASK BLACK (THEREFORE MAKING THE ALPHA 0)
+
 func _ready():
 	var texture = self.sprite.texture.get_image()
 

@@ -23,14 +23,18 @@ var is_animation_playing = false
 var focus_time = Global.focus_time
 var unfocus_time = focus_time / 1.3
 
-func _input(event):
+func _input(event):	
 	if event is InputEventMouseButton and !self.is_animation_playing:
 		var global_mouse_pos = get_global_mouse_position()
 		var current_pixel = Global.global_to_image_pos(global_mouse_pos, self.subject_spr, self.subject_image)
 		self.is_mouse_overlapping = Global.is_aabb_overlap_with_image(current_pixel, subject_image)
 
 		# Await the animation tween to finish before setting is_focused
-		if event.is_action_pressed("left_mouse_button") and is_mouse_overlapping and !is_focused:
+		if event.is_action_pressed("left_mouse_button") \
+		and is_mouse_overlapping \
+		and !is_focused \
+		and !Global.is_something_focused:
+			## We need to check if something is focused only in the case of trying to focus on something else
 			await focus_on()
 			self.is_focused = true
 			self.is_animation_playing = false
@@ -42,6 +46,8 @@ func _input(event):
 			self.change_image_texture_on_focus(self.is_focused)
 
 func focus_on():
+	Global.is_something_focused = true
+
 	self.is_animation_playing = true
 	subject.z_index = Global.focus_layer
 	var center = Global.get_viewport_center()
@@ -82,6 +88,8 @@ func focus_off():
 	await focus_tween.finished
 
 	EventBus.focus_mode_changed.emit(subject, false)
+	Global.is_something_focused = false
+
 
 func change_image_texture_on_focus(focus_enabled: bool):
 	if focus_enabled && self.focus_on_image_texture != null:

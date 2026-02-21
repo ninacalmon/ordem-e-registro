@@ -2,6 +2,7 @@ extends Node
 
 var focus_layer = 200
 var focus_time = 0.4
+var is_something_focused = false
 
 func is_aabb_overlap_with_image(local_to_image_position: Vector2, image: Image) -> bool:
 	return local_to_image_position.x >= 0 and \
