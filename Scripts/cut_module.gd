@@ -9,8 +9,8 @@ class_name CutModule
 const CUT_COLOR: Color = Color(0.6, 0.6, 0.6)
 const CUT_SIZE: float = 2.0
 
-const MASK_SHOW_COLOR_VALUE: float = 1
-const MASK_HIDE_COLOR_VALUE: float = 0
+const MASK_SHOW_COLOR_VALUE: float = 1.0
+const MASK_HIDE_COLOR_VALUE: float = 0.0
 const FADE_DURATION: float = 0.3
 
 var mask_image: Image
@@ -32,7 +32,7 @@ func _ready():
 		Image.FORMAT_RF
 	)
 
-	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE))
+	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, 1.0))
 
 	self.mask_texture = ImageTexture.create_from_image(self.mask_image)
 
@@ -54,7 +54,8 @@ func _process(delta):
 		var alpha = 1.0 - eased
 
 		for pixel in region_data.pixels:
-			mask_image.set_pixel(pixel.x, pixel.y, Color(alpha,0,0))
+			if mask_image.get_pixel(pixel.x, pixel.y).r != self.MASK_HIDE_COLOR_VALUE:
+				mask_image.set_pixel(pixel.x, pixel.y, Color(alpha,0,0))
 
 	self.mask_texture.update(mask_image)
 
@@ -65,7 +66,19 @@ func _process(delta):
 func _input(event: InputEvent):
 	if focusable_module && focusable_module.is_focused == false:
 		return
+	
+	if event.is_action_pressed("cut_action"):
+		var current_mouse_pos = get_global_mouse_position()
 
+		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
+
+		var can_start_cutting: bool = !current_mouse_info.is_inside_image \
+		and not self.is_cutting \
+		and not self.is_selecting_cut
+
+		if can_start_cutting:
+			self.is_cutting = true
+	
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)
 
@@ -79,20 +92,11 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 		var previous_mouse_info = self.compute_mouse_info(previous_mouse_pos)
 		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
 
-		var can_start_cutting: bool = current_mouse_info.is_inside_image \
-		and not previous_mouse_info.is_inside_image \
-		and not self.is_cutting \
-		and not self.is_selecting_cut
-
-		if can_start_cutting:
-			self.is_cutting = true
-		
 		if self.is_cutting and not self.is_selecting_cut:
 			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, 1.5)
 	
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 			self.is_selecting_cut = true
-			self.is_cutting = false
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
@@ -101,11 +105,13 @@ func handle_mouse_button(event: InputEventMouseButton):
 
 		if current_mouse_info.is_inside_image:
 			var region = self.flood_fill_region(current_mouse_info.mouse_pos_local_to_image, {})
-			region.append_array(self.cut_path_pixel_array)
+			var has_user_selected_valid_region = region.size() > 0
 
-			self.fade_region(region)
-			self.cut_path_pixel_array.clear()
-			self.is_selecting_cut = false
+			if has_user_selected_valid_region:
+				region.append_array(self.cut_path_pixel_array)
+				self.cut_path_pixel_array.clear()
+				self.fade_region(region)
+				self.is_selecting_cut = false
 
 func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
 	var mouse_info = ImageMouseInfo.new()
@@ -144,7 +150,7 @@ func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array[Vector2i]:
 		
 		## Fill on everything that is MASK_SHOW_COLOR_VALUE. Everything else should be counted as a
 		## boundary, including MASK_HIDE_COLOR_VALUE and CUT_COLOR
-		if self.mask_image.get_pixel(current.x, current.y).r < self.MASK_SHOW_COLOR_VALUE:
+		if self.mask_image.get_pixel(current.x, current.y).r < 0.90:
 			continue
 
 		region.append(current)
@@ -180,7 +186,8 @@ func erase_circle(center: Vector2, radius: float):
 			var position_in_image = Vector2(x, y)
 			if Global.is_aabb_overlap_with_image(position_in_image, self.mask_image):
 				if position_in_image.distance_to(center) <= radius:
-					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE:
+					var pixel = Vector2i(x,y)
+					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE and not self.cut_path_pixel_array.has(pixel):
 						self.mask_image.set_pixel(x, y, self.CUT_COLOR)
 						self.cut_path_pixel_array.append(Vector2i(x,y))
 
