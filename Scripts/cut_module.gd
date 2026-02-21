@@ -6,33 +6,35 @@ class_name CutModule
 
 @onready var sprite: Sprite2D = self.get_parent()
 
+const CUT_COLOR: Color = Color(0.6, 0.6, 0.6)
+const CUT_SIZE: float = 2.0
+
+const MASK_SHOW_COLOR_VALUE: float = 1
+const MASK_HIDE_COLOR_VALUE: float = 0
+const FADE_DURATION: float = 0.3
+
 var mask_image: Image
 var mask_texture: ImageTexture
-var fading_regions = []
-var fade_duration = 0.3
-var dragging = false
-var last_pos: Vector2
 
-var is_cutting = false
-var cutting_start_position = null
+var fading_region_array = []
 
-## ADD FLAG TO CHECK IF USER IS SELECTING A PIECE HE HAS CUT OR NOT.
-## IF YES, WHEN HE CLICKS ON SOME PART OF THE IMAGE, WE START A FLOOD FIIL ON THE
-## MOUSE POSITION TO MAKE THIS PART MASK BLACK (THEREFORE MAKING THE ALPHA 0)
+var is_cutting: bool = false
+var is_selecting_cut: bool = false
+var cut_path_pixel_array: Array[Vector2i] = []
 
 func _ready():
-	var texture = self.sprite.texture.get_image()
+	var texture_image = self.sprite.texture.get_image()
 
-	mask_image = Image.create_empty(
-		texture.get_width(),
-		texture.get_height(),
+	self.mask_image = Image.create_empty(
+		texture_image.get_width(),
+		texture_image.get_height(),
 		false,
 		Image.FORMAT_RF
 	)
 
-	mask_image.fill(Color(1,1,1))
+	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE))
 
-	self.mask_texture = ImageTexture.create_from_image(mask_image)
+	self.mask_texture = ImageTexture.create_from_image(self.mask_image)
 
 	self.sprite.material.set_shader_parameter(
 		"mask_texture",
@@ -40,12 +42,12 @@ func _ready():
 	)
 
 func _process(delta):
-	if self.fading_regions.size() == 0:
+	if self.fading_region_array.size() == 0:
 		return
 
-	for region_data in self.fading_regions:
+	for region_data in self.fading_region_array:
 		region_data.time += delta
-		var t = clamp(region_data.time / fade_duration, 0.0, 1.0)
+		var t = clamp(region_data.time / FADE_DURATION, 0.0, 1.0)
 
 		var eased = 1.0 - pow(1.0 - t, 3.0)
 
@@ -56,36 +58,63 @@ func _process(delta):
 
 	self.mask_texture.update(mask_image)
 
-	self.fading_regions = self.fading_regions.filter(func(r):
-		return r.time < fade_duration
+	self.fading_region_array = self.fading_region_array.filter(func(r):
+		return r.time < FADE_DURATION
 	)
 
-
-func _input(event):
+func _input(event: InputEvent):
 	if focusable_module && focusable_module.is_focused == false:
 		return
 
 	if event is InputEventMouseMotion:
-		var previous_mouse = event.position - event.relative
-		var current_mouse = event.position
+		self.handle_mouse_motion(event)
 
-		var previous_mouse_local_to_image = Global.global_to_image_pos(previous_mouse, self.sprite, mask_image)
-		var current_mouse_local_to_image = Global.global_to_image_pos(current_mouse, self.sprite, mask_image)
+	if event is InputEventMouseButton:
+		self.handle_mouse_button(event)
 
-		var current_inside_image: bool = Global.is_aabb_overlap_with_image(current_mouse_local_to_image, mask_image)
-		var previous_inside_image: bool = Global.is_aabb_overlap_with_image(previous_mouse_local_to_image, mask_image)
+func handle_mouse_motion(event: InputEventMouseMotion):
+		var previous_mouse_pos = event.position - event.relative
+		var current_mouse_pos = event.position
+		
+		var previous_mouse_info = self.compute_mouse_info(previous_mouse_pos)
+		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
 
-		if current_inside_image and not is_cutting:
+		var can_start_cutting: bool = current_mouse_info.is_inside_image \
+		and not previous_mouse_info.is_inside_image \
+		and not self.is_cutting \
+		and not self.is_selecting_cut
+
+		if can_start_cutting:
 			self.is_cutting = true
 		
-		if self.is_cutting:
-			## AND NOT IN SELECT CUT MODE!
-			self.draw_cut_line(previous_mouse, current_mouse, 2.0)
+		if self.is_cutting and not self.is_selecting_cut:
+			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, 1.5)
 	
-		if self.is_cutting and not current_inside_image and previous_inside_image:
-			## Here we start the selecting cut mode IMPORTANT TO IMPLEMENT
+		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
+			self.is_selecting_cut = true
 			self.is_cutting = false
-			self.remove_detached_regions()
+
+func handle_mouse_button(event: InputEventMouseButton):
+	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
+		var current_mouse_pos = event.position
+		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
+
+		if current_mouse_info.is_inside_image:
+			var region = self.flood_fill_region(current_mouse_info.mouse_pos_local_to_image, {})
+			region.append_array(self.cut_path_pixel_array)
+
+			self.fade_region(region)
+			self.cut_path_pixel_array.clear()
+			self.is_selecting_cut = false
+
+func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
+	var mouse_info = ImageMouseInfo.new()
+	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, self.sprite, self.mask_image)
+
+	mouse_info.mouse_pos_local_to_image = mouse_pos_local_to_image
+	mouse_info.is_inside_image = self.is_mask_image_overlap(mouse_pos_local_to_image, self.mask_image)
+
+	return mouse_info
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image)
@@ -95,38 +124,15 @@ func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	for i in range(steps):
 		var t = float(i) / steps
 		var point = from.lerp(to, t)
+		if not Global.is_aabb_overlap_with_image(point, mask_image):
+			continue
 		self.erase_circle(point, thickness)
 
 	self.mask_texture.update(self.mask_image)
 
-func remove_detached_regions():
-	var width = self.mask_image.get_width()
-	var height = self.mask_image.get_height()
-
-	var visited = {}
-	var regions = []
-
-	for x in range(width):
-		for y in range(height):
-			if self.mask_image.get_pixel(x,y).r > 0.5 and not visited.has(Vector2i(x,y)):
-				var region = self.flood_fill_region(Vector2i(x,y), visited)
-				regions.append(region)
-
-	if regions.size() <= 1:
-		return
-	
-	# Find largest region
-	regions.sort_custom(func(a,b): return a.size() > b.size())
-
-	# Hide all other regions
-	for i in range(1, regions.size()):
-		self.fade_region(regions[i])
-
-	self.mask_texture.update(self.mask_image)
-
-func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array:
+func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array[Vector2i]:
 	var stack = [start]
-	var region = []
+	var region: Array[Vector2i] = []
 
 	while stack.size() > 0:
 		var current = stack.pop_back()
@@ -135,8 +141,10 @@ func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array:
 			continue
 
 		visited[current] = true
-
-		if self.mask_image.get_pixel(current.x, current.y).r <= 0.5:
+		
+		## Fill on everything that is MASK_SHOW_COLOR_VALUE. Everything else should be counted as a
+		## boundary, including MASK_HIDE_COLOR_VALUE and CUT_COLOR
+		if self.mask_image.get_pixel(current.x, current.y).r < self.MASK_SHOW_COLOR_VALUE:
 			continue
 
 		region.append(current)
@@ -156,7 +164,7 @@ func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array:
 	return region
 
 func fade_region(region: Array):
-	self.fading_regions.append({
+	self.fading_region_array.append({
 		"pixels": region,
 		"time": 0.0
 	})
@@ -169,9 +177,12 @@ func erase_circle(center: Vector2, radius: float):
 
 	for x in range(min_x, max_x):
 		for y in range(min_y, max_y):
-			if x >= 0 and y >= 0 and x < self.mask_image.get_width() and y < self.mask_image.get_height():
-				if Vector2(x,y).distance_to(center) <= radius:
-					self.mask_image.set_pixel(x, y, Color(0,0,0))
+			var position_in_image = Vector2(x, y)
+			if Global.is_aabb_overlap_with_image(position_in_image, self.mask_image):
+				if position_in_image.distance_to(center) <= radius:
+					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE:
+						self.mask_image.set_pixel(x, y, self.CUT_COLOR)
+						self.cut_path_pixel_array.append(Vector2i(x,y))
 
 func compare_cut_precision():
 	if self.image_comparison_module == null:
@@ -188,4 +199,17 @@ func compare_cut_precision():
 			if mask_pixel.r != 0:
 				var global_pos = Global.image_to_global_pos(Vector2(x, y), self.sprite, self.mask_image)
 				self.image_comparison_module.compare_coordinates_cut(global_pos.x, global_pos.y)
+
+func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
+	const VISIBILITY_THRESHOLD = 0.5
+
+	var x = local_pos.x
+	var y = local_pos.y
 	
+	if not Global.is_aabb_overlap_with_image(local_pos, msk_img):
+		return false
+	
+	var pixel = msk_img.get_pixel(x, y)
+
+	## Check if current pixel is white (visible, > 0.5) or black (transparent, < 0.5)
+	return pixel.r > VISIBILITY_THRESHOLD
