@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgly8mkio83yo"]
+
+[sub_resource type="Gradient" id="Gradient_25ago"]
+offsets = PackedFloat32Array(0, 0.14946619, 0.63345194, 1)
+colors = PackedColorArray(1, 1, 1, 0.032028496, 1, 1, 1, 1, 1, 1, 1, 0.9277109, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4igey"]
+gradient = SubResource("Gradient_25ago")
+
+[sub_resource type="Curve" id="Curve_q4vb8"]
+_data = [Vector2(0, 0.4953947), 0.0, 0.0, 0, 0, Vector2(0.20846906, 1), 0.0, 0.0, 0, 0, Vector2(0.68729645, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_o27r4"]
+curve = SubResource("Curve_q4vb8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mlonv"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1152, 648, 1)
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 4.9999976
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_o27r4")
+color = Color(1, 1, 1, 0.1764706)
+color_ramp = SubResource("GradientTexture1D_4igey")
+
+[sub_resource type="Curve" id="Curve_mlonv"]
+_data = [Vector2(0, 0.34261364), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.34261364), 0.0, 0.0, 0, 0, Vector2(0.12680115, 1), 0.0, 0.0, 0, 0, Vector2(0.7463976, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_pdlug"]
+offsets = PackedFloat32Array(0, 0.17133956, 0.71028036, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_mlonv"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.078431375)
+
+[node name="DustParticlesGPU" type="GPUParticles2D"]
+amount = 800
+lifetime = 5.0
+randomness = 1.0
+visibility_rect = Rect2(-200, -100, 400, 200)
+process_material = SubResource("ParticleProcessMaterial_mlonv")
+
+[node name="DustParticlesCPU" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 400
+lifetime = 5.0
+speed_scale = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(960, 540)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+radial_accel_min = -10.0
+radial_accel_max = 10.0
+tangential_accel_min = 10.0
+tangential_accel_max = 20.0
+damping_max = 12.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_mlonv")
+color = Color(1, 1, 1, 0.3529412)
+color_ramp = SubResource("Gradient_pdlug")
+color_initial_ramp = SubResource("Gradient_mlonv")

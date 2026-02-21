@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=23 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -10,12 +10,19 @@
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
+[ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
 [ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
+
+[sub_resource type="Environment" id="Environment_ewbju"]
+background_mode = 3
+tonemap_mode = 4
+glow_enabled = true
+glow_bloom = 0.45
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
 shader = ExtResource("7_1l0tm")
@@ -25,9 +32,21 @@ shader_parameter/blur_amount = 0.0
 resource_local_to_scene = true
 shader = ExtResource("1_qxrlw")
 
+[sub_resource type="Gradient" id="Gradient_ewbju"]
+offsets = PackedFloat32Array(0, 0.6738461)
+colors = PackedColorArray(0.59, 0.59, 0.59, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_85qyi"]
+gradient = SubResource("Gradient_ewbju")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("cut_module")]
 script = ExtResource("1_rku1e")
 cut_module = NodePath("CutAndPlace/Icon/CutModule")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ewbju")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -45,6 +64,9 @@ position = Vector2(234.99998, 73)
 
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)
+
+[node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
+z_index = 200
 
 [node name="FocusManager" type="Node" parent="."]
 script = ExtResource("7_v158k")
@@ -64,14 +86,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DarkRect" type="ColorRect" parent="FocusManager/BlurredLayer"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0.13333334)
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.15, 0.080000006, 0, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="CutAndPlace" type="Node" parent="."]
 
@@ -118,3 +139,12 @@ show_behind_parent = true
 show_behind_parent = true
 position = Vector2(6, 4)
 texture = ExtResource("13_nnt18")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(503, 259)
+color = Color(1.5720325, 1.3581792, 1.078525, 1)
+texture = SubResource("GradientTexture2D_85qyi")
+texture_scale = 10.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.41327792, 0.34954435, 0.27164775, 1)
