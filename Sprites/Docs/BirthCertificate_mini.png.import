@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w1jebqxe423s"
-path="res://.godot/imported/CertidãoNasc1.png-0dabde2bd9e12d556d8a33bc02c13b0c.ctex"
+uid="uid://d1lm6n8ks6mo"
+path="res://.godot/imported/BirthCertificate_mini.png-7e659ef9a38b0f9086cfbc956236bb40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/CertidãoNasc1.png"
-dest_files=["res://.godot/imported/CertidãoNasc1.png-0dabde2bd9e12d556d8a33bc02c13b0c.ctex"]
+source_file="res://Sprites/Docs/BirthCertificate_mini.png"
+dest_files=["res://.godot/imported/BirthCertificate_mini.png-7e659ef9a38b0f9086cfbc956236bb40.ctex"]
 
 [params]
 

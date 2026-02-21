@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=16 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -11,6 +11,8 @@
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
+[ext_resource type="Texture2D" uid="uid://baeymqi3ucv2g" path="res://Sprites/TheMage.png" id="8_rfjv2"]
+[ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="13_1phco"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
 shader = ExtResource("7_1l0tm")
@@ -69,17 +71,26 @@ color = Color(0.09, 0.048000004, 0, 1)
 
 [node name="CutAndPlace" type="Node" parent="."]
 
+[node name="CutReference" type="Sprite2D" parent="CutAndPlace"]
+position = Vector2(589, 425)
+texture = ExtResource("8_rfjv2")
+
 [node name="Icon" type="Sprite2D" parent="CutAndPlace"]
 material = SubResource("ShaderMaterial_3dryh")
 position = Vector2(494, 371)
 texture = ExtResource("2_wrm1d")
 centered = false
 
-[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module")]
+[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
 script = ExtResource("3_wrm1d")
 focusable_module = NodePath("../FocusableModule")
+image_comparison_module = NodePath("../ImageComparisonModule")
 
 [node name="FocusableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("7_h4fw4")
 subject_spr = NodePath("..")
 bring_closer_scale = 2.0
+
+[node name="ImageComparisonModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("reference")]
+script = ExtResource("13_1phco")
+reference = NodePath("../../CutReference")

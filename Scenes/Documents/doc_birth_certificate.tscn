@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://diwfnnhdl845"]
+[gd_scene load_steps=5 format=3 uid="uid://diwfnnhdl845"]
 
-[ext_resource type="Texture2D" uid="uid://w1jebqxe423s" path="res://Sprites/CertidãoNasc1.png" id="1_4kqhv"]
+[ext_resource type="Texture2D" uid="uid://d1lm6n8ks6mo" path="res://Sprites/Docs/BirthCertificate_mini.png" id="1_fr2vj"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
+[ext_resource type="Texture2D" uid="uid://b3a8tej305drr" path="res://Sprites/Docs/BirthCertificate.png" id="4_7kc0x"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_7kc0x"]
 
 [node name="Doc_BirthCertificate" type="Node2D"]
@@ -9,12 +10,14 @@ rotation = 0.2617994
 
 [node name="DocSpr" type="Sprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_4kqhv")
+texture = ExtResource("1_fr2vj")
 centered = false
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("2_4kqhv")
 subject_spr = NodePath("../DocSpr")
+focus_on_image_texture = ExtResource("4_7kc0x")
+focus_off_image_texture = ExtResource("1_fr2vj")
 
 [node name="ZoomModule" type="Node" parent="." node_paths=PackedStringArray("focusable_module", "sprite", "target_node")]
 script = ExtResource("5_7kc0x")

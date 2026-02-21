@@ -3,7 +3,7 @@ class_name ImageComparisonModule
 
 @export var reference: Sprite2D
 
-@onready var reference_image: Image = reference.image
+@onready var reference_image: Image = reference.texture.get_image()
 @onready var reference_image_width = reference_image.get_width()
 @onready var reference_image_height = reference_image.get_height()
 
@@ -41,6 +41,7 @@ func _process(_delta: float):
 func compare_coordinates_cut(sam_global_x: float, sam_global_y: float):
 	var coordinates_in_ref_local = Global.global_to_image_pos(Vector2(sam_global_x, sam_global_y), self.reference, self.reference_image)
 
+	# Check also the alpha on the parts that are overlapping IMPORTANT!!!!!!!!!!!!!
 	if Global.is_aabb_overlap_with_image(coordinates_in_ref_local, self.reference_image):
 		self.match_value = min(self.match_value + 1, self.max_possible_score)
 	else:

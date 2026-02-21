@@ -4,6 +4,10 @@ class_name FocusableModule
 @export var subject_spr: Sprite2D
 @export var bring_closer_scale: float = 1.3
 
+@export var focus_on_image_texture: CompressedTexture2D
+@export var focus_off_image_texture: CompressedTexture2D
+
+
 @onready var subject: Node2D = self.get_parent()
 @onready var subject_image: Image = subject_spr.texture.get_image()
 
@@ -30,10 +34,12 @@ func _input(event):
 			await focus_on()
 			self.is_focused = true
 			self.is_animation_playing = false
+			self.change_image_texture_on_focus(self.is_focused)
 		elif event.is_action_pressed("left_mouse_button") and !is_mouse_overlapping and is_focused:
 			await focus_off()
 			self.is_focused = false
 			self.is_animation_playing = false
+			self.change_image_texture_on_focus(self.is_focused)
 
 func focus_on():
 	self.is_animation_playing = true
@@ -41,7 +47,7 @@ func focus_on():
 	var center = Global.get_viewport_center()
 	var focus_tween = get_tree().create_tween()
 
-	# unfortunatly we are temporarily setting some values as the values they're going to be set later... in the tween.
+	# unfortunately we are temporarily setting some values as the values they're going to be set later... in the tween.
 	subject.rotation = 0
 	subject.scale *= bring_closer_scale
 
@@ -61,7 +67,7 @@ func focus_on():
 	focus_tween.tween_property(subject, "global_scale", subject_idle_scale * bring_closer_scale, self.focus_time)
 
 	await focus_tween.finished 
-	
+
 	EventBus.focus_mode_changed.emit(subject, true)
 
 func focus_off():
@@ -76,3 +82,10 @@ func focus_off():
 	await focus_tween.finished
 
 	EventBus.focus_mode_changed.emit(subject, false)
+
+func change_image_texture_on_focus(focus_enabled: bool):
+	if focus_enabled && self.focus_on_image_texture != null:
+		self.subject_spr.texture = self.focus_on_image_texture
+
+	if !focus_enabled && self.focus_off_image_texture != null:
+		self.subject_spr.texture = self.focus_off_image_texture

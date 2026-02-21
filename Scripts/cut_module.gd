@@ -169,6 +169,8 @@ func erase_circle(center: Vector2, radius: float):
 
 func compare_cut_precision():
 	if self.image_comparison_module == null:
+		print("No image comparison on cut module")
+		push_error("image_comparison_module is not assigned on %s" % self)
 		return
 
 	for x in self.mask_image.get_width():
