@@ -4,8 +4,8 @@ var is_focused: bool = false
 var camera_2d: Camera2D
 var viewport_size: Vector2
 
-@export var min_offset: int = -100
-@export var max_offset: int = 100
+@export var min_offset: int = -200
+@export var max_offset: int = 200
 @export var border_size: int = 200
 
 var desired_zoom: Vector2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=19 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -11,6 +11,11 @@
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
+[ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
+[ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
+[ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
+[ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
+[ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
 shader = ExtResource("7_1l0tm")
@@ -26,6 +31,7 @@ cut_module = NodePath("CutAndPlace/Icon/CutModule")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
+limit_smoothed = true
 script = ExtResource("1_ldgsr")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -35,7 +41,7 @@ scale = Vector2(1.3, 1.3)
 texture = ExtResource("3_o5yvi")
 
 [node name="Doc_BirthCertificate" parent="." instance=ExtResource("6_i6g32")]
-position = Vector2(203.00005, 6.000046)
+position = Vector2(234.99998, 73)
 
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)
@@ -87,3 +93,28 @@ focusable_module = NodePath("../FocusableModule")
 script = ExtResource("7_h4fw4")
 subject_spr = NodePath("..")
 bring_closer_scale = 2.0
+
+[node name="Inkpenlid" type="Sprite2D" parent="."]
+position = Vector2(969, 79)
+texture = ExtResource("14_ewbju")
+
+[node name="Papaerpile" type="Sprite2D" parent="."]
+position = Vector2(34.999996, -66)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("15_85qyi")
+
+[node name="Inkpot" type="Sprite2D" parent="."]
+position = Vector2(799, 64)
+texture = ExtResource("16_nnt18")
+
+[node name="Inkpen" type="Sprite2D" parent="."]
+position = Vector2(910, 32)
+texture = ExtResource("12_nb51f")
+
+[node name="Shadow" type="Sprite2D" parent="Inkpen"]
+show_behind_parent = true
+
+[node name="Inkpenshadow" type="Sprite2D" parent="Inkpen"]
+show_behind_parent = true
+position = Vector2(6, 4)
+texture = ExtResource("13_nnt18")
