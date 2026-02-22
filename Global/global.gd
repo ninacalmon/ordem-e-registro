@@ -29,6 +29,29 @@ func image_to_global_pos(image_pos: Vector2, sprite: Sprite2D, image: Image) -> 
 
 	return global
 
+func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
+	const VISIBILITY_THRESHOLD = 0.5
+
+	var x = local_pos.x
+	var y = local_pos.y
+	
+	if not Global.is_aabb_overlap_with_image(local_pos, msk_img):
+		return false
+	
+	var pixel = msk_img.get_pixel(x, y)
+
+	## Check if current pixel is white (visible, > 0.5) or black (transparent, < 0.5)
+	return pixel.r > VISIBILITY_THRESHOLD
+
+func compute_mouse_info(global_pos: Vector2, sprite: Sprite2D, image: Image) -> ImageMouseInfo:
+	var mouse_info = ImageMouseInfo.new()
+	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, sprite, image)
+
+	mouse_info.mouse_pos_local_to_image = mouse_pos_local_to_image
+	mouse_info.is_inside_image = self.is_mask_image_overlap(mouse_pos_local_to_image, image)
+
+	return mouse_info
+
 func get_viewport_center() -> Vector2:
 	return get_viewport().get_visible_rect().size / (Vector2.ONE * 2)
 

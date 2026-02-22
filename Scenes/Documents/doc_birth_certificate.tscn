@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://diwfnnhdl845"]
+[gd_scene load_steps=8 format=3 uid="uid://diwfnnhdl845"]
 
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_7kc0x"]
 [ext_resource type="Texture2D" uid="uid://d1lm6n8ks6mo" path="res://Sprites/Docs/BirthCertificate_mini.png" id="1_fr2vj"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
 [ext_resource type="Texture2D" uid="uid://b3a8tej305drr" path="res://Sprites/Docs/BirthCertificate.png" id="4_7kc0x"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_7kc0x"]
+[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="6_mpwx7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mpwx7"]
 shader = ExtResource("1_7kc0x")
@@ -32,3 +33,8 @@ script = ExtResource("5_7kc0x")
 focusable_module = NodePath("../FocusableModule")
 sprite = NodePath("../DocSpr")
 target_node = NodePath("../DocSpr")
+
+[node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
+script = ExtResource("6_mpwx7")
+sprite = NodePath("../DocSpr")
+target = NodePath("../DocSpr")

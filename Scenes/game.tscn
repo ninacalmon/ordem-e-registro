@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=25 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
 [ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="12_85qyi"]
 [ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
+[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="13_iivbl"]
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
@@ -114,6 +115,11 @@ bring_closer_scale = 2.0
 script = ExtResource("12_85qyi")
 reference = NodePath("../../CutReference")
 metadata/_custom_type_script = "uid://dtd30aj0k6jkw"
+
+[node name="DraggableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("sprite", "target")]
+script = ExtResource("13_iivbl")
+sprite = NodePath("..")
+target = NodePath("..")
 
 [node name="Inkpenlid" type="Sprite2D" parent="."]
 position = Vector2(969, 79)
