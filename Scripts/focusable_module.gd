@@ -47,10 +47,11 @@ func _input(event):
 
 func focus_on():
 	Global.is_something_focused = true
+	EventBus.focus_mode_changed.emit(subject, true)
 
 	self.is_animation_playing = true
 	subject.z_index = Global.focus_layer
-	var center = Global.get_viewport_center()
+	var center =  get_viewport().get_camera_2d().get_screen_center_position()
 	var focus_tween = get_tree().create_tween()
 
 	# unfortunately we are temporarily setting some values as the values they're going to be set later... in the tween.
@@ -59,7 +60,8 @@ func focus_on():
 
 	var sprite_rect = subject_spr.get_rect()
 	var sprite_center_local = sprite_rect.position + sprite_rect.size / 2.0
-	var sprite_center_global = subject_spr.get_global_transform() * sprite_center_local
+	var sprite_center_global = Global.image_to_global_pos(sprite_center_local, subject_spr, subject_spr.texture.get_image())
+	#var sprite_center_global = subject_spr.get_global_transform() * sprite_center_local
 
 	# and then we get then back to normal after calculations have already been set, and just then, we tween it.
 	# it's really sad how bad it is. i challenge you to fix it T.T
@@ -73,8 +75,6 @@ func focus_on():
 	focus_tween.tween_property(subject, "global_scale", subject_idle_scale * bring_closer_scale, self.focus_time)
 
 	await focus_tween.finished 
-
-	EventBus.focus_mode_changed.emit(subject, true)
 
 func focus_off():
 	self.is_animation_playing = true

@@ -21,7 +21,6 @@ reference = NodePath("../ReferenceSpr")
 script = ExtResource("3_pgdyx")
 reference = NodePath("../ReferenceSpr")
 
-[node name="DrawModule" type="Node" parent="." node_paths=PackedStringArray("drawable_canvas", "focusable_module")]
+[node name="DrawModule" type="Node2D" parent="." node_paths=PackedStringArray("drawable_canvas")]
 script = ExtResource("1_axkmt")
 drawable_canvas = NodePath("../DrawableSpr")
-focusable_module = NodePath("")

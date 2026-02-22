@@ -24,14 +24,6 @@ tonemap_mode = 4
 glow_enabled = true
 glow_bloom = 0.45
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
-shader = ExtResource("7_1l0tm")
-shader_parameter/blur_amount = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
-resource_local_to_scene = true
-shader = ExtResource("1_qxrlw")
-
 [sub_resource type="Gradient" id="Gradient_ewbju"]
 offsets = PackedFloat32Array(0, 0.6738461)
 colors = PackedColorArray(0.59, 0.59, 0.59, 1, 0, 0, 0, 1)
@@ -41,14 +33,40 @@ gradient = SubResource("Gradient_ewbju")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
+resource_local_to_scene = true
+shader = ExtResource("1_qxrlw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbju"]
+shader = ExtResource("7_1l0tm")
+shader_parameter/blur_amount = 0.0
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("cut_module")]
 script = ExtResource("1_rku1e")
 cut_module = NodePath("CutAndPlace/Icon/CutModule")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="FocusManager" type="Node" parent="."]
+script = ExtResource("7_v158k")
+
+[node name="LightingSetup" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(3.0517578e-05, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightingSetup"]
 environment = SubResource("Environment_ewbju")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="LightingSetup"]
+color = Color(0.66, 0.60357004, 0.5346, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="LightingSetup"]
+position = Vector2(503, 259)
+color = Color(1.5720325, 1.3581792, 1.078525, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_85qyi")
+texture_scale = 10.0
+
 [node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 anchor_mode = 0
 limit_smoothed = true
 script = ExtResource("1_ldgsr")
@@ -68,33 +86,7 @@ position = Vector2(662, 196)
 [node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
 z_index = 200
 
-[node name="FocusManager" type="Node" parent="."]
-script = ExtResource("7_v158k")
-
-[node name="BlurredLayer" type="CanvasLayer" parent="FocusManager"]
-
-[node name="BlurRect" type="ColorRect" parent="FocusManager/BlurredLayer"]
-unique_name_in_owner = true
-z_index = 100
-material = SubResource("ShaderMaterial_v158k")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="DarkRect" type="ColorRect" parent="FocusManager/BlurredLayer"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="CutAndPlace" type="Node" parent="."]
+[node name="CutAndPlace" type="Node2D" parent="."]
 
 [node name="CutReference" type="Sprite2D" parent="CutAndPlace"]
 position = Vector2(589, 425)
@@ -140,11 +132,10 @@ show_behind_parent = true
 position = Vector2(6, 4)
 texture = ExtResource("13_nnt18")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(503, 259)
-color = Color(1.5720325, 1.3581792, 1.078525, 1)
-texture = SubResource("GradientTexture2D_85qyi")
-texture_scale = 10.0
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.41327792, 0.34954435, 0.27164775, 1)
+[node name="BlurRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ewbju")
+offset_left = -124.0
+offset_top = -90.0
+offset_right = 1132.0
+offset_bottom = 625.0
