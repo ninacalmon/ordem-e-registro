@@ -40,7 +40,7 @@ func _process(_delta: float):
 		print("MATCH VAL", self.match_value)
 
 func compare_coordinates_cut(sam_global_x: float, sam_global_y: float):
-	var coordinates_in_ref_local = Global.global_to_image_pos(Vector2(sam_global_x, sam_global_y), self.reference, self.reference_image)
+	var coordinates_in_ref_local = Global.global_to_image_pos(Vector2(sam_global_x, sam_global_y), self.reference, self.reference_image.get_size())
 
 	# Check also the alpha on the parts that are overlapping IMPORTANT!!!!!!!!!!!!!
 	if Global.is_aabb_overlap_with_image(coordinates_in_ref_local, self.reference_image):

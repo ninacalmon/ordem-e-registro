@@ -23,11 +23,12 @@ var is_animation_playing = false
 var focus_time = Global.focus_time
 var unfocus_time = focus_time / 1.3
 
-func _input(event):	
+func _input(event):
 	if event is InputEventMouseButton and !self.is_animation_playing:
 		var global_mouse_pos = get_global_mouse_position()
-		var current_pixel = Global.global_to_image_pos(global_mouse_pos, self.subject_spr, self.subject_image)
-		self.is_mouse_overlapping = Global.is_aabb_overlap_with_image(current_pixel, subject_image)
+		var current_pixel = Global.global_to_image_pos(global_mouse_pos, self.subject_spr, self.subject_image.get_size())
+		self.is_mouse_overlapping = Global.is_mask_image_overlap_alpha(current_pixel, subject_image)
+		#Global.is_aabb_overlap_with_image(current_pixel, subject_image) USED TO BE THIS
 
 		# Await the animation tween to finish before setting is_focused
 		if event.is_action_pressed("left_mouse_button") \

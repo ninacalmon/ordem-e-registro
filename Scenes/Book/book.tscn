@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://cncjavqgpvl6t"]
+
+[ext_resource type="Texture2D" uid="uid://d2gyjgjyg4u0b" path="res://Sprites/bookTileset.png" id="1_fpxot"]
+[ext_resource type="Script" uid="uid://c07n34s302xrm" path="res://Scenes/Book/book.gd" id="1_r2be8"]
+[ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="2_aulyy"]
+[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="3_cxka2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rf2l0"]
+shader = ExtResource("2_aulyy")
+shader_parameter/shadow_only = false
+shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
+shader_parameter/blur_std = 2.0
+
+[sub_resource type="Animation" id="Animation_r2be8"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookSpr:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_cxka2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookSpr:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aulyy"]
+_data = {
+&"RESET": SubResource("Animation_cxka2"),
+&"open": SubResource("Animation_r2be8")
+}
+
+[node name="Book" type="Node2D" node_paths=PackedStringArray("book_spr", "anim_player")]
+script = ExtResource("1_r2be8")
+book_spr = NodePath("BookSpr")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="BookSpr" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rf2l0")
+texture = ExtResource("1_fpxot")
+hframes = 5
+vframes = 4
+region_filter_clip_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_aulyy")
+}
+speed_scale = 0.8
+
+[node name="DragabbleModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
+script = ExtResource("3_cxka2")
+sprite = NodePath("../BookSpr")
+target = NodePath("..")

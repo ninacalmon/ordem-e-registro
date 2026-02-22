@@ -16,16 +16,16 @@ func _input(event):
 		return
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("left_mouse_button"):
-			var current_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_image())
+			var current_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_size())
 			if !Global.is_aabb_overlap_with_image(current_pixel, image):
 				return
 			drawing = true
-			last_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_image())
+			last_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_size())
 		if event.is_action_released("left_mouse_button"):
 			drawing = false
 
 	if event is InputEventMouseMotion and drawing:
-		var current_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_image())
+		var current_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_size())
 		draw_line_pixels(last_pixel, current_pixel)
 		last_pixel = current_pixel
 

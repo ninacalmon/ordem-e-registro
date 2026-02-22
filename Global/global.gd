@@ -11,11 +11,11 @@ func is_aabb_overlap_with_image(local_to_image_position: Vector2, image: Image) 
 		local_to_image_position.y < image.get_height()
 
 ## This one here considers scale + rotation
-func global_to_image_pos(global_pos: Vector2, sprite: Sprite2D, image: Image) -> Vector2:
+func global_to_image_pos(global_pos: Vector2, sprite: Sprite2D, image_size: Vector2) -> Vector2:
 	var local = sprite.get_global_transform().affine_inverse() * global_pos
 
 	if sprite.centered:
-		local += image.get_size() / 2.0
+		local += image_size / 2.0
 
 	return local
 	
@@ -43,9 +43,18 @@ func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
 	## Check if current pixel is white (visible, > 0.5) or black (transparent, < 0.5)
 	return pixel.r > VISIBILITY_THRESHOLD
 
+func is_mask_image_overlap_alpha(local_pos: Vector2, img: Image) -> bool:
+	const ALPHA_THRESHOLD = 0.5
+
+	if not is_aabb_overlap_with_image(local_pos, img):
+		return false
+
+	var pixel = img.get_pixelv(local_pos.floor())
+	return pixel.a > ALPHA_THRESHOLD
+
 func compute_mouse_info(global_pos: Vector2, sprite: Sprite2D, image: Image) -> ImageMouseInfo:
 	var mouse_info = ImageMouseInfo.new()
-	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, sprite, image)
+	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, sprite, image.get_size())
 
 	mouse_info.mouse_pos_local_to_image = mouse_pos_local_to_image
 	mouse_info.is_inside_image = self.is_mask_image_overlap(mouse_pos_local_to_image, image)

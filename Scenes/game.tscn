@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=26 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
+[ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
 background_mode = 3
@@ -145,6 +146,9 @@ show_behind_parent = true
 show_behind_parent = true
 position = Vector2(6, 4)
 texture = ExtResource("13_nnt18")
+
+[node name="Book" parent="." instance=ExtResource("20_7nbq1")]
+position = Vector2(850, 336)
 
 [node name="BlurRect" type="ColorRect" parent="."]
 unique_name_in_owner = true

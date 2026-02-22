@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 	and focusable_module.is_focused:
 		var sprite_image: Image = self.sprite.texture.get_image()
 		var mouse_global = get_viewport().get_mouse_position()
-		var mouse_local_to_sprite = Global.global_to_image_pos(mouse_global, self.sprite, sprite_image)
+		var mouse_local_to_sprite = Global.global_to_image_pos(mouse_global, self.sprite, sprite_image.get_size())
 
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP \
 		and Global.is_aabb_overlap_with_image(mouse_local_to_sprite, sprite_image):

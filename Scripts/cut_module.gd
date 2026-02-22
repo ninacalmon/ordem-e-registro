@@ -115,7 +115,7 @@ func handle_mouse_button(event: InputEventMouseButton):
 
 func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
 	var mouse_info = ImageMouseInfo.new()
-	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, self.sprite, self.mask_image)
+	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, self.sprite, self.mask_image.get_size())
 
 	mouse_info.mouse_pos_local_to_image = mouse_pos_local_to_image
 	mouse_info.is_inside_image = self.is_mask_image_overlap(mouse_pos_local_to_image, self.mask_image)
@@ -123,8 +123,8 @@ func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
 	return mouse_info
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
-	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image)
-	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image)
+	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image.get_size())
+	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
 
 	var steps = max(1, int(from.distance_to(to)))
 	for i in range(steps):
