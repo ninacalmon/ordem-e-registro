@@ -17,7 +17,7 @@ func global_to_image_pos(global_pos: Vector2, sprite: Sprite2D, image: Image) ->
 	if sprite.centered:
 		local += image.get_size() / 2.0
 
-	return local.floor()
+	return local
 	
 func image_to_global_pos(image_pos: Vector2, sprite: Sprite2D, image: Image) -> Vector2:
 	var local = image_pos

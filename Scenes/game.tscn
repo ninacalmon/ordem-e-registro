@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=24 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
+[ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="12_85qyi"]
 [ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
@@ -89,8 +90,9 @@ z_index = 200
 [node name="CutAndPlace" type="Node2D" parent="."]
 
 [node name="CutReference" type="Sprite2D" parent="CutAndPlace"]
-position = Vector2(589, 425)
+position = Vector2(494, 372)
 texture = ExtResource("8_rku1e")
+centered = false
 
 [node name="Icon" type="Sprite2D" parent="CutAndPlace"]
 material = SubResource("ShaderMaterial_3dryh")
@@ -98,14 +100,20 @@ position = Vector2(494, 371)
 texture = ExtResource("8_rku1e")
 centered = false
 
-[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module")]
+[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
 script = ExtResource("3_wrm1d")
 focusable_module = NodePath("../FocusableModule")
+image_comparison_module = NodePath("../ImageComparisonModule")
 
 [node name="FocusableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("7_h4fw4")
 subject_spr = NodePath("..")
 bring_closer_scale = 2.0
+
+[node name="ImageComparisonModule" type="Node" parent="CutAndPlace/Icon" node_paths=PackedStringArray("reference")]
+script = ExtResource("12_85qyi")
+reference = NodePath("../../CutReference")
+metadata/_custom_type_script = "uid://dtd30aj0k6jkw"
 
 [node name="Inkpenlid" type="Sprite2D" parent="."]
 position = Vector2(969, 79)

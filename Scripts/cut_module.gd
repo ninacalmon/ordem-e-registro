@@ -6,7 +6,7 @@ class_name CutModule
 
 @onready var sprite: Sprite2D = self.get_parent()
 
-const CUT_COLOR: Color = Color(0.6, 0.6, 0.6)
+const CUT_COLOR: Color = Color(0.8, 0.8, 0.8)
 const CUT_SIZE: float = 2.0
 
 const MASK_SHOW_COLOR_VALUE: float = 1.0
@@ -86,8 +86,8 @@ func _input(event: InputEvent):
 		self.handle_mouse_button(event)
 
 func handle_mouse_motion(event: InputEventMouseMotion):
-		var previous_mouse_pos = event.position - event.relative
-		var current_mouse_pos = event.position
+		var current_mouse_pos = get_global_mouse_position()
+		var previous_mouse_pos = current_mouse_pos - event.relative
 		
 		var previous_mouse_info = self.compute_mouse_info(previous_mouse_pos)
 		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
@@ -126,7 +126,7 @@ func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image)
 	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image)
 
-	var steps = int(from.distance_to(to))
+	var steps = max(1, int(from.distance_to(to)))
 	for i in range(steps):
 		var t = float(i) / steps
 		var point = from.lerp(to, t)
@@ -176,10 +176,10 @@ func fade_region(region: Array):
 	})
 
 func erase_circle(center: Vector2, radius: float):
-	var min_x = int(center.x - radius)
-	var max_x = int(center.x + radius)
-	var min_y = int(center.y - radius)
-	var max_y = int(center.y + radius)
+	var min_x = floor(center.x - radius)
+	var max_x = ceil(center.x + radius)
+	var min_y = floor(center.y - radius)
+	var max_y = ceil(center.y + radius)
 
 	for x in range(min_x, max_x):
 		for y in range(min_y, max_y):
