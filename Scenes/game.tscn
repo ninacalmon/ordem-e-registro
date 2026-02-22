@@ -148,7 +148,7 @@ position = Vector2(6, 4)
 texture = ExtResource("13_nnt18")
 
 [node name="Book" parent="." instance=ExtResource("20_7nbq1")]
-position = Vector2(850, 336)
+position = Vector2(459, 44)
 
 [node name="BlurRect" type="ColorRect" parent="."]
 unique_name_in_owner = true

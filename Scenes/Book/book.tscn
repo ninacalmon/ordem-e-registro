@@ -1,30 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://cncjavqgpvl6t"]
+[gd_scene load_steps=12 format=3 uid="uid://cncjavqgpvl6t"]
 
 [ext_resource type="Texture2D" uid="uid://d2gyjgjyg4u0b" path="res://Sprites/bookTileset.png" id="1_fpxot"]
 [ext_resource type="Script" uid="uid://c07n34s302xrm" path="res://Scenes/Book/book.gd" id="1_r2be8"]
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="2_aulyy"]
-[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="3_cxka2"]
+[ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="4_1ksjd"]
+[ext_resource type="Theme" uid="uid://c14p3r478pryl" path="res://Themes/body_theme.tres" id="5_ebb4q"]
+[ext_resource type="Theme" uid="uid://bbbu83b7rfp2s" path="res://Themes/unintelligible_theme.tres" id="6_1ksjd"]
+[ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="6_ieeyy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rf2l0"]
 shader = ExtResource("2_aulyy")
 shader_parameter/shadow_only = false
 shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
 shader_parameter/blur_std = 2.0
-
-[sub_resource type="Animation" id="Animation_r2be8"]
-resource_name = "open"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BookSpr:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(0, 3)]
-}
 
 [sub_resource type="Animation" id="Animation_cxka2"]
 length = 0.001
@@ -41,31 +29,139 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_r2be8"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookSpr:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(0, 3)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aulyy"]
 _data = {
 &"RESET": SubResource("Animation_cxka2"),
 &"open": SubResource("Animation_r2be8")
 }
 
-[node name="Book" type="Node2D" node_paths=PackedStringArray("book_spr", "anim_player")]
+[node name="Book" type="Node2D" node_paths=PackedStringArray("book_spr", "anim_player", "pages_h_container")]
 script = ExtResource("1_r2be8")
 book_spr = NodePath("BookSpr")
 anim_player = NodePath("AnimationPlayer")
+pages_h_container = NodePath("BookSpr/PagesHContainer")
 
 [node name="BookSpr" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_rf2l0")
+position = Vector2(-248, -116)
 texture = ExtResource("1_fpxot")
+centered = false
 hframes = 5
 vframes = 4
 region_filter_clip_enabled = true
+
+[node name="PagesHContainer" type="HBoxContainer" parent="BookSpr"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -122.0
+offset_right = 230.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 56
+
+[node name="LeftVBox" type="VBoxContainer" parent="BookSpr/PagesHContainer"]
+layout_mode = 2
+
+[node name="LeftSubTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+theme = ExtResource("4_1ksjd")
+theme_override_colors/default_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
+text = "~ Novo Estado Bósnio-Braziliense ~"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="LeftTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+theme = ExtResource("4_1ksjd")
+theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Código Nacional de 
+Referência Estatal"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="LeftText" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme = ExtResource("5_ebb4q")
+theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+theme_override_fonts/bold_font = ExtResource("6_ieeyy")
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]1A - [/b]Sarajevo do Sul -----------------------
+[b]7C - [/b]Planalto Drínico -----------------------
+[b]12F - [/b]Nova Mostária ------------------------
+[b]3B - [/b]Vale do Igua-Drina --------------------
+[b]9H - [/b]Bósnia Atlântica -----------------------
+[b]15D - [/b]Santa Tuzla --------------------------
+[b]4K - [/b]Serra Bósnio-Catarinense -------------
+[b]18M - [/b]Litoral Herzegovino ------------------
+[b]6E - [/b]Nova Banja do Oeste -----------------
+[b]21P - [/b]Alto Neretva Tropical -----------------
+[b]2R - [/b]Campina Zenicana --------------------
+[b]14G - [/b]Brčko das Araucárias ---------------
+[b]8L - [/b]Cerrado Sarajevita --------------------
+[b]19T - [/b]Nova Travnik Imperial ---------------
+[b]5N - [/b]Fronteira Mostarense ------------------
+[b]11Q - [/b]Pantanal Dinarico ---------------------
+[b]16S - [/b]Doboj das Missões --------------------
+[b]10J - [/b]Vale Verde Bósnio --------------------
+[b]23V - [/b]Costa Adriático-Brasiliense ------------
+[b]13X - [/b]Novo Srebrenik -----------------------"
+fit_content = true
+tab_size = 2
+
+[node name="RightVBox" type="VBoxContainer" parent="BookSpr/PagesHContainer"]
+layout_mode = 2
+
+[node name="RightText" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme = ExtResource("6_1ksjd")
+theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis felis quam, tincidunt quis nulla et, vehicula aliquam odio. Mauris sed arcu eu sapien condimentum cursus vitae nec sapien. Cras et ligula a tortor consequat feugiat. Quisque pulvinar odio ut mi rutrum, vitae consequat libero imperdiet. Curabitur nibh magna, efficitur vel sem sed, commodo elementum urna. Phasellus non fermentum felis. Aenean tincidunt suscipit venenatis. Nullam semper augue at maximus cursus. Proin sed erat in ante pretium dignissim luctus eu diam. Aliquam erat volutpat. In bibendum diam ut orci suscipit, sollicitudin porttitor lectus iaculis. Etiam ultrices convallis ante, ac tempor lorem. Mauris at urna ac lorem viverra ornare. Duis et ligula quam. Proin accumsan libero lacinia sagittis cursus. Aenean mattis sem sit amet massa eleifend bibendum.
+
+Pellentesque vitae consequat lorem. Cras varius purus mi, pulvinar semper ante tempor at. Duis dapibus finibus neque, ac vehicula dui gravida nec. Pellentesque elementum pharetra sollicitudin. Pellentesque sit amet nulla vitae nisl placerat pulvinar eget quis sapien. Maecenas arcu neque, dignissim quis elit id, hendrerit ornare nibh. Donec bibendum lacinia nulla. Aliquam tempus, purus et fringilla accumsan, nisi ex venenatis massa, a placerat dolor odio commodo sapien. Curabitur orci velit, rhoncus ut mauris vel, tincidunt hendrerit velit. Phasellus cursus ipsum lorem, ut fermentum risus accumsan sed. Aliquam vitae scelerisque ex. Aenean varius interdum nibh eu dignissim.
+
+Mauris ullamcorper leo nec sodales dapibus. Fusce turpis lorem, facilisis quis turpis ac, aliquet gravida eros. Donec elementum lacinia massa, vitae condimentum dui. In sodales mattis efficitur. Cras ut neque magna. Duis commodo magna vel tincidunt semper. Aliquam tempor congue odio, a rutrum lectus placerat et.
+
+Curabitur et viverra risus. Sed tempor placerat felis at hendrerit. Nullam viverra, lacus a vestibulum dictum, massa massa sollicitudin est, sit amet ultricies augue erat et risus. Sed at purus lacinia, sagittis metus id, auctor turpis. Cras varius viverra eros at finibus. Praesent at consequat metus. In eget auctor lacus.
+
+Duis neque augue, suscipit sed varius eget, hendrerit eu orci. Ut condimentum dui sed venenatis imperdiet. Fusce consequat viverra diam eget egestas. Integer ut ullamcorper est. Cras et orci mauris. In aliquam sodales elit porttitor vehicula. Ut lectus lectus, ultricies quis sodales euismod, fermentum a tellus. Quisque semper eros et iaculis congue. Curabitur libero neque, ultrices vel vestibulum placerat, facilisis non metus. Curabitur facilisis enim ante, bibendum lobortis nibh sollicitudin eget.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis felis quam, tincidunt quis nulla et, vehicula aliquam odio. Mauris sed arcu eu sapien condimentum cursus vitae nec sapien. Cras et ligula a tortor consequat feugiat. Quisque pulvinar odio ut mi rutrum, vitae consequat libero imperdiet. Curabitur nibh magna, efficitur vel sem sed, commodo elementum urna. Phasellus non fermentum felis. Aenean tincidunt suscipit venenatis. Nullam semper augue at maximus cursus. Proin sed erat in ante pretium dignissim luctus eu diam. Aliquam erat volutpat. In bibendum diam ut orci suscipit, sollicitudin porttitor lectus iaculis. Etiam ultrices convallis ante, ac tempor lorem. Mauris at urna ac lorem viverra ornare. Duis et ligula quam. Proin accumsan libero lacinia sagittis cursus. Aenean mattis sem sit amet massa eleifend bibendum.
+
+Pellentesque vitae consequat lorem. Cras varius purus mi, pulvinar semper ante tempor at. Duis dapibus finibus neque, ac vehicula dui gravida nec. Pellentesque elementum pharetra sollicitudin. Pellentesque sit amet nulla vitae nisl placerat pulvinar eget quis sapien. Maecenas arcu neque, dignissim quis elit id, hendrerit ornare nibh. Donec bibendum lacinia nulla. Aliquam tempus, purus et fringilla accumsan, nisi ex venenatis massa, a placerat dolor odio commodo sapien. Curabitur orci velit, rhoncus ut mauris vel, tincidunt hendrerit velit. Phasellus cursus ipsum lorem, ut fermentum risus accumsan sed. Aliquam vitae scelerisque ex. Aenean varius interdum nibh eu dignissim.
+
+Mauris ullamcorper leo nec sodales dapibus. Fusce turpis lorem, facilisis quis turpis ac, aliquet gravida eros.
+"
+fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_aulyy")
 }
 speed_scale = 0.8
-
-[node name="DragabbleModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
-script = ExtResource("3_cxka2")
-sprite = NodePath("../BookSpr")
-target = NodePath("..")

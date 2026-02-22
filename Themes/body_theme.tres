@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c14p3r478pryl"]
+
+[ext_resource type="FontFile" uid="uid://d0xadco06mvux" path="res://Fonts/AsepriteFont.ttf" id="1_dy282"]
+[ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_6j2a5"]
+
+[resource]
+default_font = ExtResource("1_dy282")
+default_font_size = 16
+metadata/color_array = ExtResource("2_6j2a5")

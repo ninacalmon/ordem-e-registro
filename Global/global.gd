@@ -44,7 +44,7 @@ func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
 	return pixel.r > VISIBILITY_THRESHOLD
 
 func is_mask_image_overlap_alpha(local_pos: Vector2, img: Image) -> bool:
-	const ALPHA_THRESHOLD = 0.5
+	const ALPHA_THRESHOLD = 0.1
 
 	if not is_aabb_overlap_with_image(local_pos, img):
 		return false

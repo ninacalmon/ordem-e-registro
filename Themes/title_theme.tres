@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dm3b6sskltrj2"]
+
+[ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="1_7bdce"]
+[ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_b0ue4"]
+
+[resource]
+default_font = ExtResource("1_7bdce")
+default_font_size = 10
+metadata/color_array = ExtResource("2_b0ue4")
