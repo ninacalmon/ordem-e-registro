@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://diwfnnhdl845"]
+[gd_scene load_steps=10 format=3 uid="uid://diwfnnhdl845"]
 
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_7kc0x"]
+[ext_resource type="Script" uid="uid://6qtmus8up4u2" path="res://Scenes/Documents/doc_birth_certificate.gd" id="1_f0h0d"]
 [ext_resource type="Texture2D" uid="uid://d1lm6n8ks6mo" path="res://Sprites/Docs/BirthCertificate_mini.png" id="1_fr2vj"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
+[ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="3_do2hv"]
 [ext_resource type="Texture2D" uid="uid://b3a8tej305drr" path="res://Sprites/Docs/BirthCertificate.png" id="4_7kc0x"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_7kc0x"]
 [ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="6_mpwx7"]
@@ -15,12 +17,32 @@ shader_parameter/blur_std = 1.0
 
 [node name="Doc_BirthCertificate" type="Node2D"]
 rotation = 0.2617994
+script = ExtResource("1_f0h0d")
+texture_to_show_text = ExtResource("4_7kc0x")
 
 [node name="DocSpr" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_mpwx7")
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_fr2vj")
 centered = false
+
+[node name="BirthDataHbox" type="HBoxContainer" parent="DocSpr"]
+unique_name_in_owner = true
+offset_left = 27.686224
+offset_top = 157.36296
+offset_right = 196.30127
+offset_bottom = 235.13237
+
+[node name="BirthDataRichTextLabel" type="RichTextLabel" parent="DocSpr/BirthDataHbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 10)
+layout_mode = 2
+theme = ExtResource("3_do2hv")
+theme_override_colors/default_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+text = "OIOI"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("2_4kqhv")
