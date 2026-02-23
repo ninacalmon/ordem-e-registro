@@ -3,8 +3,7 @@ class_name CutModule
 
 @export var focusable_module: FocusableModule
 @export var image_comparison_module: ImageComparisonModule
-
-@onready var sprite: Sprite2D = self.get_parent()
+@export var sprite: Sprite2D
 
 const CUT_COLOR: Color = Color(0.8, 0.8, 0.8)
 const CUT_THICKNESS: float = 1.5
@@ -254,7 +253,18 @@ func _draw():
 		return
 
 	for pixel in cut_path_pixel_array:
+		## Unfortunately we need to make this conversion here because, as this is a module, the transform of the sprite
+		## which is the space the cut_path_pixel_array pixels are located, is different from the CutModule transform.
+		## This happens because they are siblings. So we transform sprite local space -> global local space -> cut module local space
+		var global_pos = Global.image_to_global_pos(
+			pixel,
+			self.sprite,
+			self.mask_image
+		)
+
+		var local_pos = to_local(global_pos)
+
 		draw_rect(
-			Rect2(Vector2(pixel.x, pixel.y), Vector2(self.CUT_THICKNESS, self.CUT_THICKNESS)),
+			Rect2(local_pos, Vector2(self.CUT_THICKNESS, self.CUT_THICKNESS)),
 			Color(1, 0, 0)
 		)

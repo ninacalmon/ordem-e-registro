@@ -98,3 +98,8 @@ func change_image_texture_on_focus(focus_enabled: bool):
 
 	if !focus_enabled && self.focus_off_image_texture != null:
 		self.subject_spr.texture = self.focus_off_image_texture
+
+func update_idle_transform():
+	self.subject_idle_rotation = subject.rotation
+	self.subject_idle_global_pos = subject.global_position
+	self.subject_idle_scale = subject.scale

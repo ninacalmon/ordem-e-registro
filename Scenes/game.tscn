@@ -1,20 +1,15 @@
-[gd_scene load_steps=26 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=20 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
-[ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="1_qxrlw"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
 [ext_resource type="Texture2D" uid="uid://ufhjw0sod5lx" path="res://Sprites/background.png" id="3_o5yvi"]
-[ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://ctu3apyve2u8e" path="res://Scenes/Documents/doc_id.tscn" id="5_rku1e"]
 [ext_resource type="PackedScene" uid="uid://diwfnnhdl845" path="res://Scenes/Documents/doc_birth_certificate.tscn" id="6_i6g32"]
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
-[ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
-[ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="8_rku1e"]
-[ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="12_85qyi"]
+[ext_resource type="PackedScene" uid="uid://dsh84e1iee5r5" path="res://Scenes/Documents/doc_image_to_cut.tscn" id="8_nb51f"]
 [ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
-[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="13_iivbl"]
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
@@ -36,17 +31,12 @@ gradient = SubResource("Gradient_ewbju")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
-resource_local_to_scene = true
-shader = ExtResource("1_qxrlw")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbju"]
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("cut_module")]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_rku1e")
-cut_module = NodePath("CutAndPlace/Icon/CutModule")
 
 [node name="FocusManager" type="Node" parent="."]
 script = ExtResource("7_v158k")
@@ -89,38 +79,8 @@ position = Vector2(662, 196)
 [node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
 z_index = 200
 
-[node name="CutAndPlace" type="Node2D" parent="."]
-
-[node name="CutReference" type="Sprite2D" parent="CutAndPlace"]
-position = Vector2(494, 372)
-texture = ExtResource("8_rku1e")
-centered = false
-
-[node name="Icon" type="Sprite2D" parent="CutAndPlace"]
-material = SubResource("ShaderMaterial_3dryh")
-position = Vector2(494, 371)
-texture = ExtResource("8_rku1e")
-centered = false
-
-[node name="CutModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("focusable_module", "image_comparison_module")]
-script = ExtResource("3_wrm1d")
-focusable_module = NodePath("../FocusableModule")
-image_comparison_module = NodePath("../ImageComparisonModule")
-
-[node name="FocusableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("subject_spr")]
-script = ExtResource("7_h4fw4")
-subject_spr = NodePath("..")
-bring_closer_scale = 2.0
-
-[node name="ImageComparisonModule" type="Node" parent="CutAndPlace/Icon" node_paths=PackedStringArray("reference")]
-script = ExtResource("12_85qyi")
-reference = NodePath("../../CutReference")
-metadata/_custom_type_script = "uid://dtd30aj0k6jkw"
-
-[node name="DraggableModule" type="Node2D" parent="CutAndPlace/Icon" node_paths=PackedStringArray("sprite", "target")]
-script = ExtResource("13_iivbl")
-sprite = NodePath("..")
-target = NodePath("..")
+[node name="CutAndPlace" parent="." instance=ExtResource("8_nb51f")]
+position = Vector2(518, 407)
 
 [node name="Inkpenlid" type="Sprite2D" parent="."]
 position = Vector2(969, 79)

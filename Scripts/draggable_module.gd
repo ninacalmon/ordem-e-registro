@@ -2,6 +2,7 @@ extends Node2D
 
 @export var sprite: Sprite2D
 @export var target: Node2D
+@export var focusable_module: FocusableModule
 
 var dragging = false
 var drag_offset = Vector2.ZERO
@@ -32,6 +33,8 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_released("right_mouse_button"):
 		dragging = false
+		if focusable_module:
+			focusable_module.update_idle_transform()
 
 func _process(_delta: float) -> void:
 	if dragging:
