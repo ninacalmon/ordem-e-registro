@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://xcespirprdg1"]
+[gd_scene load_steps=6 format=3 uid="uid://xcespirprdg1"]
 
 [ext_resource type="Script" uid="uid://cxerwrilkq6pl" path="res://Scenes/Menu/start.gd" id="1_bkwd7"]
+[ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="2_7jtkx"]
 [ext_resource type="Script" uid="uid://3jslkn4hno1c" path="res://Scenes/Menu/exit.gd" id="2_tself"]
+[ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="4_vmek6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s51c5"]
 bg_color = Color(0, 0, 0, 1)
@@ -16,7 +18,7 @@ grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="MainButtons" type="CenterContainer" parent="CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -25,20 +27,43 @@ offset_top = -227.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainButtons"]
 layout_mode = 2
 
-[node name="Start" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+[node name="Start" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
 text = "START"
 script = ExtResource("1_bkwd7")
 
-[node name="Exit" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+text = "SETTINGS
+"
+script = ExtResource("2_7jtkx")
+inverse_visibility_nodes = [NodePath("../..")]
+
+[node name="Exit" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
 text = "EXIT
 "
 script = ExtResource("2_tself")
+
+[node name="SettingsContainer" parent="CanvasLayer" node_paths=PackedStringArray("inverse_visibility_nodes") instance=ExtResource("4_vmek6")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+inverse_visibility_nodes = [NodePath("../MainButtons")]

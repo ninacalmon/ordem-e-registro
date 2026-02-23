@@ -4,6 +4,18 @@ var focus_layer = 200
 var focus_time = 0.4
 var is_something_focused = false
 
+enum AudioBus {
+	MASTER,
+	MUSIC,
+	SOUND_EFFECTS
+}
+
+const AUDIO_BUS_DIC = {
+	AudioBus.MASTER: "Master",
+	AudioBus.MUSIC: "Music",
+	AudioBus.SOUND_EFFECTS: "SoundEffects"
+}
+
 func is_aabb_overlap_with_image(local_to_image_position: Vector2, image: Image) -> bool:
 	return local_to_image_position.x >= 0 and \
 		local_to_image_position.y >= 0 and \
