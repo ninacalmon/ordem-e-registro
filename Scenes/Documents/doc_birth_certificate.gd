@@ -95,7 +95,7 @@ func _process(_delta: float) -> void:
 		self.birth_data_hbox.hide()
 
 func generate_book_code() -> String:
-	var letter = char(randi_range(65, 90))
+	var letter = char(randi_range(65, 90)) # ASCII alphabet
 	var number = randi_range(1, 999)
 	
 	return "%s-%03d" % [letter, number]

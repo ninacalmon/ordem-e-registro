@@ -12,6 +12,9 @@ func _ready():
 		target = get_parent()
 
 func _input(event: InputEvent) -> void:
+	if Global.is_something_focused:
+		return
+
 	if event.is_action_pressed("right_mouse_button"):
 		var mouse_pos: Vector2 = get_global_mouse_position()
 		var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
