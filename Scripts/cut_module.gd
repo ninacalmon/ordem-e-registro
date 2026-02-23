@@ -4,6 +4,8 @@ class_name CutModule
 @export var focusable_module: FocusableModule
 @export var image_comparison_module: ImageComparisonModule
 @export var sprite: Sprite2D
+@export var cutting_custom_mouse_texture: CompressedTexture2D
+@export var selecting_custom_mouse_texture: CompressedTexture2D
 
 const CUT_COLOR: Color = Color(0.8, 0.8, 0.8)
 const CUT_THICKNESS: float = 1.5
@@ -19,6 +21,7 @@ var fading_region_array = []
 
 var is_cutting: bool = false
 var is_selecting_cut: bool = false
+var cut_count: int = 0
 var cut_path_pixel_array: Array[Vector2i] = []
 
 func _ready():
@@ -64,6 +67,9 @@ func _process(delta):
 
 func _input(event: InputEvent):
 	if focusable_module && focusable_module.is_focused == false:
+		self.is_cutting = false
+		self.is_selecting_cut = false
+		Input.set_custom_mouse_cursor(null)
 		return
 	
 	if event.is_action_pressed("cut_action"):
@@ -76,11 +82,17 @@ func _input(event: InputEvent):
 
 		if can_start_cutting:
 			self.is_cutting = true
+			Input.set_custom_mouse_cursor(self.cutting_custom_mouse_texture)
 	
-	if event.is_action_pressed("select_cut"):
+	if event.is_action_pressed("select_cut") and self.cut_count > 0:
 		if not self.is_cutting:
-			self.is_selecting_cut = !self.is_selecting_cut
-	
+			var is_selecting = !self.is_selecting_cut
+			self.is_selecting_cut = is_selecting
+			if is_selecting:
+				Input.set_custom_mouse_cursor(self.selecting_custom_mouse_texture)
+			else:
+				Input.set_custom_mouse_cursor(null)
+				
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)
 
@@ -99,6 +111,7 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 	
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 			self.is_cutting = false
+			self.cut_count += 1
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):

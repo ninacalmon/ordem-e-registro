@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsh84e1iee5r5"]
+[gd_scene load_steps=9 format=3 uid="uid://dsh84e1iee5r5"]
 
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_dvrgk"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="2_ag86f"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_o3jcy"]
+[ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="4_ag86f"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="4_ukqfg"]
+[ext_resource type="Texture2D" uid="uid://baeymqi3ucv2g" path="res://Sprites/TheMage.png" id="5_o3jcy"]
 [ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="6_2pdud"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3dryh"]
@@ -17,11 +19,12 @@ material = SubResource("ShaderMaterial_3dryh")
 texture = ExtResource("1_dvrgk")
 centered = false
 
-[node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "image_comparison_module", "sprite")]
+[node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "sprite")]
 script = ExtResource("3_o3jcy")
 focusable_module = NodePath("../FocusableModule")
-image_comparison_module = NodePath("")
 sprite = NodePath("../Icon")
+cutting_custom_mouse_texture = ExtResource("4_ag86f")
+selecting_custom_mouse_texture = ExtResource("5_o3jcy")
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_ukqfg")
