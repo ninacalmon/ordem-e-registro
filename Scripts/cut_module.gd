@@ -69,7 +69,6 @@ func _input(event: InputEvent):
 	if focusable_module && focusable_module.is_focused == false:
 		self.is_cutting = false
 		self.is_selecting_cut = false
-		Input.set_custom_mouse_cursor(null)
 		return
 	
 	if event.is_action_pressed("cut_action"):
@@ -82,16 +81,16 @@ func _input(event: InputEvent):
 
 		if can_start_cutting:
 			self.is_cutting = true
-			Input.set_custom_mouse_cursor(self.cutting_custom_mouse_texture)
+			Global.set_current_mouse_pointer(Global.PointerVariations.SCISSOR)
 	
 	if event.is_action_pressed("select_cut") and self.cut_count > 0:
 		if not self.is_cutting:
 			var is_selecting = !self.is_selecting_cut
 			self.is_selecting_cut = is_selecting
 			if is_selecting:
-				Input.set_custom_mouse_cursor(self.selecting_custom_mouse_texture)
+				Global.set_current_mouse_pointer(Global.PointerVariations.DELETE)
 			else:
-				Input.set_custom_mouse_cursor(null)
+				Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 				
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)
@@ -112,6 +111,7 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 			self.is_cutting = false
 			self.cut_count += 1
+			Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
@@ -128,6 +128,7 @@ func handle_mouse_button(event: InputEventMouseButton):
 				## Redraw frame when cut pixel array is changed
 				queue_redraw()
 				self.fade_region(region)
+	
 				self.is_selecting_cut = false
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):

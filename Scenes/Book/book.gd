@@ -21,23 +21,10 @@ func _on_animation_finished(_anim):
 
 func _input(event):
 	if event is InputEventMouseButton:
-		var frame_size = book_spr.texture.get_size() / Vector2(book_spr.hframes, book_spr.vframes)
 		var global_mouse_pos = get_global_mouse_position()
-		var pixel_in_frame = Global.global_to_image_pos(
-			global_mouse_pos,
-			book_spr,
-			frame_size
-			)
-		var frame = book_spr.frame
-		var column = frame % book_spr.hframes
-		@warning_ignore("integer_division")
-		var row = frame / book_spr.hframes
-		var frame_offset = Vector2(column, row) * frame_size
 		
-		var atlas_pixel = pixel_in_frame + frame_offset
-		var image = book_spr.texture.get_image()
-		
-		var is_mouse_overlapping = Global.is_mask_image_overlap_alpha(atlas_pixel, image)
+		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
+
 		if event.is_action_pressed("left_mouse_button") \
 		and is_mouse_overlapping \
 		and !Global.is_something_focused:
@@ -64,10 +51,28 @@ func _input(event):
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
 			dragging = true
+			Global.is_something_being_dragged = true
+
+			Global.set_current_mouse_pointer(Global.PointerVariations.DRAGGING)
 			drag_offset = target.global_position - global_mouse_pos
 
 		if event.is_action_released("right_mouse_button"):
 			dragging = false
+			Global.is_something_being_dragged = false
+
+			Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
+
+	if event is InputEventMouseMotion:
+		var global_mouse_pos = get_global_mouse_position()
+		
+		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
+
+		if !self.dragging and !Global.is_something_being_dragged:
+			if is_mouse_overlapping:
+				get_viewport().set_input_as_handled()
+				Global.set_current_mouse_pointer(Global.PointerVariations.DRAGGABLE)
+			else:
+				Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 
 func _process(_delta: float) -> void:
 	if dragging:
@@ -85,3 +90,32 @@ func _process(_delta: float) -> void:
 		new_pos.y = clamp(new_pos.y, -margin.y, viewport_size.y - margin.y)
 		
 		target.global_position = new_pos
+
+func is_mouse_over_book_sprite(
+	mouse_global_pos: Vector2,
+	book_sprite: Sprite2D
+) -> bool:
+	var frame_size = book_sprite.texture.get_size() / Vector2(
+		book_sprite.hframes,
+		book_sprite.vframes
+	)
+	
+	var pixel_in_frame = Global.global_to_image_pos(
+		mouse_global_pos,
+		book_sprite,
+		frame_size
+	)
+	
+	var frame = book_sprite.frame
+	var column = frame % book_sprite.hframes
+	
+	@warning_ignore("integer_division")
+	var row = frame / book_sprite.hframes
+	
+	var frame_offset = Vector2(column, row) * frame_size
+	
+	var atlas_pixel = pixel_in_frame + frame_offset
+	
+	var image = book_sprite.texture.get_image()
+	
+	return Global.is_mask_image_overlap_alpha(atlas_pixel, image)

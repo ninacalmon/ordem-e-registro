@@ -3,6 +3,7 @@ extends Node
 var focus_layer = 200
 var focus_time = 0.4
 var is_something_focused = false
+var is_something_being_dragged = false
 
 enum AudioBus {
 	MASTER,
@@ -15,6 +16,47 @@ const AUDIO_BUS_DIC = {
 	AudioBus.MUSIC: "Music",
 	AudioBus.SOUND_EFFECTS: "SoundEffects"
 }
+
+enum PointerVariations {
+	DEFAULT,
+	SCISSOR,
+	DELETE,
+	DRAGGABLE,
+	DRAGGING,
+	PEN
+}
+
+const POINTER_VARIATIONS_DIC = {
+	PointerVariations.DEFAULT: {
+		"texture": preload("res://Sprites/UI/Mouse1.png"),
+		"hotspot": Vector2(0, 0)
+	},
+	PointerVariations.SCISSOR: {
+		"texture": preload("res://Sprites/UI/MouseSC1.png"),
+		"hotspot": Vector2(8, 8)
+	},
+	PointerVariations.DELETE: {
+		"texture": preload("res://Sprites/UI/MouseX1.png"),
+		"hotspot": Vector2(15, 15)
+	},
+	PointerVariations.DRAGGABLE: {
+		"texture": preload("res://Sprites/UI/MouseHO.png"),
+		"hotspot": Vector2(10, 15)
+	},
+	PointerVariations.DRAGGING: {
+		"texture": preload("res://Sprites/UI/MouseHC.png"),
+		"hotspot": Vector2(10, 15)
+	},
+	PointerVariations.PEN: {
+		"texture": preload("res://Sprites/UI/MouseP1.png"),
+		"hotspot": Vector2(28, 28)
+	}
+}
+
+func set_current_mouse_pointer(pointer_variation: PointerVariations):
+	var pointer_var = POINTER_VARIATIONS_DIC[pointer_variation]
+
+	Input.set_custom_mouse_cursor(pointer_var.texture, Input.CursorShape.CURSOR_ARROW, pointer_var.hotspot)
 
 func is_aabb_overlap_with_image(local_to_image_position: Vector2, image: Image) -> bool:
 	return local_to_image_position.x >= 0 and \

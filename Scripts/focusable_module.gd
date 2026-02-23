@@ -49,6 +49,7 @@ func _input(event):
 func focus_on():
 	Global.is_something_focused = true
 	EventBus.focus_mode_changed.emit(subject, true)
+	Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 
 	self.is_animation_playing = true
 	subject.z_index = Global.focus_layer
@@ -79,7 +80,8 @@ func focus_on():
 
 func focus_off():
 	self.is_animation_playing = true
-
+	
+	Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 	subject.z_index = subject_idle_z_index
 	var focus_tween = get_tree().create_tween()
 	focus_tween.tween_property(subject, "global_position", subject_idle_global_pos, self.unfocus_time)
