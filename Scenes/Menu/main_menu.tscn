@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://xcespirprdg1"]
+
+[ext_resource type="Script" uid="uid://cxerwrilkq6pl" path="res://Scenes/Menu/start.gd" id="1_bkwd7"]
+[ext_resource type="Script" uid="uid://3jslkn4hno1c" path="res://Scenes/Menu/exit.gd" id="2_tself"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s51c5"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -227.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+text = "START"
+script = ExtResource("1_bkwd7")
+
+[node name="Exit" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+text = "EXIT
+"
+script = ExtResource("2_tself")

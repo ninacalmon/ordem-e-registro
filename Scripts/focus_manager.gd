@@ -1,8 +1,7 @@
 extends Node
 
-@onready var blurred_layer: CanvasLayer = $BlurredLayer
+
 @onready var blur_rect: ColorRect = %BlurRect
-@onready var canvas_modulate_blur: CanvasModulate = $BlurredLayer/CanvasModulateBlur
 @onready var blur_rect_material: ShaderMaterial = blur_rect.material
 @onready var canvas_modulate_global: CanvasModulate = $"../LightingSetup/CanvasModulate"
 
