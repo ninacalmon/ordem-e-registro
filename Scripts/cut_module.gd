@@ -7,7 +7,7 @@ class_name CutModule
 @onready var sprite: Sprite2D = self.get_parent()
 
 const CUT_COLOR: Color = Color(0.8, 0.8, 0.8)
-const CUT_THICKNESS: float = 2.0
+const CUT_THICKNESS: float = 1.5
 
 const MASK_SHOW_COLOR_VALUE: float = 1.0
 const MASK_HIDE_COLOR_VALUE: float = 0.0
@@ -69,8 +69,7 @@ func _input(event: InputEvent):
 	
 	if event.is_action_pressed("cut_action"):
 		var current_mouse_pos = get_global_mouse_position()
-
-		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
+		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 
 		var can_start_cutting: bool = !current_mouse_info.is_inside_image \
 		and not self.is_cutting \
@@ -81,7 +80,6 @@ func _input(event: InputEvent):
 	
 	if event.is_action_pressed("select_cut"):
 		if not self.is_cutting:
-			self.is_cutting = false
 			self.is_selecting_cut = !self.is_selecting_cut
 	
 	if event is InputEventMouseMotion:
@@ -93,9 +91,9 @@ func _input(event: InputEvent):
 func handle_mouse_motion(event: InputEventMouseMotion):
 		var current_mouse_pos = get_global_mouse_position()
 		var previous_mouse_pos = current_mouse_pos - event.relative
-		
-		var previous_mouse_info = self.compute_mouse_info(previous_mouse_pos)
-		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
+
+		var previous_mouse_info = Global.compute_mouse_info(previous_mouse_pos, self.sprite, self.mask_image)
+		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 
 		if self.is_cutting and not self.is_selecting_cut:
 			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, self.CUT_THICKNESS)
@@ -106,7 +104,7 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
 		var current_mouse_pos = get_global_mouse_position()
-		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
+		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 
 		if current_mouse_info.is_inside_image:
 			var region = self.flood_fill_region(current_mouse_info.mouse_pos_local_to_image, {})
@@ -115,17 +113,10 @@ func handle_mouse_button(event: InputEventMouseButton):
 			if has_user_selected_valid_region:
 				region.append_array(self.cut_path_pixel_array)
 				self.cut_path_pixel_array.clear()
+				## Redraw frame when cut pixel array is changed
 				queue_redraw()
 				self.fade_region(region)
-
-func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
-	var mouse_info = ImageMouseInfo.new()
-	var mouse_pos_local_to_image = Global.global_to_image_pos(global_pos, self.sprite, self.mask_image.get_size())
-
-	mouse_info.mouse_pos_local_to_image = mouse_pos_local_to_image
-	mouse_info.is_inside_image = self.is_mask_image_overlap(mouse_pos_local_to_image, self.mask_image)
-
-	return mouse_info
+				self.is_selecting_cut = false
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	## Using Bresenham again to draw the cut lines as well
@@ -165,6 +156,25 @@ func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 			current_y += step_y
 
 	self.mask_texture.update(self.mask_image)
+
+
+func erase_circle(center: Vector2, radius: float):
+	var min_x = floor(center.x - radius)
+	var max_x = ceil(center.x + radius)
+	var min_y = floor(center.y - radius)
+	var max_y = ceil(center.y + radius)
+
+	for x in range(min_x, max_x):
+		for y in range(min_y, max_y):
+			var position_in_image = Vector2(x, y)
+			if Global.is_aabb_overlap_with_image(position_in_image, self.mask_image):
+				if position_in_image.distance_to(center) <= radius:
+					var pixel = Vector2i(x,y)
+					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE and not self.cut_path_pixel_array.has(pixel):
+						self.mask_image.set_pixel(x, y, self.CUT_COLOR)
+						self.cut_path_pixel_array.append(Vector2i(x,y))
+						## Redraw frame when cut pixel array is changed
+						queue_redraw()
 
 func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array[Vector2i]:
 	var stack = [start]
@@ -208,23 +218,6 @@ func fade_region(region: Array):
 		"pixels": region,
 		"time": 0.0
 	})
-
-func erase_circle(center: Vector2, radius: float):
-	var min_x = floor(center.x - radius)
-	var max_x = ceil(center.x + radius)
-	var min_y = floor(center.y - radius)
-	var max_y = ceil(center.y + radius)
-
-	for x in range(min_x, max_x):
-		for y in range(min_y, max_y):
-			var position_in_image = Vector2(x, y)
-			if Global.is_aabb_overlap_with_image(position_in_image, self.mask_image):
-				if position_in_image.distance_to(center) <= radius:
-					var pixel = Vector2i(x,y)
-					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE and not self.cut_path_pixel_array.has(pixel):
-						self.mask_image.set_pixel(x, y, self.CUT_COLOR)
-						self.cut_path_pixel_array.append(Vector2i(x,y))
-						queue_redraw()
 
 func compare_cut_precision():
 	if self.image_comparison_module == null:
