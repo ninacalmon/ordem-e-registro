@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://chbraq4tb1kgp"]
+[gd_scene load_steps=17 format=3 uid="uid://chbraq4tb1kgp"]
 
 [ext_resource type="Script" uid="uid://vc1qjnckb86" path="res://Scripts/draw_module.gd" id="1_axkmt"]
 [ext_resource type="Script" uid="uid://bewe0kfv5ixii" path="res://Scenes/reference.gd" id="1_kh1kw"]
+[ext_resource type="Texture2D" uid="uid://djosrrm3j6x60" path="res://Sprites/Signatures/Sig_01.png" id="2_47nh4"]
 [ext_resource type="Script" uid="uid://ctntf2brgohes" path="res://Scenes/drawable_canvas.gd" id="2_pgdyx"]
+[ext_resource type="Texture2D" uid="uid://c62cv7ridlghs" path="res://Sprites/Signatures/Sig_02.png" id="3_nq6wt"]
 [ext_resource type="Script" uid="uid://dtd30aj0k6jkw" path="res://Scripts/image_comparison_module.gd" id="3_pgdyx"]
+[ext_resource type="Texture2D" uid="uid://8odfv7kd2hnu" path="res://Sprites/Signatures/Sig_03.png" id="4_dwpho"]
+[ext_resource type="Texture2D" uid="uid://ddsr10vhrf6ep" path="res://Sprites/Signatures/Sig_04.png" id="5_c1ou7"]
+[ext_resource type="Texture2D" uid="uid://cabily8o0vbg2" path="res://Sprites/Signatures/Sig_05.png" id="6_p1i00"]
+[ext_resource type="Texture2D" uid="uid://c3eynlvsf42tm" path="res://Sprites/Signatures/Sig_06.png" id="7_au714"]
+[ext_resource type="Texture2D" uid="uid://byjmebl7lrq14" path="res://Sprites/Signatures/Sig_07.png" id="8_2m1yo"]
+[ext_resource type="Texture2D" uid="uid://llwrisgtdye1" path="res://Sprites/Signatures/Sig_08.png" id="9_8swoy"]
+[ext_resource type="Texture2D" uid="uid://b2awqkri38aju" path="res://Sprites/Signatures/Sig_09.png" id="10_dar4e"]
+[ext_resource type="Texture2D" uid="uid://b4vyqv8jp7ir3" path="res://Sprites/Signatures/Sig_10.png" id="11_rh6xg"]
+[ext_resource type="Texture2D" uid="uid://212n8okt6roq" path="res://Sprites/Signatures/Sig_11.png" id="12_me0e6"]
+[ext_resource type="Texture2D" uid="uid://bj2q2ppatfb76" path="res://Sprites/Signatures/Sig_12.png" id="13_r1b56"]
 
 [node name="SignatureSpace" type="Node2D"]
 
@@ -11,6 +23,7 @@
 modulate = Color(1.825, 0, 0, 0.322)
 centered = false
 script = ExtResource("1_kh1kw")
+reference_texture_array = Array[CompressedTexture2D]([ExtResource("2_47nh4"), ExtResource("3_nq6wt"), ExtResource("4_dwpho"), ExtResource("5_c1ou7"), ExtResource("6_p1i00"), ExtResource("7_au714"), ExtResource("8_2m1yo"), ExtResource("9_8swoy"), ExtResource("10_dar4e"), ExtResource("11_rh6xg"), ExtResource("12_me0e6"), ExtResource("13_r1b56")])
 
 [node name="DrawableSpr" type="Sprite2D" parent="." node_paths=PackedStringArray("reference")]
 centered = false

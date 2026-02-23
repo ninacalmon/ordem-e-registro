@@ -72,6 +72,7 @@ texture = ExtResource("3_o5yvi")
 
 [node name="Doc_BirthCertificate" parent="." instance=ExtResource("6_i6g32")]
 position = Vector2(234.99998, 73)
+rotation = 0.25307274
 
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)

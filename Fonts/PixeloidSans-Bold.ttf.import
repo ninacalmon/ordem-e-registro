@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d0xadco06mvux"
-path="res://.godot/imported/AsepriteFont.ttf-1d877be8718b5b9b50ca5ea4e5ac486b.fontdata"
+uid="uid://c782ea2gyse0k"
+path="res://.godot/imported/PixeloidSans-Bold.ttf-1de54d3e087e21d4150a79b1a69a8aa5.fontdata"
 
 [deps]
 
-source_file="res://Fonts/AsepriteFont.ttf"
-dest_files=["res://.godot/imported/AsepriteFont.ttf-1d877be8718b5b9b50ca5ea4e5ac486b.fontdata"]
+source_file="res://Fonts/PixeloidSans-Bold.ttf"
+dest_files=["res://.godot/imported/PixeloidSans-Bold.ttf-1de54d3e087e21d4150a79b1a69a8aa5.fontdata"]
 
 [params]
 
@@ -23,7 +23,7 @@ allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
@@ -34,8 +34,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "New Configuration",
-"size": Vector2i(16, 0),
-&"variation_embolden": 0.0
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}

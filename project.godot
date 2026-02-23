@@ -20,6 +20,7 @@ config/icon="res://Sprites/icon.svg"
 EventBus="*res://Global/event_bus.gd"
 Global="*res://Global/global.gd"
 LevelTransition="*res://Global/level_transition.tscn"
+CustomerInfo="*res://customer_info.gd"
 
 [display]
 
