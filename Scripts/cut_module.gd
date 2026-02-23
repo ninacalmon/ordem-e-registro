@@ -7,7 +7,7 @@ class_name CutModule
 @onready var sprite: Sprite2D = self.get_parent()
 
 const CUT_COLOR: Color = Color(0.8, 0.8, 0.8)
-const CUT_SIZE: float = 2.0
+const CUT_THICKNESS: float = 2.0
 
 const MASK_SHOW_COLOR_VALUE: float = 1.0
 const MASK_HIDE_COLOR_VALUE: float = 0.0
@@ -98,7 +98,7 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
 
 		if self.is_cutting and not self.is_selecting_cut:
-			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, 1.5)
+			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, self.CUT_THICKNESS)
 	
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 			self.is_cutting = false
@@ -115,6 +115,7 @@ func handle_mouse_button(event: InputEventMouseButton):
 			if has_user_selected_valid_region:
 				region.append_array(self.cut_path_pixel_array)
 				self.cut_path_pixel_array.clear()
+				queue_redraw()
 				self.fade_region(region)
 
 func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
@@ -223,6 +224,7 @@ func erase_circle(center: Vector2, radius: float):
 					if self.mask_image.get_pixel(x, y).r != self.MASK_HIDE_COLOR_VALUE and not self.cut_path_pixel_array.has(pixel):
 						self.mask_image.set_pixel(x, y, self.CUT_COLOR)
 						self.cut_path_pixel_array.append(Vector2i(x,y))
+						queue_redraw()
 
 func compare_cut_precision():
 	if self.image_comparison_module == null:
@@ -253,3 +255,13 @@ func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
 
 	## Check if current pixel is white (visible, > 0.5) or black (transparent, < 0.5)
 	return pixel.r > VISIBILITY_THRESHOLD
+
+func _draw():
+	if cut_path_pixel_array.is_empty():
+		return
+
+	for pixel in cut_path_pixel_array:
+		draw_rect(
+			Rect2(Vector2(pixel.x, pixel.y), Vector2(self.CUT_THICKNESS, self.CUT_THICKNESS)),
+			Color(1, 0, 0)
+		)
