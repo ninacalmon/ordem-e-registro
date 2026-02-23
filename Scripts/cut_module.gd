@@ -79,6 +79,11 @@ func _input(event: InputEvent):
 		if can_start_cutting:
 			self.is_cutting = true
 	
+	if event.is_action_pressed("select_cut"):
+		if not self.is_cutting:
+			self.is_cutting = false
+			self.is_selecting_cut = !self.is_selecting_cut
+	
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)
 
@@ -96,11 +101,11 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, 1.5)
 	
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
-			self.is_selecting_cut = true
+			self.is_cutting = false
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
-		var current_mouse_pos = event.position
+		var current_mouse_pos = get_global_mouse_position()
 		var current_mouse_info = self.compute_mouse_info(current_mouse_pos)
 
 		if current_mouse_info.is_inside_image:
@@ -111,7 +116,6 @@ func handle_mouse_button(event: InputEventMouseButton):
 				region.append_array(self.cut_path_pixel_array)
 				self.cut_path_pixel_array.clear()
 				self.fade_region(region)
-				self.is_selecting_cut = false
 
 func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
 	var mouse_info = ImageMouseInfo.new()
@@ -123,16 +127,41 @@ func compute_mouse_info(global_pos: Vector2) -> ImageMouseInfo:
 	return mouse_info
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
+	## Using Bresenham again to draw the cut lines as well
 	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image.get_size())
 	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
 
-	var steps = max(1, int(from.distance_to(to)))
-	for i in range(steps):
-		var t = float(i) / steps
-		var point = from.lerp(to, t)
-		if not Global.is_aabb_overlap_with_image(point, mask_image):
-			continue
-		self.erase_circle(point, thickness)
+	var current_x = int(from.x)
+	var current_y = int(from.y)
+	var target_x = int(to.x)
+	var target_y = int(to.y)
+
+	var delta_x = abs(target_x - current_x)
+	var delta_y = abs(target_y - current_y)
+
+	var step_x = -1 if current_x > target_x else 1
+	var step_y = -1 if current_y > target_y else 1
+
+	var error_value = delta_x - delta_y
+
+	while true:
+		var point = Vector2(current_x, current_y)
+
+		if Global.is_aabb_overlap_with_image(point, mask_image):
+			self.erase_circle(point, thickness)
+
+		if current_x == target_x and current_y == target_y:
+			break
+
+		var doubled_error = 2 * error_value
+
+		if doubled_error > -delta_y:
+			error_value -= delta_y
+			current_x += step_x
+
+		if doubled_error < delta_x:
+			error_value += delta_x
+			current_y += step_y
 
 	self.mask_texture.update(self.mask_image)
 
@@ -159,7 +188,11 @@ func flood_fill_region(start: Vector2i, visited: Dictionary) -> Array[Vector2i]:
 			current + Vector2i(1,0),
 			current + Vector2i(-1,0),
 			current + Vector2i(0,1),
-			current + Vector2i(0,-1)
+			current + Vector2i(0,-1),
+			current + Vector2i(1,1),
+			current + Vector2i(-1,-1),
+			current + Vector2i(1,-1),
+			current + Vector2i(-1,1)
 		]
 
 		for n in neighbors:
