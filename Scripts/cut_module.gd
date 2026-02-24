@@ -120,14 +120,11 @@ func handle_mouse_button(event: InputEventMouseButton):
 
 		if current_mouse_info.is_inside_image:
 			var region = self.flood_fill_region(current_mouse_info.mouse_pos_local_to_image, {})
-			var has_user_selected_valid_region = region.size() > 0
-
-			if has_user_selected_valid_region:
-				region.append_array(self.cut_path_pixel_array)
-				self.cut_path_pixel_array.clear()
-				## Redraw frame when cut pixel array is changed
-				queue_redraw()
-				self.fade_region(region)
+			region.append_array(self.cut_path_pixel_array)
+			self.cut_path_pixel_array.clear()
+			## Redraw frame when cut pixel array is changed
+			queue_redraw()
+			self.fade_region(region)
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	## Using Bresenham again to draw the cut lines as well

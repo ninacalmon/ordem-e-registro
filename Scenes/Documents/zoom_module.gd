@@ -13,6 +13,10 @@ extends Node
 @export var zoom_speed: float = 0.1
 
 func _input(event: InputEvent) -> void:
+	if focusable_module and !focusable_module.is_focused:
+		target_node.position = initial_pos
+		target_node.scale = initial_scale
+
 	if event is InputEventMouseButton \
 	and focusable_module.is_focused:
 		var sprite_image: Image = self.sprite.texture.get_image()

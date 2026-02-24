@@ -12,19 +12,7 @@ var drawing := false
 var last_pixel: Vector2i
 
 func _process(delta: float) -> void:
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
-		mouse_pos,
-		self.drawable_canvas,
-		self.drawable_canvas.texture.get_image()
-	)
-	var is_overlap = Global.is_aabb_overlap_with_image(
-		mouse_info.mouse_pos_local_to_image,
-		self.drawable_canvas.texture.get_image()
-	)
-
-	if is_overlap:
-		Global.pointer_state = Global.PointerVariations.PEN
+	self.handle_mouse_pointer_logic()
 
 func _input(event):
 	if focusable_module && focusable_module.is_focused == false:
@@ -81,3 +69,18 @@ func draw_pixel(x: int, y: int):
 	if x >= 0 and x < image_width and y >= 0 and y < image_height:
 		EventBus.new_pixel_drawn.emit(x, y, draw_color, image.get_pixel(x, y))
 		image.set_pixel(x, y, draw_color)
+
+func handle_mouse_pointer_logic():
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
+		mouse_pos,
+		self.drawable_canvas,
+		self.drawable_canvas.texture.get_image()
+	)
+	var is_overlap = Global.is_aabb_overlap_with_image(
+		mouse_info.mouse_pos_local_to_image,
+		self.drawable_canvas.texture.get_image()
+	)
+
+	if is_overlap:
+		Global.pointer_state = Global.PointerVariations.PEN
