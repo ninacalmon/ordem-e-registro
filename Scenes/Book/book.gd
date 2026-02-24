@@ -20,6 +20,9 @@ func _on_animation_finished(_anim):
 		pages_h_container.show()
 
 func _input(event):
+	if Global.is_something_focused:
+		return
+
 	if event is InputEventMouseButton:
 		var global_mouse_pos = get_global_mouse_position()
 		
@@ -51,14 +54,14 @@ func _input(event):
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
 			dragging = true
-			Global.is_something_being_dragged = true
+			Global.pointer_state = Global.PointerVariations.DRAGGING
 
 			Global.set_current_mouse_pointer(Global.PointerVariations.DRAGGING)
 			drag_offset = target.global_position - global_mouse_pos
 
 		if event.is_action_released("right_mouse_button"):
 			dragging = false
-			Global.is_something_being_dragged = false
+			Global.pointer_state = Global.PointerVariations.DEFAULT
 
 			Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 
@@ -67,12 +70,12 @@ func _input(event):
 		
 		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
 
-		if !self.dragging and !Global.is_something_being_dragged:
+		if !self.dragging:
 			if is_mouse_overlapping:
 				get_viewport().set_input_as_handled()
-				Global.set_current_mouse_pointer(Global.PointerVariations.DRAGGABLE)
+				Global.pointer_state = Global.PointerVariations.DRAGGABLE
 			else:
-				Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
+				Global.pointer_state = Global.PointerVariations.DEFAULT
 
 func _process(_delta: float) -> void:
 	if dragging:

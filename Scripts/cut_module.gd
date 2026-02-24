@@ -44,6 +44,11 @@ func _ready():
 	)
 
 func _process(delta):
+	if self.is_cutting:
+		Global.pointer_state = Global.PointerVariations.SCISSOR
+	if self.is_selecting_cut:
+		Global.pointer_state = Global.PointerVariations.DELETE
+
 	if self.fading_region_array.size() == 0:
 		return
 
@@ -81,16 +86,11 @@ func _input(event: InputEvent):
 
 		if can_start_cutting:
 			self.is_cutting = true
-			Global.set_current_mouse_pointer(Global.PointerVariations.SCISSOR)
 	
 	if event.is_action_pressed("select_cut") and self.cut_count > 0:
 		if not self.is_cutting:
 			var is_selecting = !self.is_selecting_cut
 			self.is_selecting_cut = is_selecting
-			if is_selecting:
-				Global.set_current_mouse_pointer(Global.PointerVariations.DELETE)
-			else:
-				Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 				
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)

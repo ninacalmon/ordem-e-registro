@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=21 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
+[ext_resource type="Script" uid="uid://8f83xls5kxme" path="res://Scenes/pointer_manager.gd" id="16_ewbju"]
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
 
@@ -118,3 +119,6 @@ offset_left = -124.0
 offset_top = -90.0
 offset_right = 1132.0
 offset_bottom = 625.0
+
+[node name="PointerManager" type="Node2D" parent="."]
+script = ExtResource("16_ewbju")

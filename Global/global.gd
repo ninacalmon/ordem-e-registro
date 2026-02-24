@@ -3,7 +3,6 @@ extends Node
 var focus_layer = 200
 var focus_time = 0.4
 var is_something_focused = false
-var is_something_being_dragged = false
 
 enum AudioBus {
 	MASTER,
@@ -25,6 +24,8 @@ enum PointerVariations {
 	DRAGGING,
 	PEN
 }
+
+var pointer_state: PointerVariations = PointerVariations.DEFAULT
 
 const POINTER_VARIATIONS_DIC = {
 	PointerVariations.DEFAULT: {
