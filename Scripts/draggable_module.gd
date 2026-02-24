@@ -3,6 +3,7 @@ extends Node2D
 @export var sprite: Sprite2D
 @export var target: Node2D
 @export var focusable_module: FocusableModule
+@export var zoom_module: ZoomModule
 
 var dragging = false
 var drag_offset = Vector2.ZERO
@@ -40,18 +41,10 @@ func _input(event: InputEvent) -> void:
 		self.dragging = false
 
 		if focusable_module:
-			focusable_module.update_idle_transform()
-
-	if event is InputEventMouseMotion:
-		var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
-			mouse_pos,
-			sprite,
-			sprite.texture.get_image()
-		)
-		var is_overlap = Global.is_aabb_overlap_with_image(
-			mouse_info.mouse_pos_local_to_image,
-			sprite.texture.get_image()
-		)
+			self.focusable_module.update_idle_transform()
+		if zoom_module:
+			var local_node_position = target.position
+			self.zoom_module.update_initial_position(local_node_position)
 
 func _process(_delta: float) -> void:
 	if !Global.is_something_focused:

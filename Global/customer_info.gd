@@ -90,25 +90,26 @@ const SKIN_COLORS: Array[Color] = [
 	Color(0.5, 0.4, 0.35)
 ]
 
-var father_first_name
-var mother_first_name
+var father_first_name: String
+var mother_first_name: String
 
-var father_surname
-var mother_surname
+var father_surname: String
+var mother_surname: String
 
-var father_complete_name
-var mother_complete_name
+var father_complete_name: String
+var mother_complete_name: String
 
 var child_gender
-var child_birth_date
-var child_skin_color
+var child_birth_date: String
+var child_skin_color: Color
 var child_birth_state
 
-var child_first_name
-var child_inherited_surname
-var child_complete_name
+var child_first_name: String
+var child_inherited_surname: String
+var child_complete_name: String
 
-var book_code
+var book_code: String
+var consolidated_id_code: String
 
 func generate_new_customer_info():
 	var _father_first_name = _generate_first_name(Gender.MALE)
@@ -142,6 +143,24 @@ func generate_new_customer_info():
 	self.child_birth_state = _generate_birth_state()
 
 	self.book_code = _generate_book_code()
+	self.consolidated_id_code = _compute_consolidated_id_code()
+	
+
+func _compute_consolidated_id_code():
+	if self.child_birth_state == null \
+	or self.mother_first_name == null \
+	or self.father_first_name == null \
+	or self.child_birth_date == null:
+		assert(false, "Cannot compute consolidated id code because of lack of info")
+	
+	var consolidated_code = self.child_birth_state.code + "-" \
+	+ self.mother_first_name[0] \
+	+ self.father_first_name[0] \
+	+ self.child_first_name[0] \
+	+ "-" \
+	+ "00M"
+	
+	return consolidated_code
 
 
 func _generate_book_code() -> String:

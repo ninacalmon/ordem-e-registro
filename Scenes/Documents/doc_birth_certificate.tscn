@@ -78,7 +78,8 @@ focusable_module = NodePath("../FocusableModule")
 sprite = NodePath("../DocSpr")
 target_node = NodePath("../DocSpr")
 
-[node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
+[node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target", "zoom_module")]
 script = ExtResource("6_mpwx7")
 sprite = NodePath("../DocSpr")
 target = NodePath("../DocSpr")
+zoom_module = NodePath("../ZoomModule")

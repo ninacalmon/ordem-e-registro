@@ -1,4 +1,5 @@
 extends Node
+class_name ZoomModule
 
 @export var focusable_module: FocusableModule
 
@@ -12,11 +13,12 @@ extends Node
 @export var max_zoom: float = 5
 @export var zoom_speed: float = 0.1
 
-func _input(event: InputEvent) -> void:
-	if focusable_module and !focusable_module.is_focused:
+func _process(_delta: float) -> void:
+	if focusable_module and !focusable_module.is_focused and target_node.scale != initial_scale:
 		target_node.position = initial_pos
 		target_node.scale = initial_scale
 
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton \
 	and focusable_module.is_focused:
 		var sprite_image: Image = self.sprite.texture.get_image()
@@ -55,3 +57,6 @@ func zoom_logic(factor: float) -> void:
 
 	if factor < 1.0:
 		target_node.position = target_node.position.lerp(initial_pos, 0.01)
+
+func update_initial_position(local_node_position: Vector2):
+	self.initial_pos = local_node_position

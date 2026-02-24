@@ -63,6 +63,7 @@ alignment = 1
 max_length = 10
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
+value_type = 1
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_b05pd")
