@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctu3apyve2u8e"]
+[gd_scene load_steps=10 format=3 uid="uid://ctu3apyve2u8e"]
 
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_8m6eu"]
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_kb344"]
 [ext_resource type="PackedScene" uid="uid://chbraq4tb1kgp" path="res://Scenes/signature_space.tscn" id="2_b05pd"]
 [ext_resource type="Texture2D" uid="uid://djosrrm3j6x60" path="res://Sprites/Signatures/Sig_01.png" id="3_inbbl"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="4_b05pd"]
+[ext_resource type="Theme" uid="uid://c14p3r478pryl" path="res://Themes/body_theme.tres" id="5_ecd5p"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_inbbl"]
+[ext_resource type="Script" uid="uid://b4k7awbttwwxu" path="res://Scripts/id_code_text_box.gd" id="5_jiot0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jiot0"]
 shader = ExtResource("1_kb344")
@@ -28,6 +30,39 @@ texture = ExtResource("3_inbbl")
 
 [node name="DrawModule" parent="idSpr/SignatureSpace" index="3"]
 draw_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+
+[node name="Control" type="Control" parent="idSpr"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+
+[node name="CodeLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 49.0
+offset_right = 144.0
+offset_bottom = 69.0
+theme = ExtResource("5_ecd5p")
+alignment = 1
+max_length = 10
+script = ExtResource("5_jiot0")
+focusable_module = NodePath("../../../FocusableModule")
+
+[node name="BirthDateLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 32.0
+offset_right = 132.0
+offset_bottom = 52.0
+theme = ExtResource("5_ecd5p")
+alignment = 1
+max_length = 10
+script = ExtResource("5_jiot0")
+focusable_module = NodePath("../../../FocusableModule")
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_b05pd")
