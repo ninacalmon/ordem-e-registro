@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctu3apyve2u8e"]
+[gd_scene load_steps=14 format=3 uid="uid://ctu3apyve2u8e"]
 
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_8m6eu"]
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_kb344"]
@@ -14,6 +14,18 @@ shader = ExtResource("1_kb344")
 shader_parameter/shadow_only = false
 shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
 shader_parameter/blur_std = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecd5p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv2wt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2aqmi"]
+bg_color = Color(0.64, 0.576, 0.512, 0.50980395)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jevfq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="doc_Id" type="Node2D"]
 
@@ -36,34 +48,71 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 25.000002
+offset_top = 11.000002
+offset_right = 25.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.7, 0.7)
 focus_mode = 2
 
-[node name="CodeLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
+[node name="NameLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
 layout_mode = 0
-offset_left = 90.0
-offset_top = 49.0
-offset_right = 144.0
-offset_bottom = 69.0
+offset_left = 78.0
+offset_top = 21.0
+offset_right = 180.0
+offset_bottom = 41.0
 theme = ExtResource("5_ecd5p")
-alignment = 1
-max_length = 10
+theme_override_colors/font_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+theme_override_colors/font_uneditable_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ecd5p")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_cv2wt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
+placeholder_text = "Nome Sobrenome"
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
 
 [node name="BirthDateLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
 layout_mode = 0
-offset_left = 78.0
-offset_top = 32.0
-offset_right = 132.0
-offset_bottom = 52.0
+offset_left = 78.57143
+offset_top = 35.714283
+offset_right = 143.57144
+offset_bottom = 55.714283
 theme = ExtResource("5_ecd5p")
+theme_override_colors/font_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+theme_override_colors/font_uneditable_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_jevfq")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_cv2wt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
+placeholder_text = "DD/MM/YYYY"
+max_length = 10
+virtual_keyboard_type = 2
+script = ExtResource("5_jiot0")
+focusable_module = NodePath("../../../FocusableModule")
+value_type = 1
+
+[node name="CodeLineEdit" type="LineEdit" parent="idSpr/Control" node_paths=PackedStringArray("focusable_module")]
+layout_mode = 0
+offset_left = 98.571434
+offset_top = 59.999996
+offset_right = 163.57144
+offset_bottom = 80.0
+theme = ExtResource("5_ecd5p")
+theme_override_colors/font_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
+theme_override_colors/font_uneditable_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+theme_override_colors/font_placeholder_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ecd5p")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_cv2wt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
+placeholder_text = "XX-XXX-XXX"
 alignment = 1
 max_length = 10
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
-value_type = 1
+value_type = 2
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_b05pd")

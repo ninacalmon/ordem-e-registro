@@ -71,15 +71,15 @@ position = Vector2(507, 269)
 scale = Vector2(1.3, 1.3)
 texture = ExtResource("3_o5yvi")
 
-[node name="CutAndPlace" parent="." instance=ExtResource("8_nb51f")]
-position = Vector2(518, 407)
-
 [node name="Doc_BirthCertificate" parent="." instance=ExtResource("6_i6g32")]
 position = Vector2(234.99998, 73)
 rotation = 0.25307274
 
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)
+
+[node name="DocImageToCut" parent="." instance=ExtResource("8_nb51f")]
+position = Vector2(518, 407)
 
 [node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
 z_index = 200

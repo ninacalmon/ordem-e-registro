@@ -12,7 +12,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ag86f")
 
-[node name="CutAndPlace" type="Node2D"]
+[node name="DocImageToCut" type="Node2D"]
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dryh")
