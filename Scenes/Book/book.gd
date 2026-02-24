@@ -54,30 +54,15 @@ func _input(event):
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
 			dragging = true
-			Global.pointer_state = Global.PointerVariations.DRAGGING
-
-			Global.set_current_mouse_pointer(Global.PointerVariations.DRAGGING)
 			drag_offset = target.global_position - global_mouse_pos
 
 		if event.is_action_released("right_mouse_button"):
 			dragging = false
-			Global.pointer_state = Global.PointerVariations.DEFAULT
-
-			Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
-
-	if event is InputEventMouseMotion:
-		var global_mouse_pos = get_global_mouse_position()
-		
-		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
-
-		if !self.dragging:
-			if is_mouse_overlapping:
-				get_viewport().set_input_as_handled()
-				Global.pointer_state = Global.PointerVariations.DRAGGABLE
-			else:
-				Global.pointer_state = Global.PointerVariations.DEFAULT
 
 func _process(_delta: float) -> void:
+	if !Global.is_something_focused:
+		self.handle_mouse_pointer_state()
+
 	if dragging:
 		var new_pos = get_global_mouse_position() + drag_offset
 		
@@ -122,3 +107,15 @@ func is_mouse_over_book_sprite(
 	var image = book_sprite.texture.get_image()
 	
 	return Global.is_mask_image_overlap_alpha(atlas_pixel, image)
+
+func handle_mouse_pointer_state():
+	if self.dragging:
+		Global.pointer_state = Global.PointerVariations.DRAGGING
+	else:
+		var global_mouse_pos = get_global_mouse_position()
+		
+		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
+
+		if is_mouse_overlapping:
+			get_viewport().set_input_as_handled()
+			Global.pointer_state = Global.PointerVariations.DRAGGABLE

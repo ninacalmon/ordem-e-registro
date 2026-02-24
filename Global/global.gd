@@ -50,7 +50,7 @@ const POINTER_VARIATIONS_DIC = {
 	},
 	PointerVariations.PEN: {
 		"texture": preload("res://Sprites/UI/MouseP1.png"),
-		"hotspot": Vector2(28, 28)
+		"hotspot": Vector2(0, 27)
 	}
 }
 

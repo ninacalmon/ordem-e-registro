@@ -11,6 +11,21 @@ extends Node2D
 var drawing := false
 var last_pixel: Vector2i
 
+func _process(delta: float) -> void:
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
+		mouse_pos,
+		self.drawable_canvas,
+		self.drawable_canvas.texture.get_image()
+	)
+	var is_overlap = Global.is_aabb_overlap_with_image(
+		mouse_info.mouse_pos_local_to_image,
+		self.drawable_canvas.texture.get_image()
+	)
+
+	if is_overlap:
+		Global.pointer_state = Global.PointerVariations.PEN
+
 func _input(event):
 	if focusable_module && focusable_module.is_focused == false:
 		return

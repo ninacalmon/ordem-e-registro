@@ -53,14 +53,9 @@ func _input(event: InputEvent) -> void:
 			sprite.texture.get_image()
 		)
 
-		if !self.dragging and Global.pointer_state != Global.PointerVariations.DRAGGING:
-			if is_overlap:
-				get_viewport().set_input_as_handled()
-				Global.pointer_state = Global.PointerVariations.DRAGGABLE
-
 func _process(_delta: float) -> void:
-	if self.dragging:
-		Global.pointer_state = Global.PointerVariations.DRAGGING
+	if !Global.is_something_focused:
+		self.handle_mouse_pointer_state()
 
 	if dragging:
 		var new_pos = get_global_mouse_position() + drag_offset
@@ -75,3 +70,20 @@ func _process(_delta: float) -> void:
 		new_pos.y = clamp(new_pos.y, -margin.y, viewport_size.y - margin.y)
 		
 		target.global_position = new_pos
+
+func handle_mouse_pointer_state():
+	if self.dragging:
+		Global.pointer_state = Global.PointerVariations.DRAGGING
+	else:
+		var mouse_pos: Vector2 = get_global_mouse_position()
+		var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
+			mouse_pos,
+			sprite,
+			sprite.texture.get_image()
+		)
+		var is_overlap = Global.is_aabb_overlap_with_image(
+			mouse_info.mouse_pos_local_to_image,
+			sprite.texture.get_image()
+		)
+		if is_overlap and Global.pointer_state != Global.PointerVariations.DRAGGING:
+			Global.pointer_state = Global.PointerVariations.DRAGGABLE

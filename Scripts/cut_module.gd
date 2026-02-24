@@ -44,10 +44,7 @@ func _ready():
 	)
 
 func _process(delta):
-	if self.is_cutting:
-		Global.pointer_state = Global.PointerVariations.SCISSOR
-	if self.is_selecting_cut:
-		Global.pointer_state = Global.PointerVariations.DELETE
+	self.handle_mouse_pointer_state()
 
 	if self.fading_region_array.size() == 0:
 		return
@@ -80,18 +77,22 @@ func _input(event: InputEvent):
 		var current_mouse_pos = get_global_mouse_position()
 		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 
-		var can_start_cutting: bool = !current_mouse_info.is_inside_image \
-		and not self.is_cutting \
-		and not self.is_selecting_cut
+		var can_start_cutting: bool = !current_mouse_info.is_inside_image
 
 		if can_start_cutting:
-			self.is_cutting = true
+			self.is_cutting = !self.is_cutting
+			self.is_selecting_cut = false
 	
 	if event.is_action_pressed("select_cut") and self.cut_count > 0:
-		if not self.is_cutting:
-			var is_selecting = !self.is_selecting_cut
-			self.is_selecting_cut = is_selecting
-				
+		var current_mouse_pos = get_global_mouse_position()
+		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
+		
+		if current_mouse_info.is_inside_image and self.is_cutting:
+			return
+
+		self.is_selecting_cut = !self.is_selecting_cut
+		self.is_cutting = false
+
 	if event is InputEventMouseMotion:
 		self.handle_mouse_motion(event)
 
@@ -111,7 +112,6 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 			self.is_cutting = false
 			self.cut_count += 1
-			Global.set_current_mouse_pointer(Global.PointerVariations.DEFAULT)
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
@@ -128,8 +128,6 @@ func handle_mouse_button(event: InputEventMouseButton):
 				## Redraw frame when cut pixel array is changed
 				queue_redraw()
 				self.fade_region(region)
-	
-				self.is_selecting_cut = false
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	## Using Bresenham again to draw the cut lines as well
@@ -282,3 +280,9 @@ func _draw():
 			Rect2(local_pos, Vector2(self.CUT_THICKNESS, self.CUT_THICKNESS)),
 			Color(1, 0, 0)
 		)
+
+func handle_mouse_pointer_state():
+	if self.is_cutting:
+		Global.pointer_state = Global.PointerVariations.SCISSOR
+	if self.is_selecting_cut:
+		Global.pointer_state = Global.PointerVariations.DELETE
