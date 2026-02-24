@@ -1,4 +1,5 @@
 extends Node2D
+class_name DraggableModule
 
 @export var sprite: Sprite2D
 @export var target: Node2D
@@ -18,7 +19,7 @@ func _input(event: InputEvent) -> void:
 	
 	var mouse_pos: Vector2 = get_global_mouse_position()
 
-	if event.is_action_pressed("right_mouse_button"):
+	if event.is_action_pressed("left_mouse_button"):
 		var mouse_info: ImageMouseInfo = Global.compute_mouse_info(
 			mouse_pos,
 			sprite,
@@ -37,7 +38,7 @@ func _input(event: InputEvent) -> void:
 
 			drag_offset = target.global_position - mouse_pos
 
-	if event.is_action_released("right_mouse_button"):
+	if event.is_action_released("left_mouse_button"):
 		self.dragging = false
 
 		if focusable_module:

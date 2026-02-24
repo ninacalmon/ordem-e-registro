@@ -32,7 +32,7 @@ texture_to_show_text = ExtResource("4_7kc0x")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_mpwx7")
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_7kc0x")
+texture = ExtResource("1_fr2vj")
 centered = false
 
 [node name="SkinColor" type="Sprite2D" parent="DocSpr"]

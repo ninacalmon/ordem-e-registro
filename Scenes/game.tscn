@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=23 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://cxs76t4ia42wu" path="res://Sprites/Decor/papaerpile.png" id="15_85qyi"]
 [ext_resource type="Script" uid="uid://8f83xls5kxme" path="res://Scenes/pointer_manager.gd" id="16_ewbju"]
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
+[ext_resource type="PackedScene" uid="uid://dxwwg6hjiuvt2" path="res://Scenes/stamp.tscn" id="17_ewbju"]
+[ext_resource type="PackedScene" uid="uid://ceadx3ngyr1x4" path="res://Scenes/stamp_tinter.tscn" id="18_85qyi"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
@@ -112,8 +114,17 @@ texture = ExtResource("13_nnt18")
 [node name="Book" parent="." instance=ExtResource("20_7nbq1")]
 position = Vector2(459, 44)
 
+[node name="StampTinter" parent="." node_paths=PackedStringArray("stamp") instance=ExtResource("18_85qyi")]
+position = Vector2(28, 355)
+stamp = NodePath("../Stamp")
+
+[node name="Stamp" parent="." instance=ExtResource("17_ewbju")]
+z_index = 10
+position = Vector2(58, 257)
+
 [node name="BlurRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+z_index = 100
 material = SubResource("ShaderMaterial_ewbju")
 offset_left = -124.0
 offset_top = -90.0

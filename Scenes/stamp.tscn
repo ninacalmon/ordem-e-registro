@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxwwg6hjiuvt2"]
+
+[ext_resource type="Texture2D" uid="uid://psmrohb1l5u3" path="res://Sprites/Decor/StampShadow.png" id="1_11415"]
+[ext_resource type="Script" uid="uid://c62gvm270e04s" path="res://Scenes/stamp.gd" id="1_t2r38"]
+[ext_resource type="Texture2D" uid="uid://c7g08ajm415go" path="res://Sprites/Decor/Stamp.png" id="2_mi2dc"]
+[ext_resource type="Texture2D" uid="uid://bmuufevytcj2p" path="res://Sprites/Decor/StampTip.png" id="3_t2r38"]
+[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="4_mi2dc"]
+[ext_resource type="Texture2D" uid="uid://dcem6vvn4xkti" path="res://Sprites/Decor/StampMark.png" id="6_jajg2"]
+
+[node name="Stamp" type="Node2D" node_paths=PackedStringArray("draggable_module")]
+script = ExtResource("1_t2r38")
+draggable_module = NodePath("DraggableModule")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 26)
+texture = ExtResource("1_11415")
+
+[node name="Stamp" type="Sprite2D" parent="."]
+texture = ExtResource("2_mi2dc")
+
+[node name="Bottom" type="Sprite2D" parent="Stamp"]
+modulate = Color(0.29411766, 0.22352941, 0.18431373, 1)
+texture = ExtResource("3_t2r38")
+
+[node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
+script = ExtResource("4_mi2dc")
+sprite = NodePath("../Stamp")
+target = NodePath("..")
+
+[node name="StampMark" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.22745098)
+position = Vector2(0, 21)
+texture = ExtResource("6_jajg2")

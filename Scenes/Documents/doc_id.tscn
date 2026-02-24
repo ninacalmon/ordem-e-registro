@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctu3apyve2u8e"]
+[gd_scene load_steps=15 format=3 uid="uid://ctu3apyve2u8e"]
 
 [ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_8m6eu"]
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_kb344"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://c14p3r478pryl" path="res://Themes/body_theme.tres" id="5_ecd5p"]
 [ext_resource type="Script" uid="uid://b2kmabuingvn2" path="res://Scenes/Documents/zoom_module.gd" id="5_inbbl"]
 [ext_resource type="Script" uid="uid://b4k7awbttwwxu" path="res://Scripts/id_code_text_box.gd" id="5_jiot0"]
+[ext_resource type="Script" uid="uid://mp5hoyic054a" path="res://Scripts/customizable_module.gd" id="9_jevfq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jiot0"]
 shader = ExtResource("1_kb344")
@@ -30,6 +31,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [node name="doc_Id" type="Node2D"]
 
 [node name="idSpr" type="Sprite2D" parent="."]
+clip_children = 2
 material = SubResource("ShaderMaterial_jiot0")
 texture = ExtResource("1_8m6eu")
 centered = false
@@ -71,6 +73,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ecd5p")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_cv2wt")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
 placeholder_text = "Nome Sobrenome"
+context_menu_enabled = false
+emoji_menu_enabled = false
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
 
@@ -89,6 +93,8 @@ theme_override_styles/read_only = SubResource("StyleBoxFlat_cv2wt")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
 placeholder_text = "DD/MM/YYYY"
 max_length = 10
+context_menu_enabled = false
+emoji_menu_enabled = false
 virtual_keyboard_type = 2
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
@@ -110,6 +116,8 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_2aqmi")
 placeholder_text = "XX-XXX-XXX"
 alignment = 1
 max_length = 10
+context_menu_enabled = false
+emoji_menu_enabled = false
 script = ExtResource("5_jiot0")
 focusable_module = NodePath("../../../FocusableModule")
 value_type = 2
@@ -124,5 +132,10 @@ script = ExtResource("5_inbbl")
 focusable_module = NodePath("../FocusableModule")
 sprite = NodePath("../idSpr")
 target_node = NodePath("../idSpr")
+
+[node name="CustomizableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "parent")]
+script = ExtResource("9_jevfq")
+sprite = NodePath("../idSpr")
+parent = NodePath("..")
 
 [editable path="idSpr/SignatureSpace"]

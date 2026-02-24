@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceadx3ngyr1x4"]
+
+[ext_resource type="Texture2D" uid="uid://d1gtp8l1rknda" path="res://Sprites/Decor/StampTint.png" id="1_eiwdl"]
+[ext_resource type="Script" uid="uid://b8dvti1on00hr" path="res://Scenes/stamp_tinter.gd" id="1_wjd7p"]
+[ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="2_bjgod"]
+[ext_resource type="Texture2D" uid="uid://dq4ivg0ilt0vg" path="res://Sprites/Decor/StampTint_emptycenter.png" id="4_eraci"]
+
+[node name="StampTinter" type="Node2D"]
+script = ExtResource("1_wjd7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_eiwdl")
+
+[node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
+script = ExtResource("2_bjgod")
+sprite = NodePath("../Sprite2D")
+target = NodePath("..")
+
+[node name="TintAreaMaskSprite" type="Sprite2D" parent="."]
+position = Vector2(2, -6)
+texture = ExtResource("4_eraci")

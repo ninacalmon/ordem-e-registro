@@ -68,6 +68,10 @@ select_cut={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_10="stamp mark layer"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

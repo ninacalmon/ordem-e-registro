@@ -17,7 +17,6 @@ shader = ExtResource("2_ag86f")
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dryh")
 texture = ExtResource("1_dvrgk")
-centered = false
 
 [node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "sprite")]
 script = ExtResource("3_o3jcy")

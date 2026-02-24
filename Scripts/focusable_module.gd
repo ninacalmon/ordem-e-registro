@@ -31,7 +31,7 @@ func _input(event):
 		#Global.is_aabb_overlap_with_image(current_pixel, subject_image) USED TO BE THIS
 
 		# Await the animation tween to finish before setting is_focused
-		if event.is_action_pressed("left_mouse_button") \
+		if event.is_action_pressed("right_mouse_button") \
 		and is_mouse_overlapping \
 		and !is_focused \
 		and !Global.is_something_focused:
@@ -40,7 +40,7 @@ func _input(event):
 			self.is_focused = true
 			self.is_animation_playing = false
 			self.change_image_texture_on_focus(self.is_focused)
-		elif event.is_action_pressed("left_mouse_button") and !is_mouse_overlapping and is_focused:
+		elif event.is_action_pressed("right_mouse_button") and !is_mouse_overlapping and is_focused:
 			await focus_off()
 			self.is_focused = false
 			self.is_animation_playing = false
