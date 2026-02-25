@@ -5,6 +5,27 @@ enum Gender {
 	FEMALE
 }
 
+const MALE_PHOTOS: Array[CompressedTexture2D] = [
+	preload("res://Sprites/Photos/Photos w Effects/1.png"),
+	preload("res://Sprites/Photos/Photos w Effects/2.png"),
+	preload("res://Sprites/Photos/Photos w Effects/4.png"),
+	preload("res://Sprites/Photos/Photos w Effects/5.png"),
+	preload("res://Sprites/Photos/Photos w Effects/6.png"),
+	preload("res://Sprites/Photos/Photos w Effects/8.png"),
+	preload("res://Sprites/Photos/Photos w Effects/15.png"),
+	preload("res://Sprites/Photos/Photos w Effects/19.png")
+]
+
+const FEMALE_PHOTOS: Array[CompressedTexture2D] = [
+	preload("res://Sprites/Photos/Photos w Effects/7.png"),
+	preload("res://Sprites/Photos/Photos w Effects/8.png"),
+	preload("res://Sprites/Photos/Photos w Effects/11.png"),
+	preload("res://Sprites/Photos/Photos w Effects/13.png"),
+	preload("res://Sprites/Photos/Photos w Effects/16.png"),
+	preload("res://Sprites/Photos/Photos w Effects/17.png"),
+	preload("res://Sprites/Photos/Photos w Effects/18.png")
+]
+
 const MALE_NAMES: Array[String] = [
 	"Thiago", "Antônio", "José", "Manoel", "Francisco", "Joaquim", "Sebastião", 
 	"Alfredo", "Osvaldo", "Aníbal", "Alberto", "Arnaldo", "Afonso", "Benedito",
@@ -82,9 +103,9 @@ const STATES: Array[Array] = [
 ]
 
 const SKIN_COLORS: Array[Color] = [
-	Color(0.76, 0.703, 0.646, 1.0),
-	Color(0.66, 0.546, 0.508, 1.0),
-	Color(0.36, 0.283, 0.245, 1.0)
+	Color(0.85, 0.808, 0.765),
+	Color(0.74, 0.67, 0.629),
+	Color(0.72, 0.619, 0.569)
 ]
 
 var father_first_name: String
@@ -96,7 +117,9 @@ var mother_surname: String
 var father_complete_name: String
 var mother_complete_name: String
 
-var child_gender
+var child_gender: Gender
+var customer_photo: CompressedTexture2D
+
 var child_birth_date: String
 var child_skin_color: Color
 var child_birth_state
@@ -107,6 +130,9 @@ var child_complete_name: String
 
 var book_code: String
 var consolidated_id_code: String
+
+var male_costumer_possible_photos: Array[CompressedTexture2D] = MALE_PHOTOS.duplicate()
+var female_costumer_possible_photos: Array[CompressedTexture2D] = FEMALE_PHOTOS.duplicate()
 
 func generate_new_customer_info():
 	var _father_first_name = _generate_first_name(Gender.MALE)
@@ -126,6 +152,8 @@ func generate_new_customer_info():
 	
 	var _child_gender = [Gender.MALE, Gender.FEMALE].pick_random()
 	self.child_gender = _child_gender
+	
+	self.customer_photo = _pick_customer_photo(_child_gender)
 	
 	var _child_first_name = _generate_first_name(_child_gender)
 	self.child_first_name = _child_first_name
@@ -167,19 +195,47 @@ func _generate_book_code() -> String:
 	return "%s-%03d" % [letter, number]
 
 func _generate_first_name(gender: Gender) -> String:
-	var pool: Array[String]
+	var possible_names: Array[String]
 	
 	match gender:
 		Gender.MALE:
-			pool = MALE_NAMES
+			possible_names = MALE_NAMES
 		Gender.FEMALE:
-			pool = FEMALE_NAMES
+			possible_names = FEMALE_NAMES
 		_:
 			push_error("Invalid option")
 			return ""
-	
-	return pool.pick_random()
 
+	return possible_names.pick_random()
+
+func _pick_customer_photo(gender: Gender) -> CompressedTexture2D:
+	var possible_photos: Array[CompressedTexture2D]
+	var array_size
+
+	match gender:
+		Gender.MALE:
+			possible_photos = male_costumer_possible_photos
+			array_size = possible_photos.size()
+			if array_size <= 0:
+				male_costumer_possible_photos = MALE_PHOTOS.duplicate()
+				possible_photos = male_costumer_possible_photos
+		Gender.FEMALE:
+			possible_photos = female_costumer_possible_photos
+			array_size = possible_photos.size()
+			if array_size <= 0:
+				male_costumer_possible_photos = FEMALE_PHOTOS.duplicate()
+				possible_photos = female_costumer_possible_photos
+		_:
+			push_error("Invalid option")
+			return
+			
+	var index = randi_range(0, (array_size - 1))
+	var chosen_photo = possible_photos.get(index)
+	possible_photos.remove_at(index)
+	
+	return chosen_photo
+
+	
 func _generate_surname() -> String:
 	if SURNAMES.is_empty():
 		push_error("SURNAMES is empty")

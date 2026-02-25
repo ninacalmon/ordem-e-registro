@@ -8,7 +8,7 @@
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
-[ext_resource type="PackedScene" uid="uid://dsh84e1iee5r5" path="res://Scenes/Documents/doc_image_to_cut.tscn" id="8_nb51f"]
+[ext_resource type="PackedScene" uid="uid://dsh84e1iee5r5" path="res://Scenes/Documents/doc_photo_to_cut.tscn" id="8_nb51f"]
 [ext_resource type="Texture2D" uid="uid://dn8govitwnht8" path="res://Sprites/Decor/inkpen.png" id="12_nb51f"]
 [ext_resource type="Texture2D" uid="uid://blmeivrqo1qhn" path="res://Sprites/Decor/inkpenshadow.png" id="13_nnt18"]
 [ext_resource type="Texture2D" uid="uid://bdi8mlpfqihd1" path="res://Sprites/Decor/inkpenlid.png" id="14_ewbju"]
@@ -57,6 +57,7 @@ shader_parameter/blur_amount = 0.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_rku1e")
+doc_photo_to_cut_scene = ExtResource("8_nb51f")
 
 [node name="FocusManager" type="Node" parent="."]
 script = ExtResource("7_v158k")
@@ -96,9 +97,6 @@ rotation = 0.25307274
 
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)
-
-[node name="DocImageToCut" parent="." instance=ExtResource("8_nb51f")]
-position = Vector2(518, 407)
 
 [node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
 z_index = 200
