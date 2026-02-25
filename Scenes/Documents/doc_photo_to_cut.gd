@@ -79,6 +79,3 @@ func _cut_module_just_removed_part():
 		for y in range(sprite_to_glue_image.get_height()):
 			if (sprite_to_glue_image.get_pixel(x, y).r > 0.5):
 				self.sprite_to_glue_total_pixels += 1
-
-func _exit_tree() -> void:
-	print(" TO VAZANDO")

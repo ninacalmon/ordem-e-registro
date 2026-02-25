@@ -17,6 +17,8 @@ func _ready():
 	instanciate_documents()
 
 func _on_new_docs_timer_timeout():
+	EventBus.new_docs_timer_timeout.emit()
+	
 	await self.remove_documents()
 	CustomerInfo.generate_new_customer_info()
 	self.instanciate_documents()
@@ -31,15 +33,15 @@ func remove_documents() -> void:
 		current_docs_instantiated_scene,
 		"global_position:y",
 		- get_viewport_rect().size.y * 2,
-		1.0
-	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		0.8
+	).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 
 	await tween.finished
 	current_docs_instantiated_scene.queue_free()
 	current_docs_instantiated_scene = null
 
 func instanciate_documents():
-		var new_documents: = documents_group.instantiate()
+		var new_documents: Node2D = documents_group.instantiate()
 		new_documents.global_position.y = get_viewport_rect().size.y * -2
 		documents_layer.add_child(new_documents)
 		var doc_photo_to_cut = doc_photo_to_cut_scene.instantiate()

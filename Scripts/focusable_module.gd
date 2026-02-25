@@ -25,6 +25,10 @@ var unfocus_time = focus_time / 1.3
 
 func _ready() -> void:
 	EventBus.docs_arrived_at_final_position.connect(update_idle_transform)
+	## When docs get out of scene on focus with zoom, 
+	## THE DOCUMENT GETS DRAGGED OUT WITH A GIGANTIC SIZE
+	## Fix that later if there is time
+	EventBus.new_docs_timer_timeout.connect(focus_off)
 
 func _input(event):
 	if event is InputEventMouseButton and !self.is_animation_playing:
@@ -96,7 +100,6 @@ func focus_off():
 
 	EventBus.focus_mode_changed.emit(subject, false)
 	Global.is_something_focused = false
-
 
 func change_image_texture_on_focus(focus_enabled: bool):
 	if focus_enabled && self.focus_on_image_texture != null:
