@@ -2,7 +2,6 @@
 
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="1_7kc0x"]
 [ext_resource type="Script" uid="uid://6qtmus8up4u2" path="res://Scenes/Documents/doc_birth_certificate.gd" id="1_f0h0d"]
-[ext_resource type="Texture2D" uid="uid://d1lm6n8ks6mo" path="res://Sprites/Docs/BirthCertificate_mini.png" id="1_fr2vj"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="2_4kqhv"]
 [ext_resource type="Texture2D" uid="uid://b3a8tej305drr" path="res://Sprites/Docs/BirthCertificate.png" id="4_7kc0x"]
 [ext_resource type="Texture2D" uid="uid://ds6v510kogyo6" path="res://Sprites/Docs/BabySkinColor.png" id="4_chm4q"]
@@ -17,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://mk6s8hiigbhl" path="res://Sprites/Signatures/BC/BCsig_5.png" id="10_a84k6"]
 [ext_resource type="Texture2D" uid="uid://biyek1bn74juy" path="res://Sprites/Signatures/BC/BCsig_6.png" id="11_lp72l"]
 [ext_resource type="Texture2D" uid="uid://dj6ogw85226wq" path="res://Sprites/Signatures/BC/BCsig_7.png" id="12_6od4x"]
+[ext_resource type="Texture2D" uid="uid://cgqx56rbk7pr2" path="res://Sprites/Docs/BirthCertificate_noText.png" id="15_duf43"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mpwx7"]
 shader = ExtResource("1_7kc0x")
@@ -32,7 +32,7 @@ texture_to_show_text = ExtResource("4_7kc0x")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_mpwx7")
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_fr2vj")
+texture = ExtResource("15_duf43")
 centered = false
 
 [node name="SkinColor" type="Sprite2D" parent="DocSpr"]
@@ -70,7 +70,7 @@ vertical_alignment = 1
 script = ExtResource("2_4kqhv")
 subject_spr = NodePath("../DocSpr")
 focus_on_image_texture = ExtResource("4_7kc0x")
-focus_off_image_texture = ExtResource("1_fr2vj")
+focus_off_image_texture = ExtResource("15_duf43")
 
 [node name="ZoomModule" type="Node" parent="." node_paths=PackedStringArray("focusable_module", "sprite", "target_node")]
 script = ExtResource("5_7kc0x")

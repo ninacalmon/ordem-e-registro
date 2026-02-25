@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=40 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -16,8 +16,25 @@
 [ext_resource type="Script" uid="uid://8f83xls5kxme" path="res://Scenes/pointer_manager.gd" id="16_ewbju"]
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
 [ext_resource type="PackedScene" uid="uid://dxwwg6hjiuvt2" path="res://Scenes/stamp.tscn" id="17_ewbju"]
+[ext_resource type="Texture2D" uid="uid://qo6pigu0nmbv" path="res://Sprites/Photos/1.png" id="17_i26dy"]
 [ext_resource type="PackedScene" uid="uid://ceadx3ngyr1x4" path="res://Scenes/stamp_tinter.tscn" id="18_85qyi"]
+[ext_resource type="Texture2D" uid="uid://cgjndgu7k3ajv" path="res://Sprites/Photos/2.png" id="18_lmoi6"]
+[ext_resource type="Texture2D" uid="uid://bvyrnwol068bm" path="res://Sprites/Photos/3.png" id="19_6uxt2"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
+[ext_resource type="Texture2D" uid="uid://c7mtdrg2bc0nd" path="res://Sprites/Photos/4.png" id="20_ym3tv"]
+[ext_resource type="Texture2D" uid="uid://3p11t54yxe8o" path="res://Sprites/Photos/5.png" id="21_bwj6o"]
+[ext_resource type="Texture2D" uid="uid://pc02t6chhovj" path="res://Sprites/Photos/6.png" id="22_f3c8l"]
+[ext_resource type="Texture2D" uid="uid://cxnr5g8nupu4y" path="res://Sprites/Photos/7.png" id="23_bu0y5"]
+[ext_resource type="Texture2D" uid="uid://bpaja3eq1bytj" path="res://Sprites/Photos/8.png" id="24_6a4tp"]
+[ext_resource type="Texture2D" uid="uid://71r7put8jn78" path="res://Sprites/Photos/10.png" id="26_vs120"]
+[ext_resource type="Texture2D" uid="uid://cqwgo4n4ijney" path="res://Sprites/Photos/11.png" id="27_v2cs8"]
+[ext_resource type="Texture2D" uid="uid://cmtohh3gd6r3u" path="res://Sprites/Photos/12.png" id="28_32sfa"]
+[ext_resource type="Texture2D" uid="uid://lnky5fkewaay" path="res://Sprites/Photos/13.png" id="29_titue"]
+[ext_resource type="Texture2D" uid="uid://csbnjxjjroyg4" path="res://Sprites/Photos/15.png" id="30_tt7mg"]
+[ext_resource type="Texture2D" uid="uid://bl184t6l0638o" path="res://Sprites/Photos/16.png" id="31_htg8p"]
+[ext_resource type="Texture2D" uid="uid://mw8deh7xguq6" path="res://Sprites/Photos/17.png" id="32_jcvim"]
+[ext_resource type="Texture2D" uid="uid://bv5s53ug02qn8" path="res://Sprites/Photos/18.png" id="33_fnkle"]
+[ext_resource type="Texture2D" uid="uid://be4blceuc25na" path="res://Sprites/Photos/19.png" id="34_wr3wg"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
 background_mode = 3
@@ -118,6 +135,77 @@ position = Vector2(459, 44)
 position = Vector2(28, 355)
 stamp = NodePath("../Stamp")
 
+[node name="testeee" type="Node2D" parent="."]
+modulate = Color(0.76, 0.703, 0.646, 1)
+
+[node name="1" type="Sprite2D" parent="testeee"]
+position = Vector2(928, 61)
+texture = ExtResource("17_i26dy")
+
+[node name="2" type="Sprite2D" parent="testeee"]
+position = Vector2(832, 430)
+texture = ExtResource("18_lmoi6")
+
+[node name="3" type="Sprite2D" parent="testeee"]
+position = Vector2(895, 208)
+texture = ExtResource("19_6uxt2")
+
+[node name="4" type="Sprite2D" parent="testeee"]
+position = Vector2(175, 509)
+texture = ExtResource("20_ym3tv")
+
+[node name="5" type="Sprite2D" parent="testeee"]
+position = Vector2(47, 440)
+texture = ExtResource("21_bwj6o")
+
+[node name="6" type="Sprite2D" parent="testeee"]
+position = Vector2(24, 200)
+texture = ExtResource("22_f3c8l")
+
+[node name="7" type="Sprite2D" parent="testeee"]
+position = Vector2(758, 138)
+texture = ExtResource("23_bu0y5")
+
+[node name="8" type="Sprite2D" parent="testeee"]
+position = Vector2(252, 172)
+texture = ExtResource("24_6a4tp")
+
+[node name="10" type="Sprite2D" parent="testeee"]
+position = Vector2(306, 71)
+texture = ExtResource("26_vs120")
+
+[node name="11" type="Sprite2D" parent="testeee"]
+position = Vector2(402, 499)
+texture = ExtResource("27_v2cs8")
+
+[node name="12" type="Sprite2D" parent="testeee"]
+position = Vector2(648, 70)
+texture = ExtResource("28_32sfa")
+
+[node name="13" type="Sprite2D" parent="testeee"]
+position = Vector2(357, 276)
+texture = ExtResource("29_titue")
+
+[node name="15" type="Sprite2D" parent="testeee"]
+position = Vector2(426, 77)
+texture = ExtResource("30_tt7mg")
+
+[node name="16" type="Sprite2D" parent="testeee"]
+position = Vector2(682, 385)
+texture = ExtResource("31_htg8p")
+
+[node name="17" type="Sprite2D" parent="testeee"]
+position = Vector2(541, 46)
+texture = ExtResource("32_jcvim")
+
+[node name="18" type="Sprite2D" parent="testeee"]
+position = Vector2(601, 204)
+texture = ExtResource("33_fnkle")
+
+[node name="19" type="Sprite2D" parent="testeee"]
+position = Vector2(479, 234)
+texture = ExtResource("34_wr3wg")
+
 [node name="Stamp" parent="." instance=ExtResource("17_ewbju")]
 z_index = 10
 position = Vector2(58, 257)
@@ -126,9 +214,9 @@ position = Vector2(58, 257)
 unique_name_in_owner = true
 z_index = 100
 material = SubResource("ShaderMaterial_ewbju")
-offset_left = -124.0
+offset_left = -125.0
 offset_top = -90.0
-offset_right = 1132.0
+offset_right = 1131.0
 offset_bottom = 625.0
 mouse_filter = 2
 

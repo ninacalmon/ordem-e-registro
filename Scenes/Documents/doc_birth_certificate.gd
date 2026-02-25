@@ -20,5 +20,3 @@ func _process(_delta: float) -> void:
 		self.signature.show()
 	else:
 		self.birth_data_hbox.hide()
-		self.skin_color.hide()
-		self.signature.hide()

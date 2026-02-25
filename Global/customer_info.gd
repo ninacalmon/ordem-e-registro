@@ -70,7 +70,7 @@ const STATES: Array[Array] = [
   ["Serra Bósnio-Catarinense", "4K"],
   ["Litoral Herzegovino", "8M"],
   ["Nova Banja do Oeste", "6E"],
-  ["Alto Neretva Tropical", "1P"],
+  ["Alto Neretva", "1P"],
   ["Campina Zenicana", "2R"],
   ["Cerrado Sarajevita", "8L"],
   ["Nova Travnik Imperial", "9T"],
@@ -82,12 +82,9 @@ const STATES: Array[Array] = [
 ]
 
 const SKIN_COLORS: Array[Color] = [
-	Color(1.0, 1.0, 1.0),
-	Color(0.9, 0.8, 0.7),
-	Color(0.95, 0.85, 0.7),
-	Color(0.75, 0.6, 0.55),
-	Color(0.6, 0.45, 0.4),
-	Color(0.5, 0.4, 0.35)
+	Color(0.76, 0.703, 0.646, 1.0),
+	Color(0.66, 0.546, 0.508, 1.0),
+	Color(0.36, 0.283, 0.245, 1.0)
 ]
 
 var father_first_name: String

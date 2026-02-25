@@ -112,7 +112,24 @@ theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1
 theme_override_fonts/bold_font = ExtResource("6_ieeyy")
 theme_override_font_sizes/bold_font_size = 10
 bbcode_enabled = true
-text = "[b]1A - [/b]Sarajevo do Sul ----------------------- [b]7C - [/b]Planalto Drínico ----------------------- [b]2F - [/b]Nova Mostária ------------------------ [b]3B - [/b]Vale do Igua-Drina -------------------- [b]9H - [/b]Bósnia Atlântica ----------------------- [b]5D - [/b]Santa Tuzla -------------------------- [b]4K - [/b]Serra Bósnio-Catarinense ------------- [b]8M - [/b]Litoral Herzegovino ------------------ [b]6E - [/b]Nova Banja do Oeste ----------------- [b]1P - [/b]Alto Neretva Tropical ----------------- [b]2R - [/b]Campina Zenicana -------------------- [b]8L - [/b]Cerrado Sarajevita -------------------- [b]9T - [/b]Nova Travnik Imperial --------------- [b]5N - [/b]Fronteira Mostarense ------------------ [b]6S - [/b]Doboj das Missões -------------------- [b]1J - [/b]Vale Verde Bósnio -------------------- [b]3V - [/b]Costa Adriático-Brasiliense ------------ [b]4X - [/b]Novo Srebrenik -----------------------"
+text = "[b]1P - [/b]Alto Neretva ---------------------------
+[b]9H - [/b]Bósnia Atlântica -----------------------
+[b]2R - [/b]Campina Zenicana --------------------
+[b]8L - [/b]Cerrado Sarajevita --------------------
+[b]3V - [/b]Costa Adriático-Brasiliense ------------
+[b]6S - [/b]Doboj das Missões --------------------
+[b]5N - [/b]Fronteira Mostarense ------------------
+[b]8M - [/b]Litoral Herzegovino ------------------
+[b]2F - [/b]Nova Mostária ------------------------
+[b]9T - [/b]Nova Travnik Imperial ---------------
+[b]6E - [/b]Nova Banja do Oeste -----------------
+[b]4X - [/b]Novo Srebrenik -----------------------
+[b]7C - [/b]Planalto Drínico -----------------------
+[b]1A - [/b]Sarajevo do Sul -----------------------
+[b]4K - [/b]Serra Bósnio-Catarinense -------------
+[b]5D - [/b]Santa Tuzla --------------------------
+[b]3B - [/b]Vale do Igua-Drina --------------------
+[b]1J - [/b]Vale Verde Bósnio --------------------"
 fit_content = true
 tab_size = 2
 

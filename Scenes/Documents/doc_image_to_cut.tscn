@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dsh84e1iee5r5"]
 
-[ext_resource type="Texture2D" uid="uid://bx6tmvgmpkdny" path="res://Sprites/Docs/ID.png" id="1_dvrgk"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="2_ag86f"]
+[ext_resource type="Texture2D" uid="uid://qo6pigu0nmbv" path="res://Sprites/Photos/1.png" id="2_o3jcy"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_o3jcy"]
 [ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="4_ag86f"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="4_ukqfg"]
@@ -16,7 +16,8 @@ shader = ExtResource("2_ag86f")
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dryh")
-texture = ExtResource("1_dvrgk")
+texture = ExtResource("2_o3jcy")
+centered = false
 
 [node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "sprite")]
 script = ExtResource("3_o3jcy")
