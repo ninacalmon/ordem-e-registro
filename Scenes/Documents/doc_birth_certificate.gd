@@ -11,7 +11,7 @@ extends Node2D
 func _ready():
 	birth_data_rich_text_label.text = \
 	"CERTIFICO que, no livro %s, foi lavrado o assento de: %s.\n Nascido(a) no dia %s, no HOSPITAL PATRIA, polo estado %s, filho(a) de %s e de %s." \
-	% [CustomerInfo.book_code, CustomerInfo.child_complete_name, CustomerInfo.child_birth_date, CustomerInfo.child_birth_state.state, CustomerInfo.father_complete_name, CustomerInfo.mother_complete_name]
+	% [CustomerInfo.book_code, CustomerInfo.child_complete_name, CustomerInfo.child_birth_date, CustomerInfo.child_birth_state.state, CustomerInfo.mother_complete_name, CustomerInfo.father_complete_name]
 
 func _process(_delta: float) -> void:
 	if self.doc_spr.texture == self.texture_to_show_text:
