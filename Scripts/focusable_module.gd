@@ -60,10 +60,10 @@ func focus_on():
 	subject.rotation = 0
 	subject.scale *= bring_closer_scale
 
+	
 	var sprite_rect = subject_spr.get_rect()
-	var sprite_center_local = sprite_rect.position + sprite_rect.size / 2.0
+	var sprite_center_local = sprite_rect.size * 0.5
 	var sprite_center_global = Global.image_to_global_pos(sprite_center_local, subject_spr, subject_spr.texture.get_image())
-	#var sprite_center_global = subject_spr.get_global_transform() * sprite_center_local
 
 	# and then we get then back to normal after calculations have already been set, and just then, we tween it.
 	# it's really sad how bad it is. i challenge you to fix it T.T

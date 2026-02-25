@@ -1,5 +1,6 @@
 extends Node2D
 class_name CutModule
+signal just_removed_cut_part
 
 @export var focusable_module: FocusableModule
 @export var image_comparison_module: ImageComparisonModule
@@ -62,6 +63,7 @@ func _process(delta):
 				mask_image.set_pixel(pixel.x, pixel.y, Color(alpha,0,0))
 
 	self.mask_texture.update(mask_image)
+	self.just_removed_cut_part.emit()
 
 	self.fading_region_array = self.fading_region_array.filter(func(r):
 		return r.time < FADE_DURATION
@@ -242,20 +244,6 @@ func compare_cut_precision():
 			if mask_pixel.r != 0:
 				var global_pos = Global.image_to_global_pos(Vector2(x, y), self.sprite, self.mask_image)
 				self.image_comparison_module.compare_coordinates_cut(global_pos.x, global_pos.y)
-
-func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
-	const VISIBILITY_THRESHOLD = 0.5
-
-	var x = local_pos.x
-	var y = local_pos.y
-	
-	if not Global.is_aabb_overlap_with_image(local_pos, msk_img):
-		return false
-	
-	var pixel = msk_img.get_pixel(x, y)
-
-	## Check if current pixel is white (visible, > 0.5) or black (transparent, < 0.5)
-	return pixel.r > VISIBILITY_THRESHOLD
 
 func _draw():
 	if cut_path_pixel_array.is_empty():

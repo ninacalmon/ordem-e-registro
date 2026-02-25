@@ -19,6 +19,7 @@ func _ready() -> void:
 		for y in range(self.reference_image_height):
 			if (self.reference_image.get_pixel(x, y).a != 0):
 				self.max_possible_score += 1
+
 	print("POSSIBLE SCORREEE ", self.max_possible_score)
 
 func compare_coordinates(sam_x, sam_y, color, previous_color):

@@ -86,10 +86,9 @@ func image_to_global_pos(image_pos: Vector2, sprite: Sprite2D, image: Image) -> 
 
 func is_mask_image_overlap(local_pos: Vector2, msk_img: Image) -> bool:
 	const VISIBILITY_THRESHOLD = 0.5
-
 	var x = local_pos.x
 	var y = local_pos.y
-	
+
 	if not Global.is_aabb_overlap_with_image(local_pos, msk_img):
 		return false
 	

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsh84e1iee5r5"]
+[gd_scene load_steps=10 format=3 uid="uid://dsh84e1iee5r5"]
 
+[ext_resource type="Script" uid="uid://ic40tgxwbq1t" path="res://Scenes/Documents/doc_image_to_cut.gd" id="1_o3jcy"]
 [ext_resource type="Shader" uid="uid://dyiebk611nsr6" path="res://Shaders/cut_shader.gdshader" id="2_ag86f"]
-[ext_resource type="Texture2D" uid="uid://qo6pigu0nmbv" path="res://Sprites/Photos/1.png" id="2_o3jcy"]
 [ext_resource type="Script" uid="uid://dwe5h84neq1i5" path="res://Scripts/cut_module.gd" id="3_o3jcy"]
+[ext_resource type="Texture2D" uid="uid://cgjndgu7k3ajv" path="res://Sprites/Photos/2.png" id="3_ukqfg"]
 [ext_resource type="Texture2D" uid="uid://b5polu3kst1s3" path="res://Sprites/icon.svg" id="4_ag86f"]
 [ext_resource type="Script" uid="uid://b86rmmvsr0lar" path="res://Scripts/focusable_module.gd" id="4_ukqfg"]
 [ext_resource type="Texture2D" uid="uid://baeymqi3ucv2g" path="res://Sprites/TheMage.png" id="5_o3jcy"]
@@ -12,12 +13,15 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ag86f")
 
-[node name="DocImageToCut" type="Node2D"]
+[node name="DocImageToCut" type="Node2D" node_paths=PackedStringArray("draggable_module", "cut_module", "sprite_to_glue")]
+script = ExtResource("1_o3jcy")
+draggable_module = NodePath("DraggableModule")
+cut_module = NodePath("CutModule")
+sprite_to_glue = NodePath("Icon")
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dryh")
-texture = ExtResource("2_o3jcy")
-centered = false
+texture = ExtResource("3_ukqfg")
 
 [node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "sprite")]
 script = ExtResource("3_o3jcy")
