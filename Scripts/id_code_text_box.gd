@@ -10,6 +10,7 @@ enum InputCodeTypes {
 @export var value_type: InputCodeTypes
 
 var already_submitted: bool = false
+var previous_text: String = ""
 
 func _ready():
 	self.text_submitted.connect(_on_line_input_submitted)
@@ -56,24 +57,32 @@ func _on_line_input_submitted(new_text: String):
 func format_birth_date(new_text: String):
 	text_changed.disconnect(_on_line_text_changed)
 	
-	if new_text.length() == 2 or new_text.length() == 5:
-		if !new_text.ends_with("/"):
-			new_text += "/"
+	var is_deleting := new_text.length() < previous_text.length()
+	
+	if !is_deleting:
+		if new_text.length() == 2 or new_text.length() == 5:
+			if !new_text.ends_with("/"):
+				new_text += "/"
 	
 	text = new_text
 	set_caret_column(text.length())
 	
+	previous_text = text
 	text_changed.connect(_on_line_text_changed)
 
 func format_id_code(new_text: String):
 	text_changed.disconnect(_on_line_text_changed)
 	
-	if new_text.length() == 2 or new_text.length() == 6:
-		if !new_text.ends_with("-"):
-			new_text += "-"
+	var is_deleting := new_text.length() < previous_text.length()
+	
+	if !is_deleting:
+		if new_text.length() == 2 or new_text.length() == 6:
+			if !new_text.ends_with("-"):
+				new_text += "-"
 	
 	text = new_text
 	set_caret_column(text.length())
 	
+	previous_text = text
 	text_changed.connect(_on_line_text_changed)
 	
