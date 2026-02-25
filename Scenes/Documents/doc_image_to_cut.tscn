@@ -13,29 +13,30 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ag86f")
 
-[node name="DocImageToCut" type="Node2D" node_paths=PackedStringArray("draggable_module", "cut_module", "sprite_to_glue")]
+[node name="DocImageToCut" type="Node2D" node_paths=PackedStringArray("draggable_module", "cut_module", "sprite_to_glue", "sprite_to_glue_parent")]
 script = ExtResource("1_o3jcy")
 draggable_module = NodePath("DraggableModule")
 cut_module = NodePath("CutModule")
-sprite_to_glue = NodePath("Icon")
+sprite_to_glue = NodePath("Photo")
+sprite_to_glue_parent = NodePath(".")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Photo" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dryh")
 texture = ExtResource("3_ukqfg")
 
 [node name="CutModule" type="Node2D" parent="." node_paths=PackedStringArray("focusable_module", "sprite")]
 script = ExtResource("3_o3jcy")
 focusable_module = NodePath("../FocusableModule")
-sprite = NodePath("../Icon")
+sprite = NodePath("../Photo")
 cutting_custom_mouse_texture = ExtResource("4_ag86f")
 selecting_custom_mouse_texture = ExtResource("5_o3jcy")
 
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_ukqfg")
-subject_spr = NodePath("../Icon")
+subject_spr = NodePath("../Photo")
 bring_closer_scale = 2.0
 
 [node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
 script = ExtResource("6_2pdud")
-sprite = NodePath("../Icon")
-target = NodePath("../Icon")
+sprite = NodePath("../Photo")
+target = NodePath("../Photo")

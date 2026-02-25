@@ -3,9 +3,9 @@ extends Node2D
 @export var draggable_module: DraggableModule
 @export var cut_module: CutModule
 @export var sprite_to_glue: Sprite2D
-## PUT TARGET SPRITE IN A GROUP AND GET THE NODE HERE, IT IS BETTER THIS TIME
-@export var target_sprite: Sprite2D
-@export var target_sprite_parent: Node2D
+@export var sprite_to_glue_parent: Node2D
+
+@onready var target_sprite: Sprite2D = get_tree().get_first_node_in_group("DocIdSprite")
 
 var sprite_to_glue_total_pixels: float = 0
 var is_being_dragged: bool = false
@@ -18,8 +18,6 @@ func _ready() -> void:
 		for y in range(sprite_to_glue_image.get_height()):
 			if (sprite_to_glue_image.get_pixel(x, y).r > 0.5):
 				self.sprite_to_glue_total_pixels += 1
-	print("TOTAL TO GLUE ON INITTTTTTTT ", self.sprite_to_glue_total_pixels)
-	## UPDATE THIS WHEN CUT HAPPENS, WE SHOULD USE A SIGNAL
 
 ## Workaround to implement fast
 func _process(_delta: float) -> void:
@@ -29,12 +27,18 @@ func _process(_delta: float) -> void:
 	if !draggable_module.dragging and self.is_being_dragged:
 		var target_mask = self.target_sprite.texture.get_image()
 		
-		## CALCULATE THIS GLUE RECT BASED OF MASK IMAGE SPRITE OF CUT MODULE
-		## TO GET ACTUAL CURRENT IMAGE SIZE
-		var glue_rect_local = sprite_to_glue.get_rect()
+		## This here gets the current white mask bounds to calculate
+		## if it needs to glue based off the current visible sprite
+		## (as already mentioned on this code before, the black parts of the mask
+		## make the sprite on top invisible)
+		var mask_bounds = cut_module.mask_white_bounds
+
+		var sprite_to_glue_local_position = Vector2(mask_bounds.position)
+		var sprite_to_glue_local_size = Vector2(mask_bounds.size)
+
 		var glue_rect_global = Rect2(
-			sprite_to_glue.to_global(glue_rect_local.position),
-			glue_rect_local.size * sprite_to_glue.global_scale
+			Global.image_to_global_pos(sprite_to_glue_local_position, self.sprite_to_glue, self.sprite_to_glue.texture.get_image()),
+			sprite_to_glue_local_size * sprite_to_glue.global_scale
 		)
 
 		var target_rect_local = target_sprite.get_rect()
@@ -58,13 +62,11 @@ func _process(_delta: float) -> void:
 						to_glue.global_position = Global.global_to_image_pos(self.sprite_to_glue.global_position, self.target_sprite, self.target_sprite.texture.get_size())
 
 						self.target_sprite.add_child(to_glue)
-						self.target_sprite_parent.call_deferred("queue_free")
+						self.sprite_to_glue_parent.call_deferred("queue_free")
 						break
 	
 		self.is_being_dragged = false
 
-## This here runs more times than it needs to because the emitter sends more
-## than once this event with the same values
 func _cut_module_just_removed_part():
 	self.sprite_to_glue_total_pixels = 0
 	var sprite_to_glue_image = self.cut_module.mask_image

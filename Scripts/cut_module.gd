@@ -17,6 +17,7 @@ const FADE_DURATION: float = 0.3
 
 var mask_image: Image
 var mask_texture: ImageTexture
+var mask_white_bounds: Rect2
 
 var fading_region_array = []
 
@@ -44,13 +45,19 @@ func _ready():
 		self.mask_texture
 	)
 
+	self.mask_white_bounds = self.get_mask_white_bounds()
+
 func _process(delta):
 	self.handle_mouse_pointer_state()
 
 	if self.fading_region_array.size() == 0:
 		return
 
+	var finished_regions = []
+
 	for region_data in self.fading_region_array:
+		var was_finished = region_data.time >= FADE_DURATION
+		
 		region_data.time += delta
 		var t = clamp(region_data.time / FADE_DURATION, 0.0, 1.0)
 
@@ -62,12 +69,18 @@ func _process(delta):
 			if mask_image.get_pixel(pixel.x, pixel.y).r != self.MASK_HIDE_COLOR_VALUE:
 				mask_image.set_pixel(pixel.x, pixel.y, Color(alpha,0,0))
 
+		if not was_finished and region_data.time >= FADE_DURATION:
+					finished_regions.append(region_data)
+
 	self.mask_texture.update(mask_image)
-	self.just_removed_cut_part.emit()
 
 	self.fading_region_array = self.fading_region_array.filter(func(r):
 		return r.time < FADE_DURATION
 	)
+
+	for _region in finished_regions:
+		self.mask_white_bounds = self.get_mask_white_bounds()
+		self.just_removed_cut_part.emit()
 
 func _input(event: InputEvent):
 	if focusable_module && focusable_module.is_focused == false:
@@ -271,3 +284,57 @@ func handle_mouse_pointer_state():
 		Global.pointer_state = Global.PointerVariations.SCISSOR
 	if self.is_selecting_cut:
 		Global.pointer_state = Global.PointerVariations.DELETE
+
+func get_mask_white_bounds() -> Rect2i:
+	var width = mask_image.get_width()
+	var height = mask_image.get_height()
+
+	var top = -1
+	var bottom = -1
+	var left = -1
+	var right = -1
+
+	# ---- TOP ----
+	for y in range(height):
+		for x in range(width):
+			if mask_image.get_pixel(x, y).r > 0.9:
+				top = y
+				break
+		if top != -1:
+			break
+
+	# If there is no white pixels on mask
+	if top == -1:
+		return Rect2(0, 0, 0, 0)
+
+	# ---- BOTTOM ----
+	for y in range(height - 1, -1, -1):
+		for x in range(width):
+			if mask_image.get_pixel(x, y).r > 0.9:
+				bottom = y
+				break
+		if bottom != -1:
+			break
+
+	# ---- LEFT ----
+	for x in range(width):
+		for y in range(height):
+			if mask_image.get_pixel(x, y).r > 0.9:
+				left = x
+				break
+		if left != -1:
+			break
+
+	# ---- RIGHT ----
+	for x in range(width - 1, -1, -1):
+		for y in range(height):
+			if mask_image.get_pixel(x, y).r > 0.9:
+				right = x
+				break
+		if right != -1:
+			break
+
+	var rect_width = right - left + 1
+	var rect_height = bottom - top + 1
+
+	return Rect2(left, top, rect_width, rect_height)

@@ -29,6 +29,10 @@ window/size/viewport_height=540
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="uid://3eg8l5f6bytq"
 
+[global_group]
+
+DocIdSprite=""
+
 [gui]
 
 theme/default_font_antialiasing=0

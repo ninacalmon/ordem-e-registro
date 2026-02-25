@@ -28,9 +28,9 @@ bg_color = Color(0.64, 0.576, 0.512, 0.50980395)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jevfq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="doc_Id" type="Node2D"]
+[node name="doc_Id" type="Node2D" groups=["DocIdParent"]]
 
-[node name="idSpr" type="Sprite2D" parent="."]
+[node name="idSpr" type="Sprite2D" parent="." groups=["DocIdSprite"]]
 clip_children = 2
 material = SubResource("ShaderMaterial_jiot0")
 texture = ExtResource("1_8m6eu")

@@ -97,10 +97,8 @@ rotation = 0.25307274
 [node name="doc_Id" parent="." instance=ExtResource("5_rku1e")]
 position = Vector2(662, 196)
 
-[node name="DocImageToCut" parent="." node_paths=PackedStringArray("target_sprite", "target_sprite_parent") instance=ExtResource("8_nb51f")]
+[node name="DocImageToCut" parent="." instance=ExtResource("8_nb51f")]
 position = Vector2(518, 407)
-target_sprite = NodePath("../doc_Id/idSpr")
-target_sprite_parent = NodePath(".")
 
 [node name="DustParticles" parent="." instance=ExtResource("8_ewbju")]
 z_index = 200
@@ -225,6 +223,3 @@ mouse_filter = 2
 
 [node name="PointerManager" type="Node2D" parent="."]
 script = ExtResource("16_ewbju")
-
-[editable path="doc_Id"]
-[editable path="doc_Id/idSpr/SignatureSpace"]
