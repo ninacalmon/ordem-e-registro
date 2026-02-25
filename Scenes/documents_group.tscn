@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxrnygid3b673"]
+
+[ext_resource type="PackedScene" uid="uid://diwfnnhdl845" path="res://Scenes/Documents/doc_birth_certificate.tscn" id="1_rjtau"]
+[ext_resource type="PackedScene" uid="uid://ctu3apyve2u8e" path="res://Scenes/Documents/doc_id.tscn" id="2_vy7ci"]
+
+[node name="DocumentsGroup" type="Node2D"]
+
+[node name="Doc_BirthCertificate" parent="." instance=ExtResource("1_rjtau")]
+position = Vector2(260, 46)
+rotation = 0.25307274
+
+[node name="doc_Id" parent="." instance=ExtResource("2_vy7ci")]
+position = Vector2(529, 368)
+
+[node name="Placeholder_PhotoToCut" type="Node2D" parent="."]
+position = Vector2(707, 244)

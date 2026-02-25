@@ -28,7 +28,7 @@ func _input(event):
 		
 		var is_mouse_overlapping = self.is_mouse_over_book_sprite(global_mouse_pos, self.book_spr)
 
-		if event.is_action_pressed("left_mouse_button") \
+		if event.is_action_pressed("right_mouse_button") \
 		and is_mouse_overlapping \
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
@@ -37,26 +37,26 @@ func _input(event):
 				book_is_open = true
 			elif book_is_open and get_local_mouse_position().x >= book_page_division:
 				book_is_open = false
-				self.book_spr.flip_h = true
+				self.book_spr.flip_h = false
 				pages_h_container.hide()
 				self.anim_player.play_backwards("open")
 				await anim_player.animation_finished
 			elif book_is_open and get_local_mouse_position().x < book_page_division:
 				book_is_open = false
-				self.book_spr.flip_h = false
+				self.book_spr.flip_h = true
 				pages_h_container.hide()
 				self.anim_player.play_backwards("open")
 				await anim_player.animation_finished
 				
 				
-		if event.is_action_pressed("right_mouse_button") \
+		if event.is_action_pressed("left_mouse_button") \
 		and is_mouse_overlapping \
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
 			dragging = true
 			drag_offset = target.global_position - global_mouse_pos
 
-		if event.is_action_released("right_mouse_button"):
+		if event.is_action_released("left_mouse_button"):
 			dragging = false
 
 func _process(_delta: float) -> void:

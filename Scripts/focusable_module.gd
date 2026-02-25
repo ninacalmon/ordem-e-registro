@@ -23,6 +23,9 @@ var is_animation_playing = false
 var focus_time = Global.focus_time
 var unfocus_time = focus_time / 1.3
 
+func _ready() -> void:
+	EventBus.docs_arrived_at_final_position.connect(update_idle_transform)
+
 func _input(event):
 	if event is InputEventMouseButton and !self.is_animation_playing:
 		var global_mouse_pos = get_global_mouse_position()

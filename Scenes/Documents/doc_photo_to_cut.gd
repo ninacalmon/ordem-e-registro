@@ -5,7 +5,11 @@ extends Node2D
 @export var sprite_to_glue: Sprite2D
 @export var sprite_to_glue_parent: Node2D
 
-@onready var target_sprite: Sprite2D = get_tree().get_first_node_in_group("DocIdSprite")
+## For some reason after the first doc batch gets queued free, the @onready var target_sprite
+## turns into null as we cant find it by group anymore, and every doc batch after that does not holds a reference correctly.
+## Therefore, we assign this reference here on the moment of instantiation of this node
+## Bad but, well, its a gamejam after all
+var target_sprite: Sprite2D
 
 var sprite_to_glue_total_pixels: float = 0
 var is_being_dragged: bool = false
@@ -75,3 +79,6 @@ func _cut_module_just_removed_part():
 		for y in range(sprite_to_glue_image.get_height()):
 			if (sprite_to_glue_image.get_pixel(x, y).r > 0.5):
 				self.sprite_to_glue_total_pixels += 1
+
+func _exit_tree() -> void:
+	print(" TO VAZANDO")

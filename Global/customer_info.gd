@@ -17,7 +17,6 @@ const MALE_PHOTOS: Array[CompressedTexture2D] = [
 ]
 
 const FEMALE_PHOTOS: Array[CompressedTexture2D] = [
-	preload("res://Sprites/Photos/Photos w Effects/7.png"),
 	preload("res://Sprites/Photos/Photos w Effects/8.png"),
 	preload("res://Sprites/Photos/Photos w Effects/11.png"),
 	preload("res://Sprites/Photos/Photos w Effects/13.png"),
@@ -27,15 +26,15 @@ const FEMALE_PHOTOS: Array[CompressedTexture2D] = [
 ]
 
 const MALE_NAMES: Array[String] = [
-	"Thiago", "Antônio", "José", "Manoel", "Francisco", "Joaquim", "Sebastião", 
-	"Alfredo", "Osvaldo", "Aníbal", "Alberto", "Arnaldo", "Afonso", "Benedito",
-	"Clóvis", "Dionísio", "Domingos", "Elias", "Estevão", "Evaristo",
-	"Floriano", "Geraldo", "Gervásio", "Herculano", "Inácio", "Isidoro",
-	"Juvêncio", "Leôncio", "Lourenço", "Manuel", "Mário",
-	"Norberto", "Olavo", "Orlando", "Pascoal", "Plínio", "Raul",
-	"Rodolfo", "Romeu", "Salvador", "Adão",
-	"Teodoro", "Ulisses", "Valentim", "Vicente", "Virgílio",
-	"Zacarias", "Baltazar", "Celestino", "Cipriano", "Dário",
+	"Thiago", "Antonio", "José", "Manoel", "Francisco", "Joaquim", "Sebastiao", 
+	"Alfredo", "Osvaldo", "Anibal", "Alberto", "Arnaldo", "Afonso", "Benedito",
+	"Clovis", "Dionisio", "Domingos", "Elias", "Estevao", "Evaristo",
+	"Floriano", "Geraldo", "Gervasio", "Herculano", "Inacio", "Isidoro",
+	"Juvencio", "Leoncio", "Lourenço", "Manuel", "Mario",
+	"Norberto", "Olavo", "Orlando", "Pascoal", "Plinio", "Raul",
+	"Rodolfo", "Romeu", "Salvador", "Adao",
+	"Teodoro", "Ulisses", "Valentim", "Vicente", "Virgilio",
+	"Zacarias", "Baltazar", "Celestino", "Cipriano", "Dario",
 	"Edmundo", "Ezequiel", "Gaspar", "Heitor", "Ivo",
 	"Josip", "Antun", "Francislav", "Alberdan", "Sebastjan",
 	"Dominko", "Estevan",
@@ -43,15 +42,15 @@ const MALE_NAMES: Array[String] = [
 ]
 
 const FEMALE_NAMES: Array[String] = [
-	"Maria", "Ana", "Francisca", "Antônia", "Sebastiana", "Josefa", "Tereza",
-	"Benedita", "Alzira", "Almerinda", "Amélia", "Anastácia", "Aparecida",
-	"Beatriz", "Carlota", "Celina", "Conceição", "Dalva", "Doralina",
-	"Efigênia", "Elvira", "Ernestina", "Eulália",
+	"Maria", "Ana", "Francisca", "Antonia", "Sebastiana", "Josefa", "Tereza",
+	"Benedita", "Alzira", "Almerinda", "Amelia", "Anastacia", "Aparecida",
+	"Beatriz", "Carlota", "Celina", "Conceiçao", "Dalva", "Doralina",
+	"Efigenia", "Elvira", "Ernestina", "Eulalia",
 	"Filomena", "Florinda", "Gertrudes", "Helena",
-	"Hortênsia", "Inácia", "Iolanda", "Isabel", "Izabelina",
+	"Hortensia", "Inacia", "Iolanda", "Isabel", "Izabelina",
 	"Jandira", "Julieta", "Lourdes", "Leonor", "Lindalva",
 	"Marcelina", "Margarida", "Matilde", "Nazira", "Odete",
-	"Palmira", "Quitéria", "Raimunda", "Rosalina", "Eva",
+	"Palmira", "Quiteria", "Raimunda", "Rosalina", "Eva",
 	"Santina", "Serafina", "Tarsila", "Valentina",
 	"Anita", "Mariana", "Francina", "Antonieta",
 	"Teresina", "Doroteia", "Milena",
@@ -64,21 +63,21 @@ const SURNAMES: Array[String] = [
 	"Alves", "Pereira", "Lima", "Gomes", "Costa", "Ribeiro",
 	"Martins", "Carvalho", "Almeida", "Lopes", "Soares", "Fernandes",
 	"Vieira", "Barbosa", "Rocha", "Dias", "Monteiro", "Cardoso",
-	"Reis", "Araújo", "Correia", "Teixeira", "Castro", "Melo",
+	"Reis", "Araujo", "Correia", "Teixeira", "Castro", "Melo",
 	"Freitas", "Batista", "Campos", "Moraes", "Ramos", "Nascimento",
 	"Andrade", "Moreira", "Pinto", "Cavalcanti", "Peixoto",
 	"Figueiredo", "Machado", "Azevedo", "Barros", "Coelho",
 	"Marques", "Cunha", "Tavares", "Borges", "Mendes",
-	"Franco", "Guimarães", "Fonseca", "Rezende", "Neves",
+	"Franco", "Guimaraes", "Fonseca", "Rezende", "Neves",
 	"Amaral", "Sales", "Macedo", "Nogueira", "Porto",
 	"Queiroz", "Duarte", "Santana", "Moura", "Xavier", "Oliveira",
 	"Aguiar", "Bittencourt", "Braga", "Caldeira", "Chagas",
 	"Damasceno", "Esteves", "Farias", "Garcia", "Henriques",
-	"Leite", "Magalhães", "Noronha", "Paiva", "Quintana",
+	"Leite", "Magalhaes", "Noronha", "Paiva", "Quintana",
 	"Siqueira", "Torres", "Valente", "Werneck", "Zanetti",
 	"Delgado", "Ventura", "Pacheco", "Lacerda", "Barreto",
 	"Cabral", "Drummond", "Goulart", "Meireles", "Rangel",
-	"Sampaio", "Trindade", "Uchoa", "Vasconcelos", "Zanon"
+	"Sampaio", "Trindade", "Uchoa", "Vasconcelos"
 ]
 
 const STATES: Array[Array] = [

@@ -34,7 +34,7 @@ selecting_custom_mouse_texture = ExtResource("5_o3jcy")
 [node name="FocusableModule" type="Node2D" parent="." node_paths=PackedStringArray("subject_spr")]
 script = ExtResource("4_ukqfg")
 subject_spr = NodePath("../Photo")
-bring_closer_scale = 2.0
+bring_closer_scale = 2.5
 
 [node name="DraggableModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "target")]
 script = ExtResource("6_2pdud")
