@@ -209,32 +209,32 @@ func _generate_first_name(gender: Gender) -> String:
 
 func _pick_customer_photo(gender: Gender) -> CompressedTexture2D:
 	var possible_photos: Array[CompressedTexture2D]
-	var array_size
 
 	match gender:
 		Gender.MALE:
-			possible_photos = male_costumer_possible_photos
-			array_size = possible_photos.size()
-			if array_size <= 0:
+			if male_costumer_possible_photos.is_empty():
 				male_costumer_possible_photos = MALE_PHOTOS.duplicate()
-				possible_photos = male_costumer_possible_photos
+			possible_photos = male_costumer_possible_photos
+
 		Gender.FEMALE:
+			if female_costumer_possible_photos.is_empty():
+				female_costumer_possible_photos = FEMALE_PHOTOS.duplicate()
 			possible_photos = female_costumer_possible_photos
-			array_size = possible_photos.size()
-			if array_size <= 0:
-				male_costumer_possible_photos = FEMALE_PHOTOS.duplicate()
-				possible_photos = female_costumer_possible_photos
+
 		_:
 			push_error("Invalid option")
-			return
-			
-	var index = randi_range(0, (array_size - 1))
-	var chosen_photo = possible_photos.get(index)
+			return null
+
+	if possible_photos.is_empty():
+		push_error("No photos available even after refill.")
+		return null
+
+	var index = randi_range(0, possible_photos.size() - 1)
+	var chosen_photo = possible_photos[index]
 	possible_photos.remove_at(index)
-	
+
 	return chosen_photo
 
-	
 func _generate_surname() -> String:
 	if SURNAMES.is_empty():
 		push_error("SURNAMES is empty")
