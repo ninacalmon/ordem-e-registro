@@ -21,6 +21,7 @@ var mask_white_bounds: Rect2
 
 var fading_region_array = []
 
+var last_processed_mouse_pos: Vector2
 var is_cutting: bool = false
 var is_selecting_cut: bool = false
 var cut_count: int = 0
@@ -97,18 +98,26 @@ func _input(event: InputEvent):
 		self.handle_mouse_button(event)
 
 func handle_mouse_motion(event: InputEventMouseMotion):
-		var current_mouse_pos = get_global_mouse_position()
-		var previous_mouse_pos = current_mouse_pos - event.relative
+	var current_mouse_pos = get_global_mouse_position()
 
-		var previous_mouse_info = Global.compute_mouse_info(previous_mouse_pos, self.sprite, self.mask_image)
-		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
+	if self.last_processed_mouse_pos == null:
+		self.last_processed_mouse_pos = current_mouse_pos
+		return
 
-		if self.is_cutting and not self.is_selecting_cut:
+	var previous_mouse_pos = self.last_processed_mouse_pos
+
+	var previous_mouse_info = Global.compute_mouse_info(previous_mouse_pos, self.sprite, self.mask_image)
+	var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
+
+	if self.is_cutting and not self.is_selecting_cut:
+		if previous_mouse_info.is_inside_image or current_mouse_info.is_inside_image:
 			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, self.CUT_THICKNESS)
-	
-		if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
-			self.is_cutting = false
-			self.cut_count += 1
+
+	if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
+		self.is_cutting = false
+		self.cut_count += 1
+
+	self.last_processed_mouse_pos = current_mouse_pos
 
 func handle_mouse_button(event: InputEventMouseButton):
 	if self.is_selecting_cut and event.is_action_pressed("left_mouse_button"):
@@ -123,28 +132,44 @@ func handle_mouse_button(event: InputEventMouseButton):
 			queue_redraw()
 			self.fade_region(region)
 
-func draw_cut_line(from_global: Vector2, to_global: Vector2, radius: float):
+func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
+	## Using Bresenham again to draw the cut lines as well
 	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image.get_size())
-	var to   = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
+	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
 
-	var dir = to - from
-	var distance = dir.length()
+	var current_x = int(from.x)
+	var current_y = int(from.y)
+	var target_x = int(to.x)
+	var target_y = int(to.y)
 
-	if distance == 0:
-		erase_circle(from.round(), radius)
-		return
+	var delta_x = abs(target_x - current_x)
+	var delta_y = abs(target_y - current_y)
 
-	var spacing = max(radius * 0.5, 1.0)
-	var steps = ceil(distance / spacing)
+	var step_x = -1 if current_x > target_x else 1
+	var step_y = -1 if current_y > target_y else 1
 
-	var step_vector = dir / steps
-	var current = from
+	var error_value = delta_x - delta_y
 
-	for i in range(steps + 1):
-		erase_circle(current.round(), radius)
-		current += step_vector
+	while true:
+		var point = Vector2(current_x, current_y)
 
-	mask_texture.update(mask_image)
+		if Global.is_aabb_overlap_with_image(point, mask_image):
+			self.erase_circle(point, thickness)
+
+		if current_x == target_x and current_y == target_y:
+			break
+
+		var doubled_error = 2 * error_value
+
+		if doubled_error > -delta_y:
+			error_value -= delta_y
+			current_x += step_x
+
+		if doubled_error < delta_x:
+			error_value += delta_x
+			current_y += step_y
+
+	self.mask_texture.update(self.mask_image)
 
 
 func erase_circle(center: Vector2, radius: float):

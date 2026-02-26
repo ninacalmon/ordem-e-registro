@@ -21,7 +21,7 @@ func _ready():
 	instanciate_documents()
 
 func _on_new_docs_timer_timeout():
-	new_docs_timer.wait_time = 3
+	new_docs_timer.wait_time = 10
 	self.current_timer_wait_time = new_docs_timer.wait_time
 	self.new_docs_timer.start()
 	EventBus.new_docs_timer_timeout.emit()
