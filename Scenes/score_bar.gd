@@ -14,9 +14,7 @@ func update_current_score(new_score: float, is_drawing: bool = false):
 
 	if is_drawing:
 		drawing_score_accumulated = new_score
-		print('NEW SCORE MANONADOADADNA ', new_score)
 		var total_to_add = drawing_score_accumulated - old_drawing_score
-		print("TOAL DO ANDD ", total_to_add)
 		old_drawing_score = new_score
 
 		Global.current_score = max(Global.current_score + total_to_add, 0)

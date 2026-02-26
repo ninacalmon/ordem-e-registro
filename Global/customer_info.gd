@@ -107,6 +107,19 @@ const SKIN_COLORS: Array[Color] = [
 	Color(0.72, 0.619, 0.569)
 ]
 
+const BIRTH_DIGIT_TO_CODE = {
+	0: "00X",
+	1: "01B",
+	2: "11T",
+	3: "21D",
+	4: "22G",
+	5: "32V",
+	6: "42K",
+	7: "52C",
+	8: "71M",
+	9: "81S"
+}
+
 var father_first_name: String
 var mother_first_name: String
 
@@ -176,14 +189,20 @@ func _compute_consolidated_id_code():
 	or self.father_first_name == null \
 	or self.child_birth_date == null:
 		assert(false, "Cannot compute consolidated id code because of lack of info")
-	## AJUSTAR AUI APRA CONSOLIDAR O CÓDIGO COM O ULTIMO DIGITO DA DATA DE NASCIMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	
+	var birth_date_last_digit = int(child_birth_date[child_birth_date.length() - 1])
+	if !BIRTH_DIGIT_TO_CODE.has(birth_date_last_digit):
+		assert(false, "Invalid birth date, unable to generate code")
+
+	var birth_code = self.BIRTH_DIGIT_TO_CODE[int(birth_date_last_digit)]
+
 	var consolidated_code = self.child_birth_state.code + "-" \
+	+ birth_code \
+	+ "-" \
 	+ self.child_first_name[0] \
 	+ self.mother_first_name[0] \
-	+ self.father_first_name[0] \
-	+ "-" \
-	+ "00M"
-	
+	+ self.father_first_name[0]
+
 	return consolidated_code
 
 

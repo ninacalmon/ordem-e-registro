@@ -76,6 +76,7 @@ font_name = "Pixel Times Bold"
 style_name = "Regular"
 subpixel_positioning = 0
 msdf_pixel_range = 8
+msdf_size = 128
 cache/0/16/0/ascent = 13.0
 cache/0/16/0/descent = 4.0
 cache/0/16/0/underline_position = -1.203125
@@ -911,7 +912,7 @@ theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[color=821111]DL[/color]-[color=3b5aa9]LLL[/color]-[color=29632e]DDL[/color]
+text = "[color=821111]DL[/color]-[color=29632e]DDL[/color]-[color=3b5aa9]LLL[/color]
 "
 fit_content = true
 horizontal_alignment = 1
@@ -925,8 +926,8 @@ theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1
 theme_override_font_sizes/normal_font_size = 19
 bbcode_enabled = true
 text = "[color=821111]Referência Estatal[/color]
-[color=3b5aa9]Iniciais do nome de Filho, Mãe e Pai, respectivamente.[/color]
-[color=29632e]Código de Nascimento[/color]"
+[color=29632e]Código de Nascimento[/color]
+[color=3b5aa9]Iniciais do nome de Filho, Mãe e Pai, respectivamente.[/color]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

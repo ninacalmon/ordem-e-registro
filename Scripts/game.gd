@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var documents_layer: Node2D = %DocumentsLayer
 @onready var new_docs_timer: Timer = %NewDocsTimer
+@onready var score_bar: ProgressBar = %ScoreBar
 
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
@@ -33,6 +34,10 @@ func remove_documents(time_to_wait_before_removal:float = 0) -> void:
 	if !current_docs_instantiated_scene:
 		push_error("No current docs instantiated to remove")
 		return
+	
+	self.score_bar.value = 0
+	Global.current_score = 0
+
 	## Be careful, this here pauses everything before removing docs
 	current_docs_instantiated_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	var tween = create_tween()
