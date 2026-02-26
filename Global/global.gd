@@ -2,6 +2,8 @@ extends Node
 
 const MAX_SCORE: int = 5
 
+var is_tutorial_on: bool
+
 var current_score: float
 
 var focus_layer = 200

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=32 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -22,6 +22,10 @@
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
 [ext_resource type="Texture2D" uid="uid://cxgvrgmhq3rt7" path="res://Sprites/UI/ClockOver.png" id="20_7t8sx"]
 [ext_resource type="Script" uid="uid://c5amyoaknqod" path="res://Scenes/timer_bar.gd" id="21_mg4q0"]
+[ext_resource type="Theme" uid="uid://c14p3r478pryl" path="res://Themes/body_theme.tres" id="23_vm72l"]
+[ext_resource type="Texture2D" uid="uid://c1xjfe2t36crr" path="res://Sprites/UI/TextBox.png" id="24_22asu"]
+[ext_resource type="Script" uid="uid://dybgqd6gdotuv" path="res://Scenes/tutorial_label.gd" id="25_22asu"]
+[ext_resource type="Script" uid="uid://bc8qdyjcd7q6g" path="res://Scenes/controls_label.gd" id="26_fkdbe"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
 background_mode = 3
@@ -42,6 +46,13 @@ fill_from = Vector2(0.5, 0.5)
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkdbe"]
+texture = ExtResource("24_22asu")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_rku1e")
 documents_group = ExtResource("2_ewbju")
@@ -49,7 +60,7 @@ doc_photo_to_cut_scene = ExtResource("8_nb51f")
 
 [node name="NewDocsTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 60.0
 autostart = true
 
 [node name="FocusManager" type="Node" parent="."]
@@ -186,3 +197,65 @@ texture_over = ExtResource("20_7t8sx")
 texture_progress = ExtResource("19_exi56")
 tint_under = Color(0.67, 0.1809, 0.1809, 1)
 script = ExtResource("21_mg4q0")
+
+[node name="UITutorial" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 17.0
+offset_right = -18.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TutorialLabel" type="RichTextLabel" parent="CanvasLayer/UITutorial"]
+modulate = Color(1, 1, 1, 0.627451)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("23_vm72l")
+theme_override_colors/default_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_fkdbe")
+bbcode_enabled = true
+text = "dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha."
+horizontal_alignment = 1
+script = ExtResource("25_22asu")
+
+[node name="UIControls" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -1.0
+offset_right = -21.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ControlsLabel" type="RichTextLabel" parent="CanvasLayer/UIControls"]
+modulate = Color(1, 1, 1, 0.65882355)
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_right = 553.0
+offset_bottom = 155.0
+theme = ExtResource("23_vm72l")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "sdfsdfsdfsdfsdf"
+tab_size = 3
+justification_flags = 161
+script = ExtResource("26_fkdbe")

@@ -31,7 +31,7 @@ bg_color = Color(0.64, 0.576, 0.512, 0.50980395)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jevfq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="doc_Id" type="Node2D" groups=["DocIdParent"]]
+[node name="doc_Id" type="Node2D" groups=["DocIdParent", "t_IdGroup"]]
 
 [node name="idSpr" type="Sprite2D" parent="." groups=["DocIdSprite"]]
 clip_children = 2

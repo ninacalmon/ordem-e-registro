@@ -11,6 +11,7 @@ var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
 
 func _ready():
+	Global.is_tutorial_on = true
 	EventBus.document_stamped.connect(_on_document_stamped)
 	self.new_docs_timer.timeout.connect(_on_new_docs_timer_timeout)
 	self.current_timer_wait_time = new_docs_timer.wait_time

@@ -24,7 +24,7 @@ shader_parameter/shadow_only = false
 shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
 shader_parameter/blur_std = 1.0
 
-[node name="Doc_BirthCertificate" type="Node2D"]
+[node name="Doc_BirthCertificate" type="Node2D" groups=["t_BirthCertificateGroup"]]
 script = ExtResource("1_f0h0d")
 texture_to_show_text = ExtResource("4_7kc0x")
 
