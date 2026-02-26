@@ -17,7 +17,14 @@ class_name FocusableModule
 @onready var subject_idle_global_pos: Vector2 = subject.global_position
 @onready var subject_idle_scale: Vector2 = subject.scale
 @onready var subject_idle_z_index: int = subject.z_index
+@onready var focusing_audio_stream_player: AudioStreamPlayer = %FocusingAudioStreamPlayer
 
+#@onready var focusing_paper_sound_options: Array[AudioStream] = [
+	#preload("res://Sounds/PaperFocusing/_pegandopapel.wav"),
+	#preload("res://Sounds/PaperFocusing/_pegandopapel2.wav"),
+	#preload("res://Sounds/PaperFocusing/_pegandopapel3.wav"),
+	#preload("res://Sounds/PaperFocusing/_pegandopapel4.wav")
+#]
 var is_focused = false
 var is_animation_playing = false
 var focus_time = Global.focus_time
@@ -57,6 +64,10 @@ func focus_on():
 	Global.is_something_focused = true
 	EventBus.focus_mode_changed.emit(subject, true)
 	Global.pointer_state = Global.PointerVariations.DEFAULT
+	if self.focusing_audio_stream_player:
+		self.focusing_audio_stream_player.pitch_scale *= randf_range(1, 1.5)
+		self.focusing_audio_stream_player.volume_db += randf_range(-3, 2)
+		self.focusing_audio_stream_player.play()
 
 	self.is_animation_playing = true
 	subject.z_index = Global.focus_layer

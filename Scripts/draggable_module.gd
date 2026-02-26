@@ -6,6 +6,8 @@ class_name DraggableModule
 @export var focusable_module: FocusableModule
 @export var zoom_module: ZoomModule
 
+@onready var dragging_audio_stream_player: AudioStreamPlayer = %DraggingAudioStreamPlayer
+
 var dragging = false
 var drag_offset = Vector2.ZERO
 
@@ -35,6 +37,7 @@ func _input(event: InputEvent) -> void:
 			## all other nodes in the scene
 			get_viewport().set_input_as_handled()
 			self.dragging = true
+			
 
 			drag_offset = target.global_position - mouse_pos
 
@@ -52,6 +55,8 @@ func _process(_delta: float) -> void:
 		self.handle_mouse_pointer_state()
 
 	if dragging:
+		if dragging_audio_stream_player:
+			dragging_audio_stream_player.play()
 		var new_pos = get_global_mouse_position() + drag_offset
 		
 		var viewport_size = get_viewport_rect().size

@@ -8,6 +8,9 @@ extends Node2D
 @onready var new_texture: ImageTexture = drawable_canvas.new_texture
 @onready var image_width: int = drawable_canvas.image_width
 @onready var image_height: int = drawable_canvas.image_height
+@onready var draw_audio_stream_player: AudioStreamPlayer = %DrawAudioStreamPlayer
+
+
 var drawing := false
 var last_pixel: Vector2i
 
@@ -28,6 +31,7 @@ func _input(event):
 			drawing = false
 
 	if event is InputEventMouseMotion and drawing:
+		self.draw_audio_stream_player.play()
 		var current_pixel = Global.global_to_image_pos(get_global_mouse_position(), self.drawable_canvas, self.drawable_canvas.texture.get_size())
 		draw_line_pixels(last_pixel, current_pixel)
 		last_pixel = current_pixel

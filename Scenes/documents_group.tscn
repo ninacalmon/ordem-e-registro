@@ -10,7 +10,7 @@ position = Vector2(260, 46)
 rotation = 0.25307274
 
 [node name="doc_Id" parent="." instance=ExtResource("2_vy7ci")]
-position = Vector2(529, 368)
+position = Vector2(536, 308)
 
 [node name="Placeholder_PhotoToCut" type="Node2D" parent="."]
-position = Vector2(707, 244)
+position = Vector2(649, 160)

@@ -5,6 +5,9 @@ extends Node2D
 @export var book_page_division = 100
 @export var pages_h_container: HBoxContainer
 @onready var original_x_scale: float = book_spr.scale.x
+@onready var book_audio_stream_player: AudioStreamPlayer = %BookAudioStreamPlayer
+@onready var closing_book_audio_stream_player: AudioStreamPlayer = $ClosingBookAudioStreamPlayer
+@onready var dragging_audio_stream_player: AudioStreamPlayer = %DraggingAudioStreamPlayer
 
 
 var book_is_open: bool = false
@@ -33,6 +36,7 @@ func _input(event):
 		and !Global.is_something_focused:
 			get_viewport().set_input_as_handled()
 			if !book_is_open:
+				book_audio_stream_player.play()
 				self.anim_player.play("open")
 				book_is_open = true
 			elif book_is_open and get_local_mouse_position().x >= book_page_division:
@@ -41,13 +45,14 @@ func _input(event):
 				pages_h_container.hide()
 				self.anim_player.play_backwards("open")
 				await anim_player.animation_finished
+				closing_book_audio_stream_player.play()
 			elif book_is_open and get_local_mouse_position().x < book_page_division:
 				book_is_open = false
 				self.book_spr.flip_h = true
 				pages_h_container.hide()
 				self.anim_player.play_backwards("open")
 				await anim_player.animation_finished
-				
+				closing_book_audio_stream_player.play()
 				
 		if event.is_action_pressed("left_mouse_button") \
 		and is_mouse_overlapping \
@@ -64,6 +69,7 @@ func _process(_delta: float) -> void:
 		self.handle_mouse_pointer_state()
 
 	if dragging:
+		self.dragging_audio_stream_player.play()
 		var new_pos = get_global_mouse_position() + drag_offset
 		
 		var viewport_size = get_viewport_rect().size

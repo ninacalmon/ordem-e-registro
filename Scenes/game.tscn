@@ -67,7 +67,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ese38"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=["GameRootNode"]]
 script = ExtResource("1_rku1e")
 documents_group = ExtResource("2_ewbju")
 doc_photo_to_cut_scene = ExtResource("8_nb51f")
@@ -373,3 +373,6 @@ offset_top = -125.0
 offset_right = 200.0
 offset_bottom = 125.0
 inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath("../Settings")]
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

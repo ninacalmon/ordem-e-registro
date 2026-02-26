@@ -6,6 +6,7 @@ extends Node2D
 @export var sprite_to_glue: Sprite2D
 @export var sprite_to_glue_parent: Node2D
 
+@onready var glue_audio_stream_player: AudioStreamPlayer = %GlueAudioStreamPlayer
 @onready var photo_sprite: Sprite2D = $Photo
 ## For some reason after the first doc batch gets queued free, the @onready var target_sprite
 ## turns into null as we cant find it by group anymore, and every doc batch after that does not holds a reference correctly.
@@ -58,12 +59,18 @@ func _process(_delta: float) -> void:
 					overlap_pixel_count += 1
 					var percentage_of_image_overlap = (overlap_pixel_count / self.sprite_to_glue_total_pixels) * 100
 					if percentage_of_image_overlap > 66:
+						var game_root = get_tree().get_first_node_in_group("GameRootNode")
+						glue_audio_stream_player.play()
+						glue_audio_stream_player.reparent(game_root)
+						glue_audio_stream_player.finished.connect(func(): glue_audio_stream_player.queue_free())
+
 						var to_glue: Sprite2D = self.sprite_to_glue.duplicate()
 						to_glue.global_position = Global.global_to_image_pos(self.sprite_to_glue.global_position, self.target_sprite, self.target_sprite.texture.get_size())
 						
 						self.target_sprite.add_child(to_glue)
 						var mask_image: Image = self.cut_module.mask_image
 
+						
 						EventBus.photo_just_glued.emit(mask_image, to_glue)
 						self.sprite_to_glue_parent.call_deferred("queue_free")
 						self.is_being_dragged = false

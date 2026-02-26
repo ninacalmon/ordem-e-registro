@@ -35,6 +35,7 @@ DocIdSprite=""
 t_PhotoToCutGroup=""
 t_IdGroup=""
 t_BirthCertificateGroup=""
+GameRootNode=""
 
 [gui]
 

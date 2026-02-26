@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://chbraq4tb1kgp"]
+[gd_scene load_steps=19 format=3 uid="uid://chbraq4tb1kgp"]
 
 [ext_resource type="Script" uid="uid://vc1qjnckb86" path="res://Scripts/draw_module.gd" id="1_axkmt"]
 [ext_resource type="Script" uid="uid://bewe0kfv5ixii" path="res://Scenes/reference.gd" id="1_kh1kw"]
@@ -16,6 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://b4vyqv8jp7ir3" path="res://Sprites/Signatures/Sig_10.png" id="11_rh6xg"]
 [ext_resource type="Texture2D" uid="uid://212n8okt6roq" path="res://Sprites/Signatures/Sig_11.png" id="12_me0e6"]
 [ext_resource type="Texture2D" uid="uid://bj2q2ppatfb76" path="res://Sprites/Signatures/Sig_12.png" id="13_r1b56"]
+[ext_resource type="AudioStream" uid="uid://byxv8nf8xr0x6" path="res://Sounds/Drawing.mp3" id="17_dwpho"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nq6wt"]
+random_pitch = 1.15
+streams_count = 1
+stream_0/stream = ExtResource("17_dwpho")
 
 [node name="SignatureSpace" type="Node2D"]
 
@@ -37,3 +43,8 @@ reference = NodePath("../ReferenceSpr")
 [node name="DrawModule" type="Node2D" parent="." node_paths=PackedStringArray("drawable_canvas")]
 script = ExtResource("1_axkmt")
 drawable_canvas = NodePath("../DrawableSpr")
+
+[node name="DrawAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_nq6wt")
+volume_db = -5.0

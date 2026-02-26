@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxwwg6hjiuvt2"]
+[gd_scene load_steps=8 format=3 uid="uid://dxwwg6hjiuvt2"]
 
 [ext_resource type="Texture2D" uid="uid://psmrohb1l5u3" path="res://Sprites/Decor/StampShadow.png" id="1_11415"]
 [ext_resource type="Script" uid="uid://c62gvm270e04s" path="res://Scenes/stamp.gd" id="1_t2r38"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bmuufevytcj2p" path="res://Sprites/Decor/StampTip.png" id="3_t2r38"]
 [ext_resource type="Script" uid="uid://c8nc748ikryr2" path="res://Scripts/draggable_module.gd" id="4_mi2dc"]
 [ext_resource type="Texture2D" uid="uid://dcem6vvn4xkti" path="res://Sprites/Decor/StampMark.png" id="6_jajg2"]
+[ext_resource type="AudioStream" uid="uid://wdjy6jt3w7x0" path="res://Sounds/Stamp.ogg" id="7_acl38"]
 
 [node name="Stamp" type="Node2D" node_paths=PackedStringArray("draggable_module")]
 script = ExtResource("1_t2r38")
@@ -32,3 +33,8 @@ visible = false
 modulate = Color(1, 1, 1, 0.22745098)
 position = Vector2(0, 21)
 texture = ExtResource("6_jajg2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_acl38")
+volume_db = -8.0
+bus = &"SoundEffects"

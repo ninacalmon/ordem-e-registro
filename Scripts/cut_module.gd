@@ -2,6 +2,9 @@ extends Node2D
 class_name CutModule
 signal just_removed_cut_part
 
+@onready var cut_audio_stream_player: AudioStreamPlayer = %CutAudioStreamPlayer
+@onready var remove_audio_stream_player: AudioStreamPlayer = %RemoveAudioStreamPlayer
+
 @export var focusable_module: FocusableModule
 @export var image_comparison_module: ImageComparisonModule
 @export var sprite: Sprite2D
@@ -107,9 +110,11 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 
 	if self.is_cutting and not self.is_selecting_cut:
 		if previous_mouse_info.is_inside_image or current_mouse_info.is_inside_image:
+			self.cut_audio_stream_player.play()
 			self.draw_cut_line(previous_mouse_pos, current_mouse_pos, self.CUT_THICKNESS)
 
 	if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
+		self.cut_audio_stream_player.stop()
 		self.is_cutting = false
 
 	self.last_processed_mouse_pos = current_mouse_pos
@@ -126,6 +131,7 @@ func handle_mouse_button(event: InputEventMouseButton):
 			## Redraw frame when cut pixel array is changed
 			queue_redraw()
 			self.fade_region(region)
+			self.remove_audio_stream_player.play()
 
 func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
 	## Using Bresenham again to draw the cut lines as well
