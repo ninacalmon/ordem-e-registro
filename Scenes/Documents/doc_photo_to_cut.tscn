@@ -13,10 +13,11 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ag86f")
 
-[node name="DocImageToCut" type="Node2D" node_paths=PackedStringArray("draggable_module", "cut_module", "sprite_to_glue", "sprite_to_glue_parent")]
+[node name="DocImageToCut" type="Node2D" node_paths=PackedStringArray("draggable_module", "cut_module", "focusable_module", "sprite_to_glue", "sprite_to_glue_parent")]
 script = ExtResource("1_o3jcy")
 draggable_module = NodePath("DraggableModule")
 cut_module = NodePath("CutModule")
+focusable_module = NodePath("FocusableModule")
 sprite_to_glue = NodePath("Photo")
 sprite_to_glue_parent = NodePath(".")
 

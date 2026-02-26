@@ -21,13 +21,12 @@ func _ready():
 	instanciate_documents()
 
 func _on_new_docs_timer_timeout():
-	new_docs_timer.wait_time = 10
+	new_docs_timer.wait_time = 3
 	self.current_timer_wait_time = new_docs_timer.wait_time
 	self.new_docs_timer.start()
 	EventBus.new_docs_timer_timeout.emit()
 	
 	await self.remove_documents()
-	CustomerInfo.generate_new_customer_info()
 	self.instanciate_documents()
 
 func remove_documents(time_to_wait_before_removal:float = 0) -> void:
@@ -49,28 +48,42 @@ func remove_documents(time_to_wait_before_removal:float = 0) -> void:
 	current_docs_instantiated_scene = null
 
 func instanciate_documents():
-		var new_documents: Node2D = documents_group.instantiate()
-		new_documents.global_position.y = get_viewport_rect().size.y * -2
-		documents_layer.add_child(new_documents)
+	CustomerInfo.generate_new_customer_info()
 
-		new_documents.process_mode = Node.PROCESS_MODE_DISABLED
-		var doc_photo_to_cut = doc_photo_to_cut_scene.instantiate()
-		var doc_id_sprite = new_documents.get_node("doc_Id/idSpr")
+	var new_documents: Node2D = documents_group.instantiate()
+	new_documents.global_position.y = get_viewport_rect().size.y * -2
+	documents_layer.add_child(new_documents)
 
-		doc_photo_to_cut.target_sprite = doc_id_sprite
-		doc_photo_to_cut.get_node("Photo").texture = CustomerInfo.customer_photo
-		
-		var placeholder_photo_to_cut = new_documents.get_node("Placeholder_PhotoToCut")
-		placeholder_photo_to_cut.add_child(doc_photo_to_cut)
-		
-		var doc_arrival_tween = get_tree().create_tween()
-		doc_arrival_tween.tween_property(new_documents, "global_position:y", 0, 1.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		self.current_docs_instantiated_scene = new_documents
+	new_documents.process_mode = Node.PROCESS_MODE_DISABLED
 
-		await doc_arrival_tween.finished
-		new_documents.process_mode = Node.PROCESS_MODE_INHERIT
+	var doc_photo_to_cut = doc_photo_to_cut_scene.instantiate()
+	var doc_id_sprite: Sprite2D = new_documents.get_node("doc_Id/idSpr")
+	var placeholder_photo_to_cut: Node2D = new_documents.get_node("Placeholder_PhotoToCut")
 
-		EventBus.docs_arrived_at_final_position.emit()
+	placeholder_photo_to_cut.add_child(doc_photo_to_cut)
+
+	# Wait one frame so _ready() of doc_photo_to_cut runs
+	#await get_tree().process_frame
+
+	doc_photo_to_cut.setup(
+		doc_id_sprite,
+		CustomerInfo.customer_photo
+	)
+
+	var doc_arrival_tween = get_tree().create_tween()
+	doc_arrival_tween.tween_property(
+		new_documents,
+		"global_position:y",
+		0,
+		1.5
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+
+	self.current_docs_instantiated_scene = new_documents
+
+	await doc_arrival_tween.finished
+	new_documents.process_mode = Node.PROCESS_MODE_INHERIT
+
+	EventBus.docs_arrived_at_final_position.emit()
 
 func _on_document_stamped():
 	new_docs_timer.stop()

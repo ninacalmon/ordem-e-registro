@@ -28,35 +28,8 @@ var cut_path_pixel_array: Array[Vector2i] = []
 
 var mask_debug_sprite: Sprite2D
 
-func _ready():
-	var texture_image = self.sprite.texture.get_image()
-
-	self.mask_image = Image.create_empty(
-		texture_image.get_width(),
-		texture_image.get_height(),
-		false,
-		Image.FORMAT_RF
-	)
-
-	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, 1.0))
-
-	self.mask_texture = ImageTexture.create_from_image(self.mask_image)
-	mask_debug_sprite = Sprite2D.new()
-	mask_debug_sprite.texture = mask_texture
-	mask_debug_sprite.global_transform = sprite.global_transform
-	mask_debug_sprite.centered = sprite.centered
-	mask_debug_sprite.scale = sprite.scale
-	mask_debug_sprite.modulate = Color(1, 0, 0, 0.4) # vermelho semi-transparente
-	#get_tree().current_scene.add_child(mask_debug_sprite)
-	self.sprite.material.set_shader_parameter(
-		"mask_texture",
-		self.mask_texture
-	)
-
-	self.mask_white_bounds = self.get_mask_white_bounds()
-
 func _process(delta):
-	mask_debug_sprite.global_transform = sprite.global_transform
+	#mask_debug_sprite.global_transform = sprite.global_transform
 	self.handle_mouse_pointer_state()
 
 	if self.fading_region_array.size() == 0:
@@ -150,44 +123,28 @@ func handle_mouse_button(event: InputEventMouseButton):
 			queue_redraw()
 			self.fade_region(region)
 
-func draw_cut_line(from_global: Vector2, to_global: Vector2, thickness: float):
-	## Using Bresenham again to draw the cut lines as well
+func draw_cut_line(from_global: Vector2, to_global: Vector2, radius: float):
 	var from = Global.global_to_image_pos(from_global, self.sprite, mask_image.get_size())
-	var to = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
+	var to   = Global.global_to_image_pos(to_global, self.sprite, mask_image.get_size())
 
-	var current_x = int(from.x)
-	var current_y = int(from.y)
-	var target_x = int(to.x)
-	var target_y = int(to.y)
+	var dir = to - from
+	var distance = dir.length()
 
-	var delta_x = abs(target_x - current_x)
-	var delta_y = abs(target_y - current_y)
+	if distance == 0:
+		erase_circle(from.round(), radius)
+		return
 
-	var step_x = -1 if current_x > target_x else 1
-	var step_y = -1 if current_y > target_y else 1
+	var spacing = max(radius * 0.5, 1.0)
+	var steps = ceil(distance / spacing)
 
-	var error_value = delta_x - delta_y
+	var step_vector = dir / steps
+	var current = from
 
-	while true:
-		var point = Vector2(current_x, current_y)
+	for i in range(steps + 1):
+		erase_circle(current.round(), radius)
+		current += step_vector
 
-		if Global.is_aabb_overlap_with_image(point, mask_image):
-			self.erase_circle(point, thickness)
-
-		if current_x == target_x and current_y == target_y:
-			break
-
-		var doubled_error = 2 * error_value
-
-		if doubled_error > -delta_y:
-			error_value -= delta_y
-			current_x += step_x
-
-		if doubled_error < delta_x:
-			error_value += delta_x
-			current_y += step_y
-
-	self.mask_texture.update(self.mask_image)
+	mask_texture.update(mask_image)
 
 
 func erase_circle(center: Vector2, radius: float):
@@ -347,3 +304,30 @@ func get_mask_white_bounds() -> Rect2i:
 	var rect_height = bottom - top + 1
 
 	return Rect2(left, top, rect_width, rect_height)
+
+func initialize():
+	var texture_image = self.sprite.texture.get_image()
+
+	self.mask_image = Image.create_empty(
+		texture_image.get_width(),
+		texture_image.get_height(),
+		false,
+		Image.FORMAT_RF
+	)
+
+	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, 1.0))
+
+	self.mask_texture = ImageTexture.create_from_image(self.mask_image)
+	#mask_debug_sprite = Sprite2D.new()
+	#mask_debug_sprite.texture = mask_texture
+	#mask_debug_sprite.global_transform = sprite.global_transform
+	#mask_debug_sprite.centered = sprite.centered
+	#mask_debug_sprite.scale = sprite.scale
+	#mask_debug_sprite.modulate = Color(1, 0, 0, 0.4)
+	#get_tree().current_scene.add_child(mask_debug_sprite)
+	self.sprite.material.set_shader_parameter(
+		"mask_texture",
+		self.mask_texture
+	)
+
+	self.mask_white_bounds = self.get_mask_white_bounds()
