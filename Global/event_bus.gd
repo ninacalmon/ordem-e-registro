@@ -6,3 +6,4 @@ signal item_dropped(parent: Node2D, item_to_verify: Node2D, sprite_to_attatch: S
 signal docs_arrived_at_final_position()
 signal new_docs_timer_timeout()
 signal document_stamped()
+signal photo_just_glued(mask_image: Image, sprite_glued: Sprite2D)

@@ -26,6 +26,8 @@ var is_selecting_cut: bool = false
 var cut_count: int = 0
 var cut_path_pixel_array: Array[Vector2i] = []
 
+var mask_debug_sprite: Sprite2D
+
 func _ready():
 	var texture_image = self.sprite.texture.get_image()
 
@@ -39,7 +41,13 @@ func _ready():
 	self.mask_image.fill(Color(self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, self.MASK_SHOW_COLOR_VALUE, 1.0))
 
 	self.mask_texture = ImageTexture.create_from_image(self.mask_image)
-
+	mask_debug_sprite = Sprite2D.new()
+	mask_debug_sprite.texture = mask_texture
+	mask_debug_sprite.global_transform = sprite.global_transform
+	mask_debug_sprite.centered = sprite.centered
+	mask_debug_sprite.scale = sprite.scale
+	mask_debug_sprite.modulate = Color(1, 0, 0, 0.4) # vermelho semi-transparente
+	#get_tree().current_scene.add_child(mask_debug_sprite)
 	self.sprite.material.set_shader_parameter(
 		"mask_texture",
 		self.mask_texture
@@ -48,6 +56,7 @@ func _ready():
 	self.mask_white_bounds = self.get_mask_white_bounds()
 
 func _process(delta):
+	mask_debug_sprite.global_transform = sprite.global_transform
 	self.handle_mouse_pointer_state()
 
 	if self.fading_region_array.size() == 0:
@@ -256,7 +265,7 @@ func compare_cut_precision():
 			## Black values = 0 alpha, White values = 1 alpha.
 			if mask_pixel.r != 0:
 				var global_pos = Global.image_to_global_pos(Vector2(x, y), self.sprite, self.mask_image)
-				self.image_comparison_module.compare_coordinates_cut(global_pos.x, global_pos.y)
+				#self.image_comparison_module.compare_coordinates_cut(global_pos.x, global_pos.y)
 
 func _draw():
 	if cut_path_pixel_array.is_empty():

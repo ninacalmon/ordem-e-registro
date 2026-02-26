@@ -139,3 +139,5 @@ mouse_filter = 2
 
 [node name="PointerManager" type="Node2D" parent="."]
 script = ExtResource("16_ewbju")
+
+[node name="ScoreAnalyzer" type="Node2D" parent="."]
