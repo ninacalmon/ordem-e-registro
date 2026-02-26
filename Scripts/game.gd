@@ -87,6 +87,10 @@ func instanciate_documents():
 	EventBus.docs_arrived_at_final_position.emit()
 
 func _on_document_stamped():
+	print(score_bar.value)
+	
+	if score_bar.value < 2.3:
+		print("PERDEU")
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()

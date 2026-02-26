@@ -29,7 +29,7 @@ func _on_focus_mode_changed(subject: Node2D, enabled: bool):
 	middle_mouse_img
 	]
 			"PhotoToCut":
-				self.text = "[img=bottom,bottom]%s[/img] para pegar a tesoura		[img=bottom,bottom]%s[/img] para remover imagem" % [
+				self.text = "[img=bottom,bottom]%s[/img] para pegar a tesoura		[img=bottom,bottom]%s[/img] para remover partes indesejadas" % [
 x_img, z_img
 				]
 			_:

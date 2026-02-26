@@ -265,7 +265,7 @@ mouse_filter = 2
 
 [node name="ControlsLabel" type="RichTextLabel" parent="CanvasLayer/UIControls"]
 modulate = Color(1, 1, 1, 0.65882355)
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 0
 offset_right = 553.0
 offset_bottom = 155.0

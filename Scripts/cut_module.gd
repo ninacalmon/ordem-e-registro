@@ -24,7 +24,6 @@ var fading_region_array = []
 var last_processed_mouse_pos: Vector2
 var is_cutting: bool = false
 var is_selecting_cut: bool = false
-var cut_count: int = 0
 var cut_path_pixel_array: Array[Vector2i] = []
 
 var mask_debug_sprite: Sprite2D
@@ -75,13 +74,10 @@ func _input(event: InputEvent):
 		var current_mouse_pos = get_global_mouse_position()
 		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 
-		var can_start_cutting: bool = !current_mouse_info.is_inside_image
-
-		if can_start_cutting:
-			self.is_cutting = !self.is_cutting
-			self.is_selecting_cut = false
+		self.is_cutting = !self.is_cutting
+		self.is_selecting_cut = false
 	
-	if event.is_action_pressed("select_cut") and self.cut_count > 0:
+	if event.is_action_pressed("select_cut"):
 		var current_mouse_pos = get_global_mouse_position()
 		var current_mouse_info = Global.compute_mouse_info(current_mouse_pos, self.sprite, self.mask_image)
 		
@@ -115,7 +111,6 @@ func handle_mouse_motion(event: InputEventMouseMotion):
 
 	if self.is_cutting and not current_mouse_info.is_inside_image and previous_mouse_info.is_inside_image:
 		self.is_cutting = false
-		self.cut_count += 1
 
 	self.last_processed_mouse_pos = current_mouse_pos
 
