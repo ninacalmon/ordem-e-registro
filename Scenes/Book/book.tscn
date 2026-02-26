@@ -737,14 +737,17 @@ offset_right = 230.0
 offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 56
 
 [node name="LeftVBox" type="VBoxContainer" parent="BookSpr/PagesHContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="LeftSubTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
 text = "~ Novo Estado Bósnio-Braziliense ~"
@@ -754,6 +757,7 @@ horizontal_alignment = 1
 [node name="LeftTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 14
@@ -765,6 +769,7 @@ horizontal_alignment = 1
 [node name="LeftText" type="RichTextLabel" parent="BookSpr/PagesHContainer/LeftVBox"]
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("5_ebb4q")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_fonts/bold_font = ExtResource("6_ieeyy")
@@ -793,11 +798,13 @@ tab_size = 2
 
 [node name="RightVBox" type="VBoxContainer" parent="BookSpr/PagesHContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 5
 
 [node name="RightSubTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = SubResource("Theme_ieeyy")
 theme_override_colors/default_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
 text = "~ Novo Estado Bósnio-Braziliense ~"
@@ -807,6 +814,7 @@ horizontal_alignment = 1
 [node name="RightTitle" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = SubResource("Theme_2yfpm")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 14
@@ -817,6 +825,7 @@ horizontal_alignment = 1
 [node name="RightSubTitleDesc" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = SubResource("Theme_ieeyy")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 bbcode_enabled = true
@@ -826,11 +835,13 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BookSpr/PagesHContainer/RightVBox"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="RightText" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox/HBoxContainer"]
 custom_minimum_size = Vector2(90, 100)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_constants/paragraph_separation = 6
@@ -850,6 +861,7 @@ tab_size = 2
 [node name="RightText2" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox/HBoxContainer"]
 custom_minimum_size = Vector2(90, 100)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_constants/paragraph_separation = 6
@@ -868,6 +880,7 @@ tab_size = 2
 [node name="RightTitleGuide" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = SubResource("Theme_2yfpm")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 14
@@ -880,6 +893,7 @@ horizontal_alignment = 1
 [node name="RightGuideCode" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("5_ebb4q")
 theme_override_colors/default_color = Color(0.5411765, 0.4627451, 0.3882353, 1)
 theme_override_font_sizes/normal_font_size = 20
@@ -892,6 +906,7 @@ horizontal_alignment = 1
 [node name="RightGuideCode2" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("4_1ksjd")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 20
@@ -904,12 +919,13 @@ horizontal_alignment = 1
 [node name="RightGuideText" type="RichTextLabel" parent="BookSpr/PagesHContainer/RightVBox"]
 custom_minimum_size = Vector2(0, 70.11)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("5_ebb4q")
 theme_override_colors/default_color = Color(0.25490198, 0.17254902, 0.1254902, 1)
 theme_override_font_sizes/normal_font_size = 19
 bbcode_enabled = true
 text = "[color=821111]Referência Estatal[/color]
-[color=3b5aa9]Iniciais do nome de Mãe, Pai e Filho, respectivamente.[/color]
+[color=3b5aa9]Iniciais do nome de Filho, Mãe e Pai, respectivamente.[/color]
 [color=29632e]Código de Nascimento[/color]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

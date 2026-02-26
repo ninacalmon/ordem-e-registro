@@ -1,5 +1,9 @@
 extends Node
 
+const MAX_SCORE: int = 5
+
+var current_score: float
+
 var focus_layer = 200
 var focus_time = 0.4
 var is_something_focused = false

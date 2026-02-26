@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=23 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ce1n5wqf6vkrn" path="res://Sprites/Decor/inkpot.png" id="16_nnt18"]
 [ext_resource type="PackedScene" uid="uid://dxwwg6hjiuvt2" path="res://Scenes/stamp.tscn" id="17_ewbju"]
 [ext_resource type="PackedScene" uid="uid://ceadx3ngyr1x4" path="res://Scenes/stamp_tinter.tscn" id="18_85qyi"]
+[ext_resource type="Script" uid="uid://gjq1c4hue10x" path="res://Scenes/score_bar.gd" id="18_iivbl"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="20_7nbq1"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
@@ -44,7 +45,7 @@ doc_photo_to_cut_scene = ExtResource("8_nb51f")
 
 [node name="NewDocsTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 10.0
+wait_time = 30.0
 autostart = true
 
 [node name="FocusManager" type="Node" parent="."]
@@ -141,3 +142,24 @@ mouse_filter = 2
 script = ExtResource("16_ewbju")
 
 [node name="ScoreAnalyzer" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UIControl" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ScoreBar" type="ProgressBar" parent="CanvasLayer/UIControl"]
+custom_minimum_size = Vector2(960, 0)
+layout_mode = 0
+offset_right = 960.0
+offset_bottom = 5.0
+mouse_filter = 2
+value = 50.0
+show_percentage = false
+script = ExtResource("18_iivbl")

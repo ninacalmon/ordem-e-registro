@@ -8,9 +8,9 @@ class_name ImageComparisonModule
 @onready var reference_image_width = reference_image.get_width()
 @onready var reference_image_height = reference_image.get_height()
 
-var match_value = 0
-var max_possible_score = 0
-var max_possible_score_photo = 0
+var match_value: float = 0
+var max_possible_score: float = 0
+var max_possible_score_photo: float = 0
 
 var count = 0
 
@@ -22,7 +22,7 @@ func _ready() -> void:
 		for y in range(self.reference_image_height):
 			if (self.reference_image.get_pixel(x, y).r != 0):
 				self.max_possible_score_photo += 1
-	
+
 	for x in range(self.reference_image_width):
 		for y in range(self.reference_image_height):
 			if (self.reference_image.get_pixel(x, y).a != 0):
@@ -40,7 +40,9 @@ func compare_coordinates(sam_x, sam_y, color, previous_color):
 	if ref_alpha != 0:
 		self.match_value = min(self.match_value + 1, self.max_possible_score)
 	elif ref_alpha == 0:
-		self.match_value = max(self.match_value - 1, 0)
+		self.match_value = max(self.match_value - 0.5, 0)
+
+	EventBus.score_updated.emit(self.match_value / self.max_possible_score, true)
 
 func _process(_delta: float):
 	count += 1
@@ -94,3 +96,5 @@ func compare_coordinates_cut(mask_image: Image, sprite_to_glue: Sprite2D):
 
 			elif mask_is_white and not ref_is_white:
 				match_value = max(match_value - 1, 0)
+
+	EventBus.score_updated.emit(self.match_value / self.max_possible_score_photo)

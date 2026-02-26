@@ -40,6 +40,7 @@ texture = ExtResource("1_8m6eu")
 centered = false
 
 [node name="PhotoReferenceBox" type="Sprite2D" parent="idSpr"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(80, 48)
 texture = ExtResource("8_11ade")
 

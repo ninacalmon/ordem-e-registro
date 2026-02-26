@@ -14,6 +14,10 @@ func _ready():
 	% [CustomerInfo.book_code, CustomerInfo.child_complete_name, CustomerInfo.child_birth_date, CustomerInfo.child_birth_state.state, CustomerInfo.mother_complete_name, CustomerInfo.father_complete_name]
 
 func _process(_delta: float) -> void:
+	## Oh my god vvvvvv sem palavras pra essa atrocidade >*O*<
+	if !birth_data_rich_text_label.visible:
+		birth_data_rich_text_label.show()
+
 	if self.doc_spr.texture == self.texture_to_show_text:
 		self.birth_data_hbox.show()
 		self.skin_color.show()

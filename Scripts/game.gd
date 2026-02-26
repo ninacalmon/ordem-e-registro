@@ -34,7 +34,8 @@ func remove_documents(time_to_wait_before_removal:float = 0) -> void:
 	if !current_docs_instantiated_scene:
 		push_error("No current docs instantiated to remove")
 		return
-
+	## Be careful, this here pauses everything before removing docs
+	current_docs_instantiated_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	var tween = create_tween()
 	tween.tween_property(
 		current_docs_instantiated_scene,
@@ -51,6 +52,8 @@ func instanciate_documents():
 		var new_documents: Node2D = documents_group.instantiate()
 		new_documents.global_position.y = get_viewport_rect().size.y * -2
 		documents_layer.add_child(new_documents)
+
+		new_documents.process_mode = Node.PROCESS_MODE_DISABLED
 		var doc_photo_to_cut = doc_photo_to_cut_scene.instantiate()
 		var doc_id_sprite = new_documents.get_node("doc_Id/idSpr")
 
@@ -65,6 +68,7 @@ func instanciate_documents():
 		self.current_docs_instantiated_scene = new_documents
 
 		await doc_arrival_tween.finished
+		new_documents.process_mode = Node.PROCESS_MODE_INHERIT
 
 		EventBus.docs_arrived_at_final_position.emit()
 

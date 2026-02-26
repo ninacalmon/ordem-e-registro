@@ -176,11 +176,11 @@ func _compute_consolidated_id_code():
 	or self.father_first_name == null \
 	or self.child_birth_date == null:
 		assert(false, "Cannot compute consolidated id code because of lack of info")
-	
+	## AJUSTAR AUI APRA CONSOLIDAR O CÓDIGO COM O ULTIMO DIGITO DA DATA DE NASCIMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	var consolidated_code = self.child_birth_state.code + "-" \
+	+ self.child_first_name[0] \
 	+ self.mother_first_name[0] \
 	+ self.father_first_name[0] \
-	+ self.child_first_name[0] \
 	+ "-" \
 	+ "00M"
 	

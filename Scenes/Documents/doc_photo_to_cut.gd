@@ -63,14 +63,14 @@ func _process(_delta: float) -> void:
 					var percentage_of_image_overlap = (overlap_pixel_count / self.sprite_to_glue_total_pixels) * 100
 					if percentage_of_image_overlap > 66:
 						var to_glue: Sprite2D = self.sprite_to_glue.duplicate()
-						print("SCALE BEFORE", to_glue.scale, "		GLOBAL_SCALE BEFORE", to_glue.global_scale)
 						to_glue.global_position = Global.global_to_image_pos(self.sprite_to_glue.global_position, self.target_sprite, self.target_sprite.texture.get_size())
+						
 						self.target_sprite.add_child(to_glue)
 						var mask_image: Image = self.cut_module.mask_image
+
 						EventBus.photo_just_glued.emit(mask_image, to_glue)
 						self.sprite_to_glue_parent.call_deferred("queue_free")
 						self.is_being_dragged = false
-						print("SCALE AFTER", to_glue.scale, "		GLOBAL_SCALE AFTER", to_glue.global_scale)
 						return
 
 		self.is_being_dragged = false
