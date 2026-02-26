@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=39 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
 [ext_resource type="PackedScene" uid="uid://bxrnygid3b673" path="res://Scenes/documents_group.tscn" id="2_ewbju"]
 [ext_resource type="Texture2D" uid="uid://ufhjw0sod5lx" path="res://Sprites/background.png" id="3_o5yvi"]
+[ext_resource type="Script" uid="uid://bd3w2665072e8" path="res://Scripts/game_manager.gd" id="4_mucmn"]
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
@@ -26,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://c1xjfe2t36crr" path="res://Sprites/UI/TextBox.png" id="24_22asu"]
 [ext_resource type="Script" uid="uid://dybgqd6gdotuv" path="res://Scenes/tutorial_label.gd" id="25_22asu"]
 [ext_resource type="Script" uid="uid://bc8qdyjcd7q6g" path="res://Scenes/controls_label.gd" id="26_fkdbe"]
+[ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="27_81klo"]
+[ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
+[ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
 background_mode = 3
@@ -53,10 +57,24 @@ texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mucmn"]
+shader = ExtResource("7_1l0tm")
+shader_parameter/blur_amount = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m3t6"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ese38"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_rku1e")
 documents_group = ExtResource("2_ewbju")
 doc_photo_to_cut_scene = ExtResource("8_nb51f")
+
+[node name="GameManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("4_mucmn")
 
 [node name="NewDocsTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -258,3 +276,100 @@ bbcode_enabled = true
 tab_size = 3
 justification_flags = 161
 script = ExtResource("26_fkdbe")
+
+[node name="PausedOverlay" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="CanvasLayer/PausedOverlay"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_mucmn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="CanvasLayer/PausedOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PausedOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/PausedOverlay/Control"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -158.0
+offset_right = 75.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m3t6")
+text = "MAIN MENU"
+script = ExtResource("27_cwurv")
+
+[node name="Settings" type="Button" parent="CanvasLayer/PausedOverlay/Control" node_paths=PackedStringArray("inverse_visibility_nodes")]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -103.0
+offset_right = 75.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ese38")
+text = "SETTINGS
+"
+script = ExtResource("28_mucmn")
+inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath(".")]
+
+[node name="SettingsContainer" parent="CanvasLayer/PausedOverlay/Control" node_paths=PackedStringArray("inverse_visibility_nodes") instance=ExtResource("27_81klo")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath("../Settings")]
