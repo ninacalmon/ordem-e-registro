@@ -90,5 +90,6 @@ func _on_document_stamped():
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()
+	Global.is_tutorial_on = false
 	
 	#Later run documenmts analysis here and tell the player if failed or succed.

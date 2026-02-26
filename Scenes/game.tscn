@@ -255,7 +255,6 @@ theme = ExtResource("23_vm72l")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 40
 bbcode_enabled = true
-text = "sdfsdfsdfsdfsdf"
 tab_size = 3
 justification_flags = 161
 script = ExtResource("26_fkdbe")
