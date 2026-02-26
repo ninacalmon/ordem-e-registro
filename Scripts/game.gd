@@ -10,11 +10,6 @@ extends Node2D
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
 
-
-func _enter_tree() -> void:
-	CustomerInfo.generate_new_customer_info()
-	## On timer timeout
-
 func _ready():
 	EventBus.document_stamped.connect(_on_document_stamped)
 	self.new_docs_timer.timeout.connect(_on_new_docs_timer_timeout)
