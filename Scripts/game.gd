@@ -8,6 +8,8 @@ extends Node2D
 @onready var new_docs_timer: Timer = %NewDocsTimer
 @onready var score_bar: ProgressBar = %ScoreBar
 @onready var fail_overlay_light: PointLight2D = %FailOverlayLight
+@onready var camera: Camera2D = %Camera
+
 
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
@@ -15,8 +17,10 @@ var id_was_stamped = false
 var documents_registred: int = 0
 
 func _ready():
+	randomize()
 	Global.is_tutorial_on = true
 	EventBus.document_stamped.connect(_on_document_stamped)
+	CameraShake.set_camera(camera)
 	self.new_docs_timer.timeout.connect(_on_new_docs_timer_timeout)
 	self.current_timer_wait_time = new_docs_timer.wait_time
 	instanciate_documents()
@@ -27,14 +31,16 @@ func _on_new_docs_timer_timeout():
 
 	if score_bar.value < Global.current_score_threshold or !id_was_stamped:
 		Global.player_lifes -= 1
+		CameraShake.apply_shake(5, 1)
 		var tween = create_tween()
-		tween.tween_property(fail_overlay_light, "energy", 1, 0.5)
+		tween.tween_property(fail_overlay_light, "energy", 1, 0.2)
 		tween.tween_property(fail_overlay_light, "energy", 0, 0.5)
 	else:
 		Global.docs_correctly_stamped += 1
 
 	if Global.player_lifes == 0:
 		EventBus.player_death.emit()
+		CameraShake.apply_shake(10, 1)
 		return
 	
 	if documents_registred >= 10:

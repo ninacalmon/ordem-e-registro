@@ -21,6 +21,7 @@ EventBus="*res://Global/event_bus.gd"
 Global="*res://Global/global.gd"
 LevelTransition="*res://Global/level_transition.tscn"
 CustomerInfo="*res://Global/customer_info.gd"
+CameraShake="*res://Scripts/camera_shake.gd"
 
 [display]
 
