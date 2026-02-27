@@ -18,6 +18,8 @@ class_name FocusableModule
 @onready var subject_idle_scale: Vector2 = subject.scale
 @onready var subject_idle_z_index: int = subject.z_index
 @onready var focusing_audio_stream_player: AudioStreamPlayer = %FocusingAudioStreamPlayer
+@onready var initial_volume = focusing_audio_stream_player.volume_db
+@onready var initial_pitch = focusing_audio_stream_player.pitch_scale
 
 var is_focused = false
 var is_animation_playing = false
@@ -58,8 +60,8 @@ func focus_on():
 	EventBus.focus_mode_changed.emit(subject, true)
 	Global.pointer_state = Global.PointerVariations.DEFAULT
 	if self.focusing_audio_stream_player:
-		self.focusing_audio_stream_player.pitch_scale *= randf_range(1, 1.5)
-		self.focusing_audio_stream_player.volume_db += randf_range(-3, 2)
+		self.focusing_audio_stream_player.pitch_scale = initial_pitch * randf_range(1, 1.5)
+		self.focusing_audio_stream_player.volume_db = initial_volume + randf_range(-3, 2)
 		self.focusing_audio_stream_player.play()
 
 	self.is_animation_playing = true

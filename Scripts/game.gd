@@ -21,10 +21,12 @@ func _ready():
 func _on_new_docs_timer_timeout():
 	if score_bar.value < Global.SCORE_THRESHOLD or !id_was_stamped:
 		Global.player_lifes -= 1
+	else:
+		Global.docs_correctly_stamped += 1
 
 	if Global.player_lifes == 0:
-		print("perdi")
-		pass
+		EventBus.player_death.emit()
+		return
 		
 	new_docs_timer.wait_time = 10
 	self.current_timer_wait_time = new_docs_timer.wait_time

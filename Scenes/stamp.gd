@@ -8,6 +8,8 @@ class_name Stamp
 @onready var shadow: Sprite2D = $Shadow
 @onready var bottom: Sprite2D = $Stamp/Bottom
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var initial_volume = audio_stream_player.volume_db
+@onready var initial_pitch = audio_stream_player.pitch_scale
 
 var is_tinted: bool = false
 var has_emitted: bool = false
@@ -20,10 +22,11 @@ func _input(_event: InputEvent) -> void:
 
 	if !draggable_module.dragging and self.has_emitted:
 		stamp.position.y = 0
-		audio_stream_player.volume_db += randf_range(-3, 4)
+
+		audio_stream_player.volume_db = initial_volume + randf_range(-3, 4)
 		audio_stream_player.pitch_scale = randf_range(0.8, 1.6)
 		audio_stream_player.play()
-
+		
 		if is_tinted == true:
 			#Randomizing Stamp Mark
 			stamp_mark.rotation_degrees = randi_range(-40, 40)

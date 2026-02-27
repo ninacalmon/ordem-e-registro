@@ -1,10 +1,10 @@
 extends Node
 
 const MAX_SCORE: int = 5
-const SCORE_THRESHOLD: float = 1
+const SCORE_THRESHOLD: float = 3.5
 
 var player_lifes = 5
-
+var docs_correctly_stamped: int = 0
 
 var is_tutorial_on: bool
 

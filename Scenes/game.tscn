@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=47 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -32,6 +32,8 @@
 [ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
 [ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
 [ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="32_oeip8"]
+[ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="32_xe308"]
+[ext_resource type="Script" uid="uid://0osj0f1m6xth" path="res://Scenes/death_infos.gd" id="33_d3cha"]
 [ext_resource type="AudioStream" uid="uid://dy3liebs4wukl" path="res://Music/Noire#1-MusicByPedro2.mp3" id="33_xe308"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
@@ -414,6 +416,91 @@ offset_top = -125.0
 offset_right = 200.0
 offset_bottom = 125.0
 inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath("../Settings")]
+
+[node name="RestartOverlay" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorOverlay" type="ColorRect" parent="CanvasLayer/RestartOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="CanvasLayer/RestartOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathTitle" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -23.0
+offset_right = 336.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("32_xe308")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Você foi enviado para o [color=7d1f1d]Centro de Readequação[/color]."
+fit_content = true
+horizontal_alignment = 1
+
+[node name="DeathInfos" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = 16.0
+offset_right = 242.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("23_vm72l")
+theme_override_colors/default_color = Color(0.49, 0.49, 0.49, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Você registrou 100000 documentos corretamente."
+horizontal_alignment = 1
+script = ExtResource("33_d3cha")
+
+[node name="DeathDesc" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = 82.0
+offset_right = 170.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("23_vm72l")
+theme_override_font_sizes/normal_font_size = 32
+text = "Pressione 'R' para tentar de novo."
+horizontal_alignment = 1
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_d3cha")

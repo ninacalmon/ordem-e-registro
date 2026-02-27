@@ -36,5 +36,5 @@ texture = ExtResource("6_jajg2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_acl38")
-volume_db = -8.0
+volume_db = -11.0
 bus = &"SoundEffects"
