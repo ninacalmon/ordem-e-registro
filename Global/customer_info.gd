@@ -82,22 +82,22 @@ const SURNAMES: Array[String] = [
 
 const STATES: Array[Array] = [
   ["Sarajevo do Sul", "1A"],
-  ["Planalto Drínico", "7C"],
+  ["Planalto Doboj", "7C"],
   ["Nova Mostária", "2F"],
-  ["Vale do Igua-Drina", "3B"],
+  ["São Lúcio", "3B"],
   ["Bósnia Atlântica", "9H"],
   ["Santa Tuzla", "5D"],
   ["Serra Bósnio-Catarinense", "4K"],
   ["Litoral Herzegovino", "8M"],
-  ["Nova Banja do Oeste", "6E"],
+  ["Passo-Grad", "6E"],
   ["Alto Neretva", "1P"],
   ["Campina Zenicana", "2R"],
   ["Cerrado Sarajevita", "8L"],
   ["Nova Travnik Imperial", "9T"],
   ["Fronteira Mostarense", "5N"],
-  ["Doboj das Missões", "6S"],
+  ["Novobirk Onírico", "6S"],
   ["Vale Verde Bósnio", "1J"],
-  ["Costa Adriático-Brasiliense", "3V"],
+  ["Costa do Alto Leste", "3V"],
   ["Novo Srebrenik", "4X"]
 ]
 

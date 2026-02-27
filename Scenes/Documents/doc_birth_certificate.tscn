@@ -75,6 +75,7 @@ custom_minimum_size = Vector2(165, 10)
 layout_mode = 2
 theme = ExtResource("5_f0h0d")
 theme_override_colors/default_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+bbcode_enabled = true
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1

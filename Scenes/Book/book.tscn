@@ -801,19 +801,19 @@ text = "[b]1P - [/b]Alto Neretva ---------------------------
 [b]9H - [/b]Bósnia Atlântica -----------------------
 [b]2R - [/b]Campina Zenicana --------------------
 [b]8L - [/b]Cerrado Sarajevita --------------------
-[b]3V - [/b]Costa Adriático-Brasiliense ------------
-[b]6S - [/b]Doboj das Missões --------------------
+[b]3V - [/b]Costa do Alto Leste -------------------
 [b]5N - [/b]Fronteira Mostarense ------------------
 [b]8M - [/b]Litoral Herzegovino ------------------
 [b]2F - [/b]Nova Mostária ------------------------
 [b]9T - [/b]Nova Travnik Imperial ---------------
-[b]6E - [/b]Nova Banja do Oeste -----------------
+[b]6S - [/b]Novobirk Onírico ----------------------
 [b]4X - [/b]Novo Srebrenik -----------------------
-[b]7C - [/b]Planalto Drínico -----------------------
+[b]6E - [/b]Passo-Grad ----------------------------
+[b]7C - [/b]Planalto Doboj ------------------------
 [b]1A - [/b]Sarajevo do Sul -----------------------
-[b]4K - [/b]Serra Bósnio-Catarinense -------------
 [b]5D - [/b]Santa Tuzla --------------------------
-[b]3B - [/b]Vale do Igua-Drina --------------------
+[b]3B - [/b]São Lúcio -----------------------------
+[b]4K - [/b]Serra Bósnio-Catarinense -------------
 [b]1J - [/b]Vale Verde Bósnio --------------------"
 fit_content = true
 tab_size = 2
