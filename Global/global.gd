@@ -1,9 +1,10 @@
 extends Node
 
 const MAX_SCORE: int = 5
-const SCORE_THRESHOLD: float = 0.9
+const BASE_SCORE_THRESHOLD: float = 3.2
 const MAX_PLAYER_LIFES = 5
 
+var current_score_threshold = BASE_SCORE_THRESHOLD
 var player_lifes = MAX_PLAYER_LIFES
 var docs_correctly_stamped: int = 0
 
@@ -134,6 +135,8 @@ func get_sprite_center_global(sprite: Sprite2D) -> Vector2:
 
 func reset() -> void:
 	self.player_lifes = MAX_PLAYER_LIFES
+	self.current_score_threshold = BASE_SCORE_THRESHOLD
+
 	self.docs_correctly_stamped = 0
 	self.current_score = 0.0
 

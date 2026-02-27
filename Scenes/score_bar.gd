@@ -42,11 +42,11 @@ func update_current_score(new_score: float, is_update_on_demand: bool = false, s
 		EASE_TIME
 	)
 
-	if Global.current_score >= Global.SCORE_THRESHOLD and self.modulate != Color(0.553, 0.769, 0.153):
+	if Global.current_score >= Global.current_score_threshold  and self.modulate != Color(0.553, 0.769, 0.153):
 		var color_tween = get_tree().create_tween()
 		color_tween.tween_property(self, "modulate", Color(0.553, 0.769, 0.153), 0.5)
 		color_tween.parallel().tween_property(enough_score_overlay_light, "energy", 1, 0.5)
 		color_tween.tween_property(enough_score_overlay_light, "energy", 0, 0.5)
-	elif Global.current_score < Global.SCORE_THRESHOLD and self.modulate == Color(0.553, 0.769, 0.153):
+	elif Global.current_score < Global.current_score_threshold  and self.modulate == Color(0.553, 0.769, 0.153):
 		var color_tween = get_tree().create_tween()
 		color_tween.tween_property(self, "modulate", Color(0.769, 0.165, 0.153), 0.5)
