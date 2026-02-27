@@ -7,6 +7,7 @@ extends Node2D
 @onready var documents_layer: Node2D = %DocumentsLayer
 @onready var new_docs_timer: Timer = %NewDocsTimer
 @onready var score_bar: ProgressBar = %ScoreBar
+@onready var fail_overlay_light: PointLight2D = %FailOverlayLight
 
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
@@ -26,14 +27,17 @@ func _on_new_docs_timer_timeout():
 
 	if score_bar.value < Global.SCORE_THRESHOLD or !id_was_stamped:
 		Global.player_lifes -= 1
+		var tween = create_tween()
+		tween.tween_property(fail_overlay_light, "energy", 1, 0.5)
+		tween.tween_property(fail_overlay_light, "energy", 0, 0.5)
 	else:
 		Global.docs_correctly_stamped += 1
 
 	if Global.player_lifes == 0:
 		EventBus.player_death.emit()
 		return
-		
-	new_docs_timer.wait_time = 10
+
+	self.score_bar.value = 0
 	self.current_timer_wait_time = new_docs_timer.wait_time
 	self.new_docs_timer.start()
 	EventBus.new_docs_timer_timeout.emit()
@@ -46,8 +50,7 @@ func remove_documents(time_to_wait_before_removal:float = 0) -> void:
 	if !current_docs_instantiated_scene:
 		push_error("No current docs instantiated to remove")
 		return
-	
-	self.score_bar.value = 0
+
 	Global.current_score = 0
 
 	## Be careful, this here pauses everything before removing docs

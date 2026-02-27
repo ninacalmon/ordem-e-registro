@@ -53,8 +53,8 @@ func _on_line_input_submitted(new_text: String):
 			expected = CustomerInfo.consolidated_id_code
 	
 	if new_text.to_upper() == expected.to_upper():
-		print("PARABÉNS, ACERTOU O ID!")
 		EventBus.score_updated.emit(1)
+
 	self.editable = false
 	self.already_submitted = true
 	release_focus()

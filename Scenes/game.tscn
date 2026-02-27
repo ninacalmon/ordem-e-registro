@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=50 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -59,6 +59,14 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbju"]
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
+
+[sub_resource type="Gradient" id="Gradient_d3cha"]
+offsets = PackedFloat32Array(0.5772595, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i26dy"]
+gradient = SubResource("Gradient_d3cha")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oeip8"]
 bg_color = Color(0, 0, 0, 0.4862745)
@@ -209,6 +217,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="EnoughScoreOverlayLight" type="PointLight2D" parent="CanvasLayer/UIControl"]
+unique_name_in_owner = true
+position = Vector2(480, 268.5)
+scale = Vector2(15.34375, 10.734375)
+color = Color(0.553, 0.769, 0.153, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_i26dy")
+
+[node name="FailOverlayLight" type="PointLight2D" parent="CanvasLayer/UIControl"]
+unique_name_in_owner = true
+position = Vector2(480, 268.5)
+scale = Vector2(15.34375, 10.796875)
+color = Color(0.46, 0.09199999, 0.09199999, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_i26dy")
 
 [node name="ScoreBar" type="ProgressBar" parent="CanvasLayer/UIControl"]
 unique_name_in_owner = true
@@ -509,6 +533,7 @@ text = "Pressione 'R' para tentar de novo."
 horizontal_alignment = 1
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = SubResource("AudioStreamPlaylist_d3cha")
 volume_db = -25.0
 autoplay = true

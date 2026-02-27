@@ -39,7 +39,7 @@ func _on_focus_mode_changed(subject: Node2D, enabled: bool):
 			"PhotoToCut":
 				photo_to_cut_tutorial()
 			_:
-				print("Grupo desconhecido")
+				print("Unknown group")
 
 func id_tutorial():
 	self.tutorial_audio_stream_player.play()

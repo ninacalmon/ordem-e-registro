@@ -18,7 +18,8 @@ func _ready() -> void:
 func _on_focus_mode_changed(subject: Node2D, enabled: bool):
 	if !enabled:
 		self.text = default_text
-	if Global.is_tutorial_on and enabled:
+
+	if enabled:
 		match get_node_group_type(subject):
 			"Id":
 				self.text =  "rolar[img=bottom,bottom]%s[/img] para zoom		[img=bottom,bottom]%s[/img] para escrever / assinar" % [
@@ -33,7 +34,7 @@ func _on_focus_mode_changed(subject: Node2D, enabled: bool):
 x_img, z_img
 				]
 			_:
-				print("Grupo desconhecido")
+				print("Unknown group")
 
 func get_node_group_type(subject: Node) -> String:
 	if subject.is_in_group("t_IdGroup"):
