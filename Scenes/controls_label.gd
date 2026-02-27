@@ -9,7 +9,7 @@ var default_text: String
 
 func _ready() -> void:
 	EventBus.focus_mode_changed.connect(_on_focus_mode_changed)
-	default_text = "[img=bottom,bottom]%s[/img] para arrastar		[img=bottom,bottom]%s[/img] para focar" % [
+	default_text = "[img=bottom,bottom]%s[/img] para arrastar		[img=bottom,bottom]%s[/img] para focar / desfocar" % [
 	left_mouse_img, right_mouse_img
 	]
 

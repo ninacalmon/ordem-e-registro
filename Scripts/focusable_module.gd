@@ -19,12 +19,6 @@ class_name FocusableModule
 @onready var subject_idle_z_index: int = subject.z_index
 @onready var focusing_audio_stream_player: AudioStreamPlayer = %FocusingAudioStreamPlayer
 
-#@onready var focusing_paper_sound_options: Array[AudioStream] = [
-	#preload("res://Sounds/PaperFocusing/_pegandopapel.wav"),
-	#preload("res://Sounds/PaperFocusing/_pegandopapel2.wav"),
-	#preload("res://Sounds/PaperFocusing/_pegandopapel3.wav"),
-	#preload("res://Sounds/PaperFocusing/_pegandopapel4.wav")
-#]
 var is_focused = false
 var is_animation_playing = false
 var focus_time = Global.focus_time
@@ -42,7 +36,6 @@ func _input(event):
 		var global_mouse_pos = get_global_mouse_position()
 		var current_pixel = Global.global_to_image_pos(global_mouse_pos, self.subject_spr, self.subject_image.get_size())
 		self.is_mouse_overlapping = Global.is_mask_image_overlap_alpha(current_pixel, subject_image)
-		#Global.is_aabb_overlap_with_image(current_pixel, subject_image) USED TO BE THIS
 
 		# Await the animation tween to finish before setting is_focused
 		if event.is_action_pressed("right_mouse_button") \
@@ -54,7 +47,7 @@ func _input(event):
 			self.is_focused = true
 			self.is_animation_playing = false
 			self.change_image_texture_on_focus(self.is_focused)
-		elif event.is_action_pressed("right_mouse_button") and !is_mouse_overlapping and is_focused:
+		elif event.is_action_pressed("right_mouse_button") and is_focused:
 			await focus_off()
 			self.is_focused = false
 			self.is_animation_playing = false
