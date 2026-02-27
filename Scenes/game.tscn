@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=43 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -31,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="27_81klo"]
 [ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
 [ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
+[ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="32_oeip8"]
+[ext_resource type="AudioStream" uid="uid://dy3liebs4wukl" path="res://Music/Noire#1-MusicByPedro2.mp3" id="33_xe308"]
 
 [sub_resource type="Environment" id="Environment_ewbju"]
 background_mode = 3
@@ -68,6 +70,12 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ese38"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_d3cha"]
+fade_time = 0.8
+stream_count = 2
+stream_0 = ExtResource("32_oeip8")
+stream_1 = ExtResource("33_xe308")
+
 [node name="Game" type="Node2D" groups=["GameRootNode"]]
 script = ExtResource("1_rku1e")
 documents_group = ExtResource("2_ewbju")
@@ -79,7 +87,8 @@ script = ExtResource("4_mucmn")
 
 [node name="NewDocsTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 60.0
+wait_time = 10.0
+one_shot = true
 autostart = true
 
 [node name="FocusManager" type="Node" parent="."]
@@ -154,13 +163,13 @@ texture = ExtResource("13_nnt18")
 position = Vector2(980, 186)
 
 [node name="StampTinter" parent="." node_paths=PackedStringArray("stamp") instance=ExtResource("18_85qyi")]
-position = Vector2(44.000015, 455)
+position = Vector2(44.000015, 393)
 rotation = 0.08726646
 stamp = NodePath("../Stamp")
 
 [node name="Stamp" parent="." instance=ExtResource("17_ewbju")]
 z_index = 10
-position = Vector2(87, 337)
+position = Vector2(67, 275)
 
 [node name="BlurRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -382,4 +391,7 @@ offset_bottom = 125.0
 inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath("../Settings")]
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_d3cha")
+volume_db = -25.0
+autoplay = true
 bus = &"Music"

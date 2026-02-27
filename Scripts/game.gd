@@ -87,6 +87,10 @@ func instanciate_documents():
 	EventBus.docs_arrived_at_final_position.emit()
 
 func _on_document_stamped():
+	# Avoid stamping when timer is close to timeout
+	if new_docs_timer.time_left <= 1:
+		return
+
 	print(score_bar.value)
 	
 	if score_bar.value < 2.3:
