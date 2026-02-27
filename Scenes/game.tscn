@@ -236,7 +236,7 @@ texture = SubResource("GradientTexture2D_i26dy")
 
 [node name="ScoreBar" type="ProgressBar" parent="CanvasLayer/UIControl"]
 unique_name_in_owner = true
-modulate = Color(0.77, 0.16426665, 0.15399998, 1)
+modulate = Color(0.76862746, 0.16470589, 0.15294118, 1)
 custom_minimum_size = Vector2(960, 0)
 layout_mode = 0
 offset_right = 960.0

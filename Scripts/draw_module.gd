@@ -11,7 +11,7 @@ extends Node2D
 @onready var draw_audio_stream_player: AudioStreamPlayer = %DrawAudioStreamPlayer
 
 
-var drawing := false
+var drawing = false
 var last_pixel: Vector2i
 
 func _process(delta: float) -> void:

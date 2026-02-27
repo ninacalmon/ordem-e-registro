@@ -26,7 +26,7 @@ const FEMALE_PHOTOS: Array[CompressedTexture2D] = [
 ]
 
 const MALE_NAMES: Array[String] = [
-	"Thiago", "Antonio", "José", "Manoel", "Francisco", "Joaquim", "Sebastiao", 
+	"Thiago", "Antonio", "Jose", "Manoel", "Francisco", "Joaquim", "Sebastiao", 
 	"Alfredo", "Osvaldo", "Anibal", "Alberto", "Arnaldo", "Afonso", "Benedito",
 	"Clovis", "Dionisio", "Domingos", "Elias", "Estevao", "Evaristo",
 	"Floriano", "Geraldo", "Gervasio", "Herculano", "Inacio", "Isidoro",

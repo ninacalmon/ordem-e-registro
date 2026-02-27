@@ -42,7 +42,7 @@ func compare_coordinates(sam_x, sam_y, color, previous_color):
 	elif ref_alpha == 0:
 		self.match_value = max(self.match_value - 0.5, 0)
 
-	EventBus.score_updated.emit(self.match_value / self.max_possible_score, true)
+	EventBus.score_updated.emit(self.match_value / self.max_possible_score, true, "signature_draw")
 
 func _process(_delta: float):
 	count += 1

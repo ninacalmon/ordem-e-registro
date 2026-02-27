@@ -9,7 +9,7 @@ class_name Reference
 var sprite: Sprite2D = self
 var image: Image
 var new_texture: ImageTexture
-var drawing := false
+var drawing = false
 var last_pixel: Vector2i
 
 func _ready():
