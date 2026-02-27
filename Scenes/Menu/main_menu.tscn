@@ -245,7 +245,7 @@ theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/font = ExtResource("3_jqrnd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
-text = "START"
+text = "INICIAR"
 icon_alignment = 1
 script = SubResource("GDScript_7sb5i")
 
@@ -257,7 +257,7 @@ theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/font = ExtResource("3_jqrnd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
-text = "SETTINGS
+text = "CONFIG
 "
 script = SubResource("GDScript_cdmmi")
 
@@ -269,8 +269,7 @@ theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/font = ExtResource("3_jqrnd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
-text = "EXIT
-"
+text = "SAIR"
 script = SubResource("GDScript_b801w")
 
 [node name="SettingsContainer" parent="CanvasLayer" node_paths=PackedStringArray("inverse_visibility_nodes") instance=ExtResource("4_vmek6")]

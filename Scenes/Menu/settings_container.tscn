@@ -68,7 +68,7 @@ custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
-text = "Master sound"
+text = "Som principal"
 scroll_active = false
 
 [node name="HSlider" type="HSlider" parent="SettingsOptions/MasterSoundSliderContainer"]
@@ -90,7 +90,7 @@ custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
-text = "Main music"
+text = "Música"
 scroll_active = false
 
 [node name="HSlider" type="HSlider" parent="SettingsOptions/MainMusicSliderContainer"]
@@ -113,7 +113,7 @@ custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
-text = "Sound effects"
+text = "Efeitos sonoros"
 scroll_active = false
 
 [node name="HSlider" type="HSlider" parent="SettingsOptions/SoundEffectsSliderContainer"]
@@ -136,5 +136,4 @@ theme_override_colors/font_hover_color = Color(0.66, 0.43131003, 0.2442, 1)
 theme_override_fonts/font = ExtResource("2_kjk5j")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
-text = "BACK
-"
+text = "VOLTAR"
