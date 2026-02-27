@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=45 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -53,6 +53,11 @@ fill_from = Vector2(0.5, 0.5)
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oeip8"]
+bg_color = Color(0, 0, 0, 0.4862745)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xe308"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkdbe"]
 texture = ExtResource("24_22asu")
 texture_margin_left = 10.0
@@ -87,7 +92,7 @@ script = ExtResource("4_mucmn")
 
 [node name="NewDocsTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 10.0
+wait_time = 120.0
 one_shot = true
 autostart = true
 
@@ -199,11 +204,14 @@ mouse_filter = 2
 
 [node name="ScoreBar" type="ProgressBar" parent="CanvasLayer/UIControl"]
 unique_name_in_owner = true
+modulate = Color(0.77, 0.16426665, 0.15399998, 1)
 custom_minimum_size = Vector2(960, 0)
 layout_mode = 0
 offset_right = 960.0
-offset_bottom = 5.0
+offset_bottom = 8.0
 mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_oeip8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xe308")
 value = 50.0
 show_percentage = false
 script = ExtResource("18_iivbl")
@@ -225,6 +233,23 @@ texture_over = ExtResource("20_7t8sx")
 texture_progress = ExtResource("19_exi56")
 tint_under = Color(0.67, 0.1809, 0.1809, 1)
 script = ExtResource("21_mg4q0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UIControl"]
+modulate = Color(1, 1, 1, 0.49803922)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = -4.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme = ExtResource("23_vm72l")
+text = "Desempenho"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="UITutorial" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -272,9 +297,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 21.0
-offset_top = -1.0
+offset_top = 3.0
 offset_right = -21.0
-offset_bottom = -5.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

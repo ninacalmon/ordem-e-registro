@@ -31,3 +31,6 @@ func update_current_score(new_score: float, is_drawing: bool = false):
 		Global.current_score,
 		EASE_TIME
 	)
+	if value >= Global.SCORE_THRESHOLD and self.modulate != Color(0.553, 0.769, 0.153):
+		var color_tween = get_tree().create_tween()
+		color_tween.tween_property(self, "modulate", Color(0.553, 0.769, 0.153), 0.5)

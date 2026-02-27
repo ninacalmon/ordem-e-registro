@@ -9,6 +9,7 @@ extends Node2D
 
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
+var id_was_stamped = false
 
 func _ready():
 	Global.is_tutorial_on = true
@@ -18,6 +19,13 @@ func _ready():
 	instanciate_documents()
 
 func _on_new_docs_timer_timeout():
+	if score_bar.value < Global.SCORE_THRESHOLD or !id_was_stamped:
+		Global.player_lifes -= 1
+
+	if Global.player_lifes == 0:
+		print("perdi")
+		pass
+		
 	new_docs_timer.wait_time = 10
 	self.current_timer_wait_time = new_docs_timer.wait_time
 	self.new_docs_timer.start()
@@ -25,6 +33,7 @@ func _on_new_docs_timer_timeout():
 	
 	await self.remove_documents()
 	self.instanciate_documents()
+	self.id_was_stamped = false
 
 func remove_documents(time_to_wait_before_removal:float = 0) -> void:
 	if !current_docs_instantiated_scene:
@@ -90,15 +99,9 @@ func _on_document_stamped():
 	# Avoid stamping when timer is close to timeout
 	if new_docs_timer.time_left <= 1:
 		return
-
-	print(score_bar.value)
 	
-	if score_bar.value < 2.3:
-		print("PERDEU")
-
+	self.id_was_stamped = true
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()
 	Global.is_tutorial_on = false
-	
-	#Later run documenmts analysis here and tell the player if failed or succed.
