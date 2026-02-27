@@ -26,15 +26,20 @@ func _process(_delta: float) -> void:
 		self.editable = true
 
 func _on_line_text_changed(new_text):
+	self.text_changed.disconnect(_on_line_text_changed)
+	var upper_text = new_text.to_upper()
+	self.text = upper_text
+	set_caret_column(self.text.length())
+
 	match value_type:
 		InputCodeTypes.ID_BIRTH_DATE:
-			format_birth_date(new_text)
+			format_birth_date(upper_text)
 		
 		InputCodeTypes.ID_CODE:
-			format_id_code(new_text)
-		
-		_:
-			return
+			format_id_code(upper_text)
+
+	self.previous_text = self.text
+	self.text_changed.connect(_on_line_text_changed)
 
 func _on_line_input_submitted(new_text: String):
 	var expected: String = ""
