@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=40 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://c1xjfe2t36crr" path="res://Sprites/UI/TextBox.png" id="24_22asu"]
 [ext_resource type="Script" uid="uid://dybgqd6gdotuv" path="res://Scenes/tutorial_label.gd" id="25_22asu"]
 [ext_resource type="Script" uid="uid://bc8qdyjcd7q6g" path="res://Scenes/controls_label.gd" id="26_fkdbe"]
+[ext_resource type="AudioStream" uid="uid://bi4m1joddst3d" path="res://Sounds/Menu Error.mp3" id="27_8m3t6"]
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="27_81klo"]
 [ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
 [ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
@@ -249,6 +250,12 @@ bbcode_enabled = true
 text = "dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha."
 horizontal_alignment = 1
 script = ExtResource("25_22asu")
+
+[node name="TutorialAudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/UITutorial"]
+unique_name_in_owner = true
+stream = ExtResource("27_8m3t6")
+volume_db = -5.0
+bus = &"SoundEffects"
 
 [node name="UIControls" type="Control" parent="CanvasLayer"]
 layout_mode = 3

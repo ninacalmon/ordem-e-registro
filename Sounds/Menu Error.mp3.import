@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bi4m1joddst3d"
+path="res://.godot/imported/Menu Error.mp3-092ef9148e3fd14286cc793dfc85f5b4.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Menu Error.mp3"
+dest_files=["res://.godot/imported/Menu Error.mp3-092ef9148e3fd14286cc793dfc85f5b4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
