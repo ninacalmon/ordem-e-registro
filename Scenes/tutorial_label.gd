@@ -43,7 +43,7 @@ func _on_focus_mode_changed(subject: Node2D, enabled: bool):
 
 func id_tutorial():
 	self.tutorial_audio_stream_player.play()
-	self.text = "Este é o [b][color=000000]Registro de Identificação[/color][/b]. Preencha os dados pessoais e o código civil (vide o livro em caso de dúvidas), cole a foto, reproduza a assinatura e, por fim, carimbe-o para envio."
+	self.text = "Este é o [b][color=000000]Registro de Identificação[/color][/b]. Preencha os dados pessoais e o código civil (para a composição do código, é essencial a leitura completa do livro), cole a foto, reproduza a assinatura e, por fim, carimbe-o para envio."
 	await self.tutorial_audio_stream_player.finished
 	id_tutorial_complete = true
  
