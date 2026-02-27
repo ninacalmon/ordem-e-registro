@@ -1,9 +1,10 @@
-[gd_scene load_steps=46 format=3 uid="uid://xcespirprdg1"]
+[gd_scene load_steps=45 format=3 uid="uid://xcespirprdg1"]
 
 [ext_resource type="FontFile" uid="uid://d0xadco06mvux" path="res://Fonts/AsepriteFont.ttf" id="1_3ko7u"]
 [ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_jqrnd"]
 [ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="3_jqrnd"]
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="4_vmek6"]
+[ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="5_2sy2r"]
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="5_pn3xf"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="6_17gaq"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="7_1di0l"]
@@ -11,9 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dxwwg6hjiuvt2" path="res://Scenes/stamp.tscn" id="9_3ko7u"]
 [ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="10_2sy2r"]
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="10_jqrnd"]
-[ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="11_2sy2r"]
 [ext_resource type="Texture2D" uid="uid://c4hbhehnaq7v4" path="res://Sprites/LogoMenu.png" id="11_ygblk"]
-[ext_resource type="AudioStream" uid="uid://dy3liebs4wukl" path="res://Music/Noire#1-MusicByPedro2.mp3" id="12_ygblk"]
+[ext_resource type="AudioStream" uid="uid://dg2bqpd3x7ywi" path="res://Music/IKnewAGuy-KevinMacLeod.mp3" id="14_jqrnd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sy2r"]
 bg_color = Color(0.16, 0.046400003, 0.046400003, 1)
@@ -208,12 +208,6 @@ shader_parameter/blur_std = 4.0
 shader = ExtResource("10_jqrnd")
 shader_parameter/blur_amount = 0.0
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7sb5i"]
-fade_time = 0.8
-stream_count = 2
-stream_0 = ExtResource("11_2sy2r")
-stream_1 = ExtResource("12_ygblk")
-
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -285,6 +279,19 @@ offset_top = -125.0
 offset_right = 200.0
 offset_bottom = 125.0
 inverse_visibility_nodes = [NodePath("../MainButtons")]
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -35.0
+offset_right = 110.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("5_2sy2r")
+theme_override_colors/font_color = Color(0.47, 0.0611, 0.0611, 1)
+text = "RossoSangue"
 
 [node name="VisualSetup" type="Node" parent="."]
 
@@ -387,8 +394,8 @@ mouse_filter = 2
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = SubResource("AudioStreamPlaylist_7sb5i")
-volume_db = -25.0
+stream = ExtResource("14_jqrnd")
+volume_db = -13.0
 autoplay = true
 bus = &"Music"
 
