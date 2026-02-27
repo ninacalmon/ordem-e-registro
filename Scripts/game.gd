@@ -91,6 +91,7 @@ func _on_document_stamped():
 	
 	if score_bar.value < 2.3:
 		print("PERDEU")
+
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()
