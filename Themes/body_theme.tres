@@ -1,9 +1,40 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c14p3r478pryl"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c14p3r478pryl"]
 
 [ext_resource type="FontFile" uid="uid://d0xadco06mvux" path="res://Fonts/AsepriteFont.ttf" id="1_dy282"]
 [ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_6j2a5"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j2a5"]
+bg_color = Color(0.16, 0.046400003, 0.046400003, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gitbs"]
+bg_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh81u"]
+bg_color = Color(0.45, 0.3186, 0.121499985, 1)
+draw_center = false
+border_width_left = 4
+border_width_right = 3
+border_color = Color(0.45, 0.3186, 0.121499985, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
 [resource]
 default_font = ExtResource("1_dy282")
 default_font_size = 16
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_6j2a5")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_gitbs")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_jh81u")
 metadata/color_array = ExtResource("2_6j2a5")

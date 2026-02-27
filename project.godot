@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Fake ID simulator"
+config/name="Ordem e Registro"
 run/main_scene="uid://xcespirprdg1"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://Sprites/icon.svg"
+config/icon="uid://fsi40a72ukro"
 
 [autoload]
 
@@ -26,6 +26,7 @@ CustomerInfo="*res://Global/customer_info.gd"
 
 window/size/viewport_width=960
 window/size/viewport_height=540
+window/size/mode=3
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="uid://3eg8l5f6bytq"
 

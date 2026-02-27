@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=51 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="27_81klo"]
 [ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
 [ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
+[ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="29_i26dy"]
 [ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="32_oeip8"]
 [ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="32_xe308"]
 [ext_resource type="Script" uid="uid://0osj0f1m6xth" path="res://Scenes/death_infos.gd" id="33_d3cha"]
@@ -47,12 +48,12 @@ tonemap_mode = 4
 glow_enabled = true
 glow_bloom = 0.45
 
-[sub_resource type="Gradient" id="Gradient_ewbju"]
+[sub_resource type="Gradient" id="Gradient_i26dy"]
 offsets = PackedFloat32Array(0, 0.6738461)
 colors = PackedColorArray(0.59, 0.59, 0.59, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_85qyi"]
-gradient = SubResource("Gradient_ewbju")
+gradient = SubResource("Gradient_i26dy")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -84,11 +85,11 @@ texture_margin_bottom = 10.0
 shader = ExtResource("7_1l0tm")
 shader_parameter/blur_amount = 0.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m3t6"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
+bg_color = Color(0.13725491, 0.09019608, 0.0627451, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ese38"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqrnd"]
+bg_color = Color(0.08, 0.05264, 0.036799997, 1)
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_d3cha"]
 fade_time = 0.8
@@ -103,6 +104,7 @@ doc_photo_to_cut_scene = ExtResource("8_nb51f")
 timer_curve = SubResource("Curve_d3cha")
 
 [node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
 process_mode = 3
 script = ExtResource("4_mucmn")
 
@@ -204,8 +206,6 @@ mouse_filter = 2
 
 [node name="PointerManager" type="Node2D" parent="."]
 script = ExtResource("16_ewbju")
-
-[node name="ScoreAnalyzer" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -313,7 +313,12 @@ theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_fkdbe")
 bbcode_enabled = true
-text = "dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha."
+text = "dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
+dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
+dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
+dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
+dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
+dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha."
 horizontal_alignment = 1
 script = ExtResource("25_22asu")
 
@@ -408,7 +413,10 @@ offset_right = 75.0
 offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_8m3t6")
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_fonts/font = ExtResource("29_i26dy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "MAIN MENU"
 script = ExtResource("27_cwurv")
 
@@ -426,7 +434,10 @@ offset_right = 75.0
 offset_bottom = -118.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_ese38")
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_fonts/font = ExtResource("29_i26dy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "SETTINGS
 "
 script = ExtResource("28_mucmn")

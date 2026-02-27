@@ -1,18 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2ijay0wls6go"]
+[gd_scene load_steps=10 format=3 uid="uid://c2ijay0wls6go"]
 
 [ext_resource type="Script" uid="uid://ckjastwhdi34a" path="res://Scenes/Menu/settings_container.gd" id="1_mnky5"]
+[ext_resource type="Texture2D" uid="uid://c1xjfe2t36crr" path="res://Sprites/UI/TextBox.png" id="2_725c0"]
 [ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="2_kjk5j"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scmtj"]
-bg_color = Color(0, 0, 0, 0.52156866)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1ify"]
+texture = ExtResource("2_725c0")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(1, 1, 1, 0.5764706)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rss6"]
 content_margin_top = 8.0
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.13725491, 0.09019608, 0.0627451, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -20,7 +22,7 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rh3y"]
 content_margin_top = 8.0
-bg_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+bg_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -28,17 +30,17 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlsuc"]
 content_margin_top = 8.0
-bg_color = Color(0.27850664, 0.23520002, 0.56, 1)
+bg_color = Color(0.67, 0.43784502, 0.24790001, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.13725491, 0.09019608, 0.0627451, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khm05"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqrnd"]
+bg_color = Color(0.08, 0.05264, 0.036799997, 1)
 
 [node name="SettingsContainer" type="CenterContainer"]
 offset_right = 400.0
@@ -50,7 +52,7 @@ script = ExtResource("1_mnky5")
 [node name="Background" type="Panel" parent="."]
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_scmtj")
+theme_override_styles/panel = SubResource("StyleBoxTexture_g1ify")
 
 [node name="SettingsOptions" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -64,6 +66,7 @@ theme_override_constants/separation = 40
 [node name="RichTextLabel" type="RichTextLabel" parent="SettingsOptions/MasterSoundSliderContainer"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
 text = "Master sound"
 scroll_active = false
@@ -85,6 +88,7 @@ theme_override_constants/separation = 40
 [node name="RichTextLabel" type="RichTextLabel" parent="SettingsOptions/MainMusicSliderContainer"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
 text = "Main music"
 scroll_active = false
@@ -107,6 +111,7 @@ theme_override_constants/separation = 40
 [node name="RichTextLabel" type="RichTextLabel" parent="SettingsOptions/SoundEffectsSliderContainer"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_colors/default_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("2_kjk5j")
 text = "Sound effects"
 scroll_active = false
@@ -126,9 +131,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_colors/font_hover_color = Color(0.66, 0.43131003, 0.2442, 1)
 theme_override_fonts/font = ExtResource("2_kjk5j")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "BACK
 "

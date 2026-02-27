@@ -1,12 +1,218 @@
-[gd_scene load_steps=6 format=3 uid="uid://xcespirprdg1"]
+[gd_scene load_steps=46 format=3 uid="uid://xcespirprdg1"]
 
-[ext_resource type="Script" uid="uid://cxerwrilkq6pl" path="res://Scenes/Menu/start.gd" id="1_bkwd7"]
-[ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="2_7jtkx"]
-[ext_resource type="Script" uid="uid://3jslkn4hno1c" path="res://Scenes/Menu/exit.gd" id="2_tself"]
+[ext_resource type="FontFile" uid="uid://d0xadco06mvux" path="res://Fonts/AsepriteFont.ttf" id="1_3ko7u"]
+[ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_jqrnd"]
+[ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="3_jqrnd"]
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="4_vmek6"]
+[ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="5_pn3xf"]
+[ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="6_17gaq"]
+[ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="7_1di0l"]
+[ext_resource type="PackedScene" uid="uid://ceadx3ngyr1x4" path="res://Scenes/stamp_tinter.tscn" id="8_4qbh4"]
+[ext_resource type="PackedScene" uid="uid://dxwwg6hjiuvt2" path="res://Scenes/stamp.tscn" id="9_3ko7u"]
+[ext_resource type="Shader" uid="uid://dctric1ogugrs" path="res://Shaders/shadow.gdshader" id="10_2sy2r"]
+[ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="10_jqrnd"]
+[ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="11_2sy2r"]
+[ext_resource type="Texture2D" uid="uid://c4hbhehnaq7v4" path="res://Sprites/LogoMenu.png" id="11_ygblk"]
+[ext_resource type="AudioStream" uid="uid://dy3liebs4wukl" path="res://Music/Noire#1-MusicByPedro2.mp3" id="12_ygblk"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s51c5"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sy2r"]
+bg_color = Color(0.16, 0.046400003, 0.046400003, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygblk"]
+bg_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbedn"]
+bg_color = Color(0.45, 0.3186, 0.121499985, 1)
+draw_center = false
+border_width_left = 4
+border_width_right = 3
+border_color = Color(0.45, 0.3186, 0.121499985, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="Theme" id="Theme_2sy2r"]
+default_font = ExtResource("1_3ko7u")
+default_font_size = 16
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_2sy2r")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ygblk")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_cbedn")
+metadata/color_array = ExtResource("2_jqrnd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
+bg_color = Color(0.13725491, 0.09019608, 0.0627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqrnd"]
+bg_color = Color(0.08, 0.05264, 0.036799997, 1)
+
+[sub_resource type="GDScript" id="GDScript_7sb5i"]
+script/source = "extends Button
+
+func _ready() -> void:
+	self.pressed.connect(on_start_button_pressed)
+	
+func on_start_button_pressed():
+	LevelTransition.change_scene_to(\"res://Scenes/game.tscn\")
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j2a5"]
+bg_color = Color(0.16, 0.046400003, 0.046400003, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gitbs"]
+bg_color = Color(0.10980392, 0.078431375, 0.0627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh81u"]
+bg_color = Color(0.45, 0.3186, 0.121499985, 1)
+draw_center = false
+border_width_left = 4
+border_width_right = 3
+border_color = Color(0.45, 0.3186, 0.121499985, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="Theme" id="Theme_jmiel"]
+default_font = ExtResource("1_3ko7u")
+default_font_size = 16
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_6j2a5")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_gitbs")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_jh81u")
+metadata/color_array = ExtResource("2_jqrnd")
+
+[sub_resource type="GDScript" id="GDScript_cdmmi"]
+script/source = "extends Button
+
+@export var inverse_visibility_nodes: Array[Node]
+@onready var settings_container: CenterContainer = %SettingsContainer
+
+func _ready():
+	self.pressed.connect(_on_settings_button_pressed)
+
+func _on_settings_button_pressed():
+	self.settings_container.show()
+	for canvas_node in inverse_visibility_nodes:
+		canvas_node.hide()
+"
+
+[sub_resource type="Theme" id="Theme_btwdk"]
+default_font = ExtResource("1_3ko7u")
+default_font_size = 16
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_6j2a5")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_gitbs")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_jh81u")
+metadata/color_array = ExtResource("2_jqrnd")
+
+[sub_resource type="GDScript" id="GDScript_b801w"]
+script/source = "extends Button
+
+func _ready() -> void:
+	self.pressed.connect(on_exit_button_pressed)
+
+func on_exit_button_pressed():
+	get_tree().quit()
+"
+
+[sub_resource type="Environment" id="Environment_w1xia"]
+background_mode = 3
+tonemap_mode = 4
+glow_enabled = true
+glow_bloom = 0.45
+
+[sub_resource type="Gradient" id="Gradient_ewbju"]
+offsets = PackedFloat32Array(0, 0.6738461)
+colors = PackedColorArray(0.59, 0.59, 0.59, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nbh3q"]
+gradient = SubResource("Gradient_ewbju")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qbh4"]
+load_path = "res://.godot/imported/background.png-4fa92766cad903a1a79b587b09bd47c5.ctex"
+
+[sub_resource type="Gradient" id="Gradient_25ago"]
+offsets = PackedFloat32Array(0, 0.14946619, 0.63345194, 1)
+colors = PackedColorArray(1, 1, 1, 0.032028496, 1, 1, 1, 1, 1, 1, 1, 0.9277109, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4igey"]
+gradient = SubResource("Gradient_25ago")
+
+[sub_resource type="Curve" id="Curve_q4vb8"]
+_data = [Vector2(0, 0.4953947), 0.0, 0.0, 0, 0, Vector2(0.20846906, 1), 0.0, 0.0, 0, 0, Vector2(0.68729645, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_o27r4"]
+curve = SubResource("Curve_q4vb8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ko7u"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1152, 648, 1)
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 4.9999976
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_o27r4")
+color = Color(1, 1, 1, 0.1764706)
+color_ramp = SubResource("GradientTexture1D_4igey")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jqrnd"]
+load_path = "res://.godot/imported/papaerpile.png-d19309c24996c71570d43c2503ef0d59.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2sy2r"]
+load_path = "res://.godot/imported/inkpot.png-01f3bd3c83710e56c7e9dff9e6fef313.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ygblk"]
+load_path = "res://.godot/imported/inkpenlid.png-ae3a2030e8c32c1b6802f16f613417e4.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cbedn"]
+load_path = "res://.godot/imported/inkpen.png-154c1b5707f923158d4d001bfad6f554.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7sb5i"]
+load_path = "res://.godot/imported/inkpenshadow.png-200c7e4e4bb2cf6b671103853f1ac9c1.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7sb5i"]
+shader = ExtResource("10_2sy2r")
+shader_parameter/shadow_only = false
+shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
+shader_parameter/blur_std = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbedn"]
+shader = ExtResource("10_jqrnd")
+shader_parameter/blur_amount = 0.0
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7sb5i"]
+fade_time = 0.8
+stream_count = 2
+stream_0 = ExtResource("11_2sy2r")
+stream_1 = ExtResource("12_ygblk")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -29,30 +235,43 @@ grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainButtons"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Start" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+theme = SubResource("Theme_2sy2r")
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_fonts/font = ExtResource("3_jqrnd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "START"
-script = ExtResource("1_bkwd7")
+icon_alignment = 1
+script = SubResource("GDScript_7sb5i")
 
-[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
-custom_minimum_size = Vector2(150, 40)
+[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+theme = SubResource("Theme_jmiel")
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_fonts/font = ExtResource("3_jqrnd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "SETTINGS
 "
-script = ExtResource("2_7jtkx")
-inverse_visibility_nodes = [NodePath("../..")]
+script = SubResource("GDScript_cdmmi")
 
 [node name="Exit" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_s51c5")
+theme = SubResource("Theme_btwdk")
+theme_override_colors/font_color = Color(0.5529412, 0.36078432, 0.20392157, 1)
+theme_override_fonts/font = ExtResource("3_jqrnd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "EXIT
 "
-script = ExtResource("2_tself")
+script = SubResource("GDScript_b801w")
 
 [node name="SettingsContainer" parent="CanvasLayer" node_paths=PackedStringArray("inverse_visibility_nodes") instance=ExtResource("4_vmek6")]
 unique_name_in_owner = true
@@ -67,3 +286,112 @@ offset_top = -125.0
 offset_right = 200.0
 offset_bottom = 125.0
 inverse_visibility_nodes = [NodePath("../MainButtons")]
+
+[node name="VisualSetup" type="Node" parent="."]
+
+[node name="LightingSetup" type="Node2D" parent="VisualSetup"]
+unique_name_in_owner = true
+position = Vector2(3.0517578e-05, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VisualSetup/LightingSetup"]
+environment = SubResource("Environment_w1xia")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="VisualSetup/LightingSetup"]
+color = Color(0.66, 0.60357004, 0.5346, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="VisualSetup/LightingSetup"]
+position = Vector2(503, 259)
+color = Color(1.5720325, 1.3581792, 1.078525, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_nbh3q")
+texture_scale = 10.0
+
+[node name="Camera" type="Camera2D" parent="VisualSetup"]
+unique_name_in_owner = true
+anchor_mode = 0
+limit_smoothed = true
+script = ExtResource("5_pn3xf")
+
+[node name="Background" type="Sprite2D" parent="VisualSetup"]
+z_index = -999
+position = Vector2(507, 269)
+scale = Vector2(1.3, 1.3)
+texture = SubResource("CompressedTexture2D_4qbh4")
+
+[node name="DustParticles" parent="VisualSetup" instance=ExtResource("6_17gaq")]
+z_index = 1000
+process_material = SubResource("ParticleProcessMaterial_3ko7u")
+
+[node name="Book" parent="." instance=ExtResource("7_1di0l")]
+position = Vector2(980, 186)
+script = null
+
+[node name="StampTinter" parent="." instance=ExtResource("8_4qbh4")]
+position = Vector2(44.000015, 393)
+rotation = 0.08726645
+script = null
+
+[node name="DraggableModule" parent="StampTinter" index="1"]
+script = null
+
+[node name="Stamp" parent="." instance=ExtResource("9_3ko7u")]
+z_index = 10
+position = Vector2(67, 275)
+script = null
+
+[node name="DraggableModule" parent="Stamp" index="2"]
+script = null
+
+[node name="StaticDeskObjects" type="Node2D" parent="."]
+
+[node name="Papaerpile" type="Sprite2D" parent="StaticDeskObjects"]
+position = Vector2(-8.999996, -76)
+scale = Vector2(1.4, 1.4)
+texture = SubResource("CompressedTexture2D_jqrnd")
+
+[node name="Inkpot" type="Sprite2D" parent="StaticDeskObjects"]
+position = Vector2(838, 34)
+texture = SubResource("CompressedTexture2D_2sy2r")
+
+[node name="Inkpenlid" type="Sprite2D" parent="StaticDeskObjects"]
+position = Vector2(958, 102)
+texture = SubResource("CompressedTexture2D_ygblk")
+
+[node name="Inkpen" type="Sprite2D" parent="StaticDeskObjects"]
+position = Vector2(926, 29)
+texture = SubResource("CompressedTexture2D_cbedn")
+
+[node name="Shadow" type="Sprite2D" parent="StaticDeskObjects/Inkpen"]
+show_behind_parent = true
+
+[node name="Inkpenshadow" type="Sprite2D" parent="StaticDeskObjects/Inkpen"]
+show_behind_parent = true
+position = Vector2(6, 4)
+texture = SubResource("CompressedTexture2D_7sb5i")
+
+[node name="LogoSprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7sb5i")
+position = Vector2(499, 190)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_ygblk")
+
+[node name="BlurRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+z_index = 100
+material = SubResource("ShaderMaterial_cbedn")
+layout_mode = 0
+offset_left = -125.0
+offset_top = -90.0
+offset_right = 1131.0
+offset_bottom = 625.0
+mouse_filter = 2
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = SubResource("AudioStreamPlaylist_7sb5i")
+volume_db = -25.0
+autoplay = true
+bus = &"Music"
+
+[editable path="StampTinter"]
+[editable path="Stamp"]
