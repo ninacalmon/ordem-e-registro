@@ -2,6 +2,7 @@ extends Node2D
 
 @export var documents_group: PackedScene
 @export var doc_photo_to_cut_scene: PackedScene
+@export var timer_curve: Curve
 
 @onready var documents_layer: Node2D = %DocumentsLayer
 @onready var new_docs_timer: Timer = %NewDocsTimer
@@ -10,6 +11,7 @@ extends Node2D
 var current_docs_instantiated_scene = null
 var current_timer_wait_time: float
 var id_was_stamped = false
+var documents_registred: int = 0
 
 func _ready():
 	Global.is_tutorial_on = true
@@ -19,6 +21,9 @@ func _ready():
 	instanciate_documents()
 
 func _on_new_docs_timer_timeout():
+	documents_registred += 1
+	new_docs_timer.wait_time = (timer_curve.sample(documents_registred) * 60)
+
 	if score_bar.value < Global.SCORE_THRESHOLD or !id_was_stamped:
 		Global.player_lifes -= 1
 	else:
