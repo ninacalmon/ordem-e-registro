@@ -88,7 +88,6 @@ func format_id_code(new_text: String):
 	text_changed.connect(_on_line_text_changed)
 
 func calculate_score(input: String, expected: String) -> float:
-	print("OIA O INPUT ", input)
 	var input_upper = input.to_upper()
 	var expected_upper = expected.to_upper()
 	

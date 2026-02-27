@@ -7,11 +7,11 @@ var old_drawing_score: float = 0.0
 @onready var enough_score_overlay_light: PointLight2D = %EnoughScoreOverlayLight
 
 func _ready():
-	EventBus.score_updated.connect(update_current_score)
-	EventBus.document_stamped.connect(func(): 
+	EventBus.new_docs_timer_timeout.connect(func(): 
 		on_demand_scores = {}
 		incremental_score = 0.0
 	)
+	EventBus.score_updated.connect(update_current_score)
 
 	self.show()
 	max_value = Global.MAX_SCORE

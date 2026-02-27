@@ -10,8 +10,8 @@ extends Node2D
 
 func _ready():
 	birth_data_rich_text_label.text = \
-	"CERTIFICO que, no livro %s, foi lavrado o assento de: %s.\n Nascido(a) no dia %s, no Hospital Nacional, polo estado %s, filho(a) de %s e de %s." \
-	% [CustomerInfo.book_code, CustomerInfo.child_complete_name, CustomerInfo.child_birth_date, CustomerInfo.child_birth_state.state, CustomerInfo.mother_complete_name, CustomerInfo.father_complete_name]
+	"CERTIFICO que, no livro estatal, foi lavrado o assento de: %s.\n Nascido(a) no dia %s, no Hospital Nacional, polo estado %s, filho(a) de %s e de %s." \
+	% [CustomerInfo.child_complete_name, CustomerInfo.child_birth_date, CustomerInfo.child_birth_state.state, CustomerInfo.mother_complete_name, CustomerInfo.father_complete_name]
 
 func _process(_delta: float) -> void:
 	## Oh my god vvvvvv sem palavras pra essa atrocidade >*O*<

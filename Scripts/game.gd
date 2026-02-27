@@ -23,8 +23,8 @@ func _ready():
 
 func _on_new_docs_timer_timeout():
 	documents_registred += 1
-	new_docs_timer.wait_time = (timer_curve.sample(documents_registred) * 60)
-
+	#new_docs_timer.wait_time = (timer_curve.sample(documents_registred) * 60)
+	new_docs_timer.wait_time = 10
 	if score_bar.value < Global.SCORE_THRESHOLD or !id_was_stamped:
 		Global.player_lifes -= 1
 		var tween = create_tween()

@@ -1,9 +1,10 @@
 extends Node
 
 const MAX_SCORE: int = 5
-const SCORE_THRESHOLD: float = 3.4
+const SCORE_THRESHOLD: float = 0.9
+const MAX_PLAYER_LIFES = 5
 
-var player_lifes = 5
+var player_lifes = MAX_PLAYER_LIFES
 var docs_correctly_stamped: int = 0
 
 var is_tutorial_on: bool
@@ -130,3 +131,13 @@ func get_viewport_center() -> Vector2:
 
 func get_sprite_center_global(sprite: Sprite2D) -> Vector2:
 	return sprite.to_global(sprite.texture.get_size() * sprite.scale / 2.0)
+
+func reset() -> void:
+	self.player_lifes = MAX_PLAYER_LIFES
+	self.docs_correctly_stamped = 0
+	self.current_score = 0.0
+
+	self.is_something_focused = false
+
+	self.pointer_state = PointerVariations.DEFAULT
+	self.set_current_mouse_pointer(pointer_state)

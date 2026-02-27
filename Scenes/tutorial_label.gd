@@ -10,7 +10,7 @@ var photo_tutorial_complete: bool = false
 
 func _ready() -> void:
 	EventBus.focus_mode_changed.connect(_on_focus_mode_changed)
-	default_text = "Você foi designado ao [b][color=000000]Cartório Nacional do Novo Estado Bósnio-Brasiliense[/color][/b]. Sua função consiste no preenchimento e na validação do [b][color=000000]Registro de Identificação[/color][/b] da população. 
+	default_text = "Você foi designado ao [b][color=000000]Cartório Nacional do Novo Estado Bósnio-Braziliense[/color][/b]. Sua função consiste no preenchimento e na validação do [b][color=000000]Registro de Identificação[/color][/b] da população. 
 Em decorrência do recente 'desaparecimento' dos antigos funcionários, suas funções foram imediatamente transferidas a este posto. É de suma importância que [b][color=000000]ninguém[/color][/b] tenha conhecimento do ocorrido; portanto, durante os procedimentos, você deverá reproduzir as assinaturas dos registradores anteriores conforme os padrões arquivados.
 Fique à vontade para conferir os documentos sobre sua mesa."
 	self.text = default_text
