@@ -21,6 +21,7 @@ var sound_timer = 0.0
 
 func _ready() -> void:
 	EventBus.focus_mode_changed.connect(_on_focus_mode_changed)
+	EventBus.tutorial_ended.connect(_on_tutorial_end)
 
 	self.visible = true
 	await self.intro_text()
@@ -84,11 +85,20 @@ func type_text(content: String, typing_session: int) -> void:
 	if self.visible_characters == total_char_count:
 		self.is_typing = false
 
-func _on_focus_mode_changed(subject: Node2D, enabled: bool) -> void:
+func _on_tutorial_end():
+	self.visible = false
+	tutorial_audio.stop()
+	type_sound.stop()
+	clear_text()
 	self.current_typing_session_id += 1
 
+	Global.is_tutorial_on = false
+
+func _on_focus_mode_changed(subject: Node2D, enabled: bool) -> void:
 	if not Global.is_tutorial_on:
 		return
+
+	self.current_typing_session_id += 1
 
 	if not enabled:
 		clear_text()

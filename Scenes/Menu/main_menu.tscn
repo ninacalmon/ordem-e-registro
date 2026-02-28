@@ -243,7 +243,7 @@ text = "INICIAR"
 icon_alignment = 1
 script = SubResource("GDScript_7sb5i")
 
-[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
+[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
 custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
 theme = SubResource("Theme_jmiel")
@@ -254,6 +254,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_jqrnd")
 text = "CONFIG
 "
 script = SubResource("GDScript_cdmmi")
+inverse_visibility_nodes = [NodePath("../..")]
 
 [node name="Exit" type="Button" parent="CanvasLayer/MainButtons/VBoxContainer"]
 custom_minimum_size = Vector2(150, 36)

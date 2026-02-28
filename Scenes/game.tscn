@@ -334,7 +334,7 @@ script = ExtResource("25_22asu")
 [node name="TutorialAudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/UITutorial"]
 unique_name_in_owner = true
 stream = ExtResource("27_8m3t6")
-volume_db = -17.0
+volume_db = -15.0
 bus = &"SoundEffects"
 
 [node name="TypeSoundPlayer" type="AudioStreamPlayer" parent="CanvasLayer/UITutorial"]

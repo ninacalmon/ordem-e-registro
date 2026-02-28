@@ -123,4 +123,6 @@ func _on_document_stamped():
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()
-	Global.is_tutorial_on = false
+
+	if Global.is_tutorial_on:
+		EventBus.tutorial_ended.emit()
