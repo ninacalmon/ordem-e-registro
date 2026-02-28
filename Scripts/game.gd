@@ -91,9 +91,6 @@ func instanciate_documents():
 
 	placeholder_photo_to_cut.add_child(doc_photo_to_cut)
 
-	# Wait one frame so _ready() of doc_photo_to_cut runs
-	#await get_tree().process_frame
-
 	doc_photo_to_cut.setup(
 		doc_id_sprite,
 		CustomerInfo.customer_photo
@@ -120,6 +117,7 @@ func _on_document_stamped():
 		return
 	
 	self.id_was_stamped = true
+	CameraShake.apply_shake(1.5, 0.5)
 	new_docs_timer.stop()
 	await remove_documents(1)
 	new_docs_timer.timeout.emit()
