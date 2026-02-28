@@ -44,12 +44,6 @@ func compare_coordinates(sam_x, sam_y, color, previous_color):
 
 	EventBus.score_updated.emit(self.match_value / self.max_possible_score, true, "signature_draw")
 
-func _process(_delta: float):
-	count += 1
-	
-	if count % 240 == 0:
-		print("MATCH VAL", self.match_value)
-
 func compare_coordinates_cut(mask_image: Image, sprite_to_glue: Sprite2D):
 	if self.should_compare_drawing:
 		return

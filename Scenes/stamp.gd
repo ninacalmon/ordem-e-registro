@@ -22,12 +22,15 @@ func _input(_event: InputEvent) -> void:
 
 	if !draggable_module.dragging and self.has_emitted:
 		stamp.position.y = 0
-
-		audio_stream_player.volume_db = initial_volume + randf_range(-3, 4)
-		audio_stream_player.pitch_scale = randf_range(0.8, 1.6)
-		audio_stream_player.play()
+		if !is_tinted:
+			audio_stream_player.volume_db = initial_volume + randf_range(-13, -9)
+			audio_stream_player.pitch_scale = randf_range(0.8, 1.6)
+			audio_stream_player.play()
 		
-		if is_tinted == true:
+		if is_tinted:
+			audio_stream_player.volume_db = initial_volume + randf_range(-3, 4)
+			audio_stream_player.pitch_scale = randf_range(0.8, 1.6)
+			audio_stream_player.play()
 			#Randomizing Stamp Mark
 			stamp_mark.rotation_degrees = randi_range(-40, 40)
 			stamp_mark.modulate.a = randf_range(0.3, 0.6)

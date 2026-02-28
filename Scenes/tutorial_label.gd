@@ -126,7 +126,7 @@ func play_id_tutorial() -> void:
 	clear_text()
 	tutorial_complete["id"] = true
 	tutorial_audio.play()
-	show_text("Este é o [b][color=000000]Registro de Identificação[/color][/b]. Preencha os dados pessoais e o código civil. A leitura completa do livro é essencial para a composição do código. Cole a foto, reproduza a assinatura e, por fim, carimbe-o para envio.")
+	show_text("Este é o [b][color=000000]Registro de Identificação[/color][/b]. Preencha os dados pessoais e o código civil. A leitura completa do  [b][color=000000]livro vermelho[/color][/b] é essencial para a composição do código. Cole a foto, reproduza a assinatura e, por fim, carimbe-o para envio.")
 
 
 func play_birth_tutorial() -> void:

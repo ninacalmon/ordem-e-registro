@@ -3,7 +3,6 @@ extends Node
 
 @onready var blur_rect: ColorRect = %BlurRect
 @onready var blur_rect_material: ShaderMaterial = blur_rect.material
-@onready var canvas_modulate_global: CanvasModulate = $"../LightingSetup/CanvasModulate"
 
 
 var original_parent: Node

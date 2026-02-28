@@ -46,7 +46,7 @@
 
 [sub_resource type="Curve" id="Curve_d3cha"]
 _limits = [0.0, 10.0, 0.0, 50.0]
-_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0, Vector2(2, 1.8), 0.0, 0.0, 0, 0, Vector2(4, 1.3), 0.0, 0.0, 0, 0, Vector2(6, 1), 0.0, 0.0, 0, 0, Vector2(8, 0.9), 0.0, 0.0, 0, 0, Vector2(10, 0.7), 0.0, 0.0, 0, 0, Vector2(12, 0.6), 0.0, 0.0, 0, 0, Vector2(15, 0.5), 0.0, 0.0, 0, 0, Vector2(20, 0.3), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0, Vector2(2, 1.8), 0.0, 0.0, 0, 0, Vector2(4, 1.4), 0.0, 0.0, 0, 0, Vector2(6, 1.2), 0.0, 0.0, 0, 0, Vector2(8, 1), 0.0, 0.0, 0, 0, Vector2(10, 0.9), 0.0, 0.0, 0, 0, Vector2(12, 0.8), 0.0, 0.0, 0, 0, Vector2(15, 0.6), 0.0, 0.0, 0, 0, Vector2(20, 0.3), 0.0, 0.0, 0, 0]
 point_count = 10
 
 [sub_resource type="Environment" id="Environment_ewbju"]
@@ -205,7 +205,7 @@ position = Vector2(6, 4)
 texture = ExtResource("13_nnt18")
 
 [node name="Book" parent="." instance=ExtResource("20_7nbq1")]
-position = Vector2(980, 186)
+position = Vector2(960, 161)
 
 [node name="StampTinter" parent="." node_paths=PackedStringArray("stamp") instance=ExtResource("18_85qyi")]
 position = Vector2(44.000015, 393)

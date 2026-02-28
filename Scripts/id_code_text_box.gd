@@ -6,8 +6,6 @@ enum InputCodeTypes {
 	ID_CODE
 }
 
-@onready var new_docs_timer: Timer = %NewDocsTimer
-
 @export var focusable_module: FocusableModule
 @export var value_type: InputCodeTypes
 
