@@ -2,7 +2,7 @@ extends Node
 
 const MAX_SCORE: int = 5
 const BASE_SCORE_THRESHOLD: float = 3.2
-const MAX_PLAYER_LIFES = 5
+const MAX_PLAYER_LIFES = 3
 
 var current_score_threshold = BASE_SCORE_THRESHOLD
 var player_lifes = MAX_PLAYER_LIFES

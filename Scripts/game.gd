@@ -43,7 +43,7 @@ func _on_new_docs_timer_timeout():
 		EventBus.player_death.emit()
 		return
 	
-	if documents_registred >= 10:
+	if documents_registred >= 7:
 		Global.current_score_threshold = Global.BASE_SCORE_THRESHOLD + 0.5
 		
 	self.score_bar.value = 0

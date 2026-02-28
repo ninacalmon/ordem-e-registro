@@ -4,7 +4,8 @@ var tutorial_complete = {
 	"intro_text": false,
 	"id": false,
 	"birth": false,
-	"photo": false
+	"photo": false,
+	"final_text": false
 }
 
 var is_typing = false
@@ -105,9 +106,10 @@ func _on_focus_mode_changed(subject: Node2D, enabled: bool) -> void:
 		if !tutorial_complete["intro_text"]:
 			intro_text()
 		
-		if all_tutorials_complete():
+		if all_tutorials_complete() and !tutorial_complete["final_text"]:
 			tutorial_audio.play()
-			await show_text(get_final_text())
+			final_text()
+			#await show_text(get_final_text())
 
 		return
 
@@ -151,6 +153,17 @@ func intro_text():
 	if typing_session_id == self.current_typing_session_id:
 		tutorial_complete["intro_text"] = true
 
+func final_text():
+	self.current_typing_session_id += 1
+	var typing_session_id = self.current_typing_session_id
+	await show_text(
+		"[b][color=000000]Ao final do preenchimento[/color][/b], você deverá carimbar o documento para submetê-lo à análise. Certifique-se da exatidão das informações, pois, caso seu desempenho esteja abaixo do esperado, resultará em realocação imediata para um de nossos [b][color=000000]Centros de Readequação[/color][/b].\nAdemais, fique atento: o [b][color=000000]tempo[/color][/b] para o preenchimento de cada registro poderá tornar-se mais [b][color=000000]curto[/color][/b] à medida que nos aproximamos do horário de pico.\nBoa sorte. [b][color=000000]Não nos decepcione.[/color][/b]",
+		typing_session_id
+	)
+
+	if typing_session_id == self.current_typing_session_id:
+		tutorial_complete["final_text"] = true
+
 func all_tutorials_complete() -> bool:
 	return tutorial_complete["id"] and tutorial_complete["birth"] and tutorial_complete["photo"]
 
@@ -163,5 +176,5 @@ func get_node_group_type(subject: Node) -> String:
 		return "photo"
 	return "unknown"
 
-func get_final_text() -> String:
-	return "[b][color=000000]Ao final do preenchimento[/color][/b], você deverá carimbar o documento para submetê-lo à análise. Certifique-se da exatidão das informações, pois, caso seu desempenho esteja abaixo do esperado, resultará em realocação imediata para um de nossos [b][color=000000]Centros de Readequação[/color][/b].\nAdemais, fique atento: o [b][color=000000]tempo[/color][/b] para o preenchimento de cada registro poderá tornar-se mais [b][color=000000]curto[/color][/b] à medida que nos aproximamos do horário de pico.\nBoa sorte. [b][color=000000]Não nos decepcione.[/color][/b]"
+#func get_final_text() -> String:
+	#return "[b][color=000000]Ao final do preenchimento[/color][/b], você deverá carimbar o documento para submetê-lo à análise. Certifique-se da exatidão das informações, pois, caso seu desempenho esteja abaixo do esperado, resultará em realocação imediata para um de nossos [b][color=000000]Centros de Readequação[/color][/b].\nAdemais, fique atento: o [b][color=000000]tempo[/color][/b] para o preenchimento de cada registro poderá tornar-se mais [b][color=000000]curto[/color][/b] à medida que nos aproximamos do horário de pico.\nBoa sorte. [b][color=000000]Não nos decepcione.[/color][/b]"
