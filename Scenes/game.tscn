@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=57 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
@@ -30,9 +30,14 @@
 [ext_resource type="AudioStream" uid="uid://bi4m1joddst3d" path="res://Sounds/Menu Error.mp3" id="27_8m3t6"]
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="27_81klo"]
 [ext_resource type="Script" uid="uid://c7gir7hlufsw6" path="res://Scenes/main_menu.gd" id="27_cwurv"]
+[ext_resource type="AudioStream" uid="uid://0mpe7h7oj5m3" path="res://Sounds/typing/eklee-KeyPressOld01.wav" id="28_f3c8l"]
 [ext_resource type="Script" uid="uid://cwxr6d20v8rdi" path="res://Scenes/Menu/settings.gd" id="28_mucmn"]
+[ext_resource type="AudioStream" uid="uid://70vomop28ifo" path="res://Sounds/typing/eklee-KeyPressOld02.wav" id="29_bu0y5"]
 [ext_resource type="FontFile" uid="uid://dn8g2jyf0ibkq" path="res://Fonts/Pixel Times Bold.ttf" id="29_i26dy"]
+[ext_resource type="AudioStream" uid="uid://cu0tuhcwpvlys" path="res://Sounds/typing/eklee-KeyPressOld03.wav" id="30_6a4tp"]
+[ext_resource type="AudioStream" uid="uid://c2wsou1pn82u5" path="res://Sounds/typing/eklee-KeyPressOld04.wav" id="31_631el"]
 [ext_resource type="AudioStream" uid="uid://cws2s4ka7cht0" path="res://Music/Noire#1-MusicByPedro.mp3" id="32_oeip8"]
+[ext_resource type="AudioStream" uid="uid://i46ta0k7m3ec" path="res://Sounds/typing/eklee-KeyPressOld05.wav" id="32_vs120"]
 [ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="32_xe308"]
 [ext_resource type="Script" uid="uid://0osj0f1m6xth" path="res://Scenes/death_infos.gd" id="33_d3cha"]
 [ext_resource type="AudioStream" uid="uid://dy3liebs4wukl" path="res://Music/Noire#1-MusicByPedro2.mp3" id="33_xe308"]
@@ -80,6 +85,14 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v2cs8"]
+streams_count = 5
+stream_0/stream = ExtResource("28_f3c8l")
+stream_1/stream = ExtResource("29_bu0y5")
+stream_2/stream = ExtResource("30_6a4tp")
+stream_3/stream = ExtResource("31_631el")
+stream_4/stream = ExtResource("32_vs120")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mucmn"]
 shader = ExtResource("7_1l0tm")
@@ -313,19 +326,21 @@ theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_fkdbe")
 bbcode_enabled = true
-text = "dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
-dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
-dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
-dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
-dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha.
-dfsfsdfsdfsdfsdfsdfsdfsdfsdfdfs coisa [b][color=000000]coisa importante[/color][/b] hahahaha."
+scroll_following_visible_characters = true
 horizontal_alignment = 1
+visible_characters = 0
 script = ExtResource("25_22asu")
 
 [node name="TutorialAudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/UITutorial"]
 unique_name_in_owner = true
 stream = ExtResource("27_8m3t6")
-volume_db = -5.0
+volume_db = -17.0
+bus = &"SoundEffects"
+
+[node name="TypeSoundPlayer" type="AudioStreamPlayer" parent="CanvasLayer/UITutorial"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_v2cs8")
+volume_db = -35.0
 bus = &"SoundEffects"
 
 [node name="UIControls" type="Control" parent="CanvasLayer"]
