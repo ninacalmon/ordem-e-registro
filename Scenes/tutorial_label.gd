@@ -79,7 +79,7 @@ func type_text(content: String, typing_session: int) -> void:
 			type_sound.play()
 			sound_timer = typing_sound_rate
 
-		await get_tree().create_timer(typing_speed).timeout
+		await get_tree().create_timer(typing_speed, false).timeout
 		sound_timer -= typing_speed
 	
 	if self.visible_characters == total_char_count:
@@ -91,7 +91,7 @@ func _on_tutorial_end():
 	type_sound.stop()
 	clear_text()
 	self.current_typing_session_id += 1
-
+	
 	Global.is_tutorial_on = false
 
 func _on_focus_mode_changed(subject: Node2D, enabled: bool) -> void:

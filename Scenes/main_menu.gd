@@ -6,4 +6,7 @@ func _ready() -> void:
 func on_main_menu_button_pressed():
 	var tree = get_tree()
 	tree.paused = false
+	Global.pointer_state = Global.PointerVariations.DEFAULT
+	Global.reset()
+
 	tree.change_scene_to_file("res://Scenes/Menu/main_menu.tscn")

@@ -39,8 +39,8 @@ func _on_new_docs_timer_timeout():
 		Global.docs_correctly_stamped += 1
 
 	if Global.player_lifes == 0:
-		EventBus.player_death.emit()
 		CameraShake.apply_shake(10, 1)
+		EventBus.player_death.emit()
 		return
 	
 	if documents_registred >= 10:

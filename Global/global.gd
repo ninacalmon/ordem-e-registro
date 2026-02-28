@@ -143,4 +143,3 @@ func reset() -> void:
 	self.is_something_focused = false
 
 	self.pointer_state = PointerVariations.DEFAULT
-	self.set_current_mouse_pointer(pointer_state)

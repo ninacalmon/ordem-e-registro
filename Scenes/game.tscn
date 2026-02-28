@@ -218,6 +218,7 @@ offset_bottom = 625.0
 mouse_filter = 2
 
 [node name="PointerManager" type="Node2D" parent="."]
+process_mode = 3
 script = ExtResource("16_ewbju")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
