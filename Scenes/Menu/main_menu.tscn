@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://xcespirprdg1"]
+[gd_scene load_steps=46 format=3 uid="uid://xcespirprdg1"]
 
 [ext_resource type="FontFile" uid="uid://d0xadco06mvux" path="res://Fonts/AsepriteFont.ttf" id="1_3ko7u"]
 [ext_resource type="ColorPalette" uid="uid://c80x7fk3e05kt" path="res://Themes/Color/new_color_palette.tres" id="2_jqrnd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c2ijay0wls6go" path="res://Scenes/Menu/settings_container.tscn" id="4_vmek6"]
 [ext_resource type="Theme" uid="uid://dm3b6sskltrj2" path="res://Themes/title_theme.tres" id="5_2sy2r"]
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="5_pn3xf"]
+[ext_resource type="Script" uid="uid://kbig8vd3qb3c" path="res://Scripts/light_flicker.gd" id="6_2sy2r"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="6_17gaq"]
 [ext_resource type="PackedScene" uid="uid://cncjavqgpvl6t" path="res://Scenes/Book/book.tscn" id="7_1di0l"]
 [ext_resource type="PackedScene" uid="uid://ceadx3ngyr1x4" path="res://Scenes/stamp_tinter.tscn" id="8_4qbh4"]
@@ -312,6 +313,11 @@ color = Color(1.5720325, 1.3581792, 1.078525, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_nbh3q")
 texture_scale = 10.0
+script = ExtResource("6_2sy2r")
+first_flicker_interval_min = 1
+first_flicker_interval_max = 2
+flicker_interval_min = 10
+flicker_interval_max = 20
 
 [node name="Camera" type="Camera2D" parent="VisualSetup"]
 unique_name_in_owner = true

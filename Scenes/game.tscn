@@ -1,10 +1,11 @@
-[gd_scene load_steps=60 format=3 uid="uid://cddgqssqfg2ty"]
+[gd_scene load_steps=61 format=3 uid="uid://cddgqssqfg2ty"]
 
 [ext_resource type="Script" uid="uid://l22ctdeit1ig" path="res://Scripts/camera.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://stnyqwv5y5s5" path="res://Scripts/game.gd" id="1_rku1e"]
 [ext_resource type="PackedScene" uid="uid://bxrnygid3b673" path="res://Scenes/documents_group.tscn" id="2_ewbju"]
 [ext_resource type="Texture2D" uid="uid://ufhjw0sod5lx" path="res://Sprites/background.png" id="3_o5yvi"]
 [ext_resource type="Script" uid="uid://bd3w2665072e8" path="res://Scripts/game_manager.gd" id="4_mucmn"]
+[ext_resource type="Script" uid="uid://kbig8vd3qb3c" path="res://Scripts/light_flicker.gd" id="6_631el"]
 [ext_resource type="Shader" uid="uid://ml5bxhlljrrj" path="res://Shaders/blur_shader.gdshader" id="7_1l0tm"]
 [ext_resource type="Script" uid="uid://ejfuvqwk258" path="res://Scripts/focus_manager.gd" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://bgly8mkio83yo" path="res://Particles/dust_particles.tscn" id="8_ewbju"]
@@ -157,6 +158,11 @@ color = Color(1.5720325, 1.3581792, 1.078525, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_85qyi")
 texture_scale = 10.0
+script = ExtResource("6_631el")
+first_flicker_interval_min = 15
+first_flicker_interval_max = 30
+flicker_interval_min = 35
+flicker_interval_max = 55
 
 [node name="Camera" type="Camera2D" parent="VisualSetup"]
 unique_name_in_owner = true
