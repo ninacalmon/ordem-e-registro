@@ -120,7 +120,8 @@ func _on_document_stamped():
 	CameraShake.apply_shake(1.5, 0.5)
 	new_docs_timer.stop()
 	await remove_documents(1)
-	new_docs_timer.timeout.emit()
 
 	if Global.is_tutorial_on:
 		EventBus.tutorial_ended.emit()
+
+	new_docs_timer.timeout.emit()

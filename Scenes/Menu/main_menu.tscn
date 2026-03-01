@@ -294,6 +294,7 @@ grow_vertical = 0
 theme = ExtResource("5_2sy2r")
 theme_override_colors/font_color = Color(0.47, 0.0611, 0.0611, 1)
 text = "RossoSangue"
+uri = "https://rossosangue.itch.io/"
 
 [node name="VisualSetup" type="Node" parent="."]
 
