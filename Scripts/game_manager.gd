@@ -61,6 +61,8 @@ func _restart_game():
 	get_tree().paused = false
 	is_player_dead = false
 	restart_overlay.hide()
+	## Send event to make focus manager unblur the screen
+	EventBus.focus_mode_changed.emit(null, false)
 	Global.reset()
 
 	get_tree().reload_current_scene()

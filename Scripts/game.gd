@@ -39,7 +39,6 @@ func _on_new_docs_timer_timeout():
 		Global.docs_correctly_stamped += 1
 
 	if Global.player_lifes == 0:
-		CameraShake.apply_shake(10, 1)
 		EventBus.player_death.emit()
 		return
 	
