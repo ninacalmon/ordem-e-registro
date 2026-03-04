@@ -1,5 +1,7 @@
 extends Node2D
 
+var current_state: Global.PointerVariations = Global.PointerVariations.DEFAULT
+
 func _process(_delta):
 	var next_state: Global.PointerVariations
 
@@ -17,5 +19,8 @@ func _process(_delta):
 		_:
 			next_state = Global.PointerVariations.DEFAULT
 
-	Global.set_current_mouse_pointer(next_state)
+	if next_state != current_state:
+		current_state = next_state
+		Global.set_current_mouse_pointer(current_state)
+
 	Global.pointer_state = Global.PointerVariations.DEFAULT
